@@ -1,0 +1,19 @@
+{
+    "devDependencies": {
+        "@types/node": "^22.10.0",
+        "@types/readline-sync": "^1.4.8"
+    },
+    "name": "typingscript2",
+    "version": "1.0.0",
+    "description": "Keyboard layout generator",
+    "main": "bin/main.js",
+    "dependencies": {
+        "readline-sync": "^1.4.10",
+        "undici-types": "^6.20.0"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Zakkkk",
+    "license": "ISC"
+}
