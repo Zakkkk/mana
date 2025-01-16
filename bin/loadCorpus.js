@@ -32,7 +32,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.setCorpusPositionByName = exports.loadCorpus = void 0;
 const fs = __importStar(require("fs"));
 const loadCorpus = (corpusName) => {
     let data;
@@ -52,11 +51,11 @@ const loadCorpus = (corpusName) => {
     };
     return corpus;
 };
-exports.loadCorpus = loadCorpus;
 const setCorpusPositionByName = (corpusName, gs) => __awaiter(void 0, void 0, void 0, function* () {
     for (let i = 0; i < gs.loadedCorpora.length; i++) {
         if (gs.loadedCorpora[i].name == corpusName) {
             gs.currentCorpora = i;
+            console.log(`Corpus has been set to ${corpusName}!`);
             return true;
         }
     }
@@ -66,7 +65,9 @@ const setCorpusPositionByName = (corpusName, gs) => __awaiter(void 0, void 0, vo
     else if (newCorpus.name == corpusName) {
         gs.loadedCorpora.push(newCorpus);
         gs.currentCorpora = gs.loadedCorpora.length - 1;
+        console.log(`Corpus has been set to ${corpusName}!`);
+        return true;
     }
     return false;
 });
-exports.setCorpusPositionByName = setCorpusPositionByName;
+exports.default = setCorpusPositionByName;

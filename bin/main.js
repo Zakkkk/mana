@@ -19,8 +19,9 @@ function main() {
         const settings = {
             loadedCorpora: [],
             currentCorpora: -1,
+            loadedLayouts: [],
         };
-        console.log("'help' to list all commands.\n'explain [command]' for an explanation of any command");
+        console.log("'help' to list all commands.\n'explain [command]' for an explanation of any command.");
         for (;;) {
             const input = readline.question("> ");
             const args = input.split(" ");

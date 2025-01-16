@@ -1,15 +1,16 @@
 import commands from "./commands";
-import { Corpus, GlobalSettings } from "./types";
+import { GlobalSettings } from "./types";
 const readline = require("readline-sync");
 
 async function main() {
   const settings: GlobalSettings = {
     loadedCorpora: [],
     currentCorpora: -1,
+    loadedLayouts: [],
   };
 
   console.log(
-    "'help' to list all commands.\n'explain [command]' for an explanation of any command",
+    "'help' to list all commands.\n'explain [command]' for an explanation of any command.",
   );
 
   for (;;) {

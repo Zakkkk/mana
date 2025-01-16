@@ -48,4 +48,4 @@ const setCorpusPositionByName = async (
   return false;
 };
 
-export { loadCorpus, setCorpusPositionByName };
+export default setCorpusPositionByName;

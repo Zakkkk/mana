@@ -37,7 +37,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(require("fs"));
 const parse_1 = __importDefault(require("./parse"));
-const loadCorpus_1 = require("./loadCorpus");
+const viewLayout_1 = __importDefault(require("./viewLayout"));
+const loadCorpus_1 = __importDefault(require("./loadCorpus"));
 const commands = [
     {
         token: "explain",
@@ -63,8 +64,27 @@ const commands = [
         }),
     },
     {
-        token: "corpora",
+        token: "layouts",
         explain: "Lists all json files inside of /layouts",
+        args: 0,
+        action: () => __awaiter(void 0, void 0, void 0, function* () {
+            fs.readdirSync("layouts").forEach((file) => {
+                if (file.includes(".json"))
+                    console.log(file.replace(/\.[^/.]+$/, ""));
+            });
+        }),
+    },
+    {
+        token: "view",
+        explain: "[layout file name w/ extension]:\nViews a layout and all the stats associated.",
+        args: 1,
+        action: (gs, args) => __awaiter(void 0, void 0, void 0, function* () {
+            (0, viewLayout_1.default)(gs, args[0]);
+        }),
+    },
+    {
+        token: "corpora",
+        explain: "Lists all json files inside of /parsed",
         args: 0,
         action: () => __awaiter(void 0, void 0, void 0, function* () {
             fs.readdirSync("parsed").forEach((file) => {
@@ -78,17 +98,17 @@ const commands = [
         explain: "[corpus name]:\nSwitches the current corpus to one of the ones that can be listed.",
         args: 1,
         action: (gs, args) => __awaiter(void 0, void 0, void 0, function* () {
-            yield (0, loadCorpus_1.setCorpusPositionByName)(args[0], gs);
+            yield (0, loadCorpus_1.default)(args[0], gs);
             if (gs.currentCorpora == -1)
                 console.log(`Corpus ${args[0]} could not be loaded`);
         }),
     },
     {
         token: "corpnow",
-        explain: "Outputs the current corpus being used, as well as the corpus position",
+        explain: "Outputs the current corpus being used, as well as the corpus position.",
         args: 0,
         action: (gs) => __awaiter(void 0, void 0, void 0, function* () {
-            console.log(`${gs.currentCorpora}: ${gs.currentCorpora == -1 ? "No corpus is currently loded." : gs.loadedCorpora[gs.currentCorpora].name}`);
+            console.log(`${gs.currentCorpora}: ${gs.currentCorpora == -1 ? "No corpus is currently loaded." : gs.loadedCorpora[gs.currentCorpora].name}`);
         }),
     },
     {

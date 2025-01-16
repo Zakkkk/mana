@@ -8,6 +8,7 @@ type Command = {
 type GlobalSettings = {
   loadedCorpora: Corpus[];
   currentCorpora: number;
+  loadedLayouts: Layout[];
 };
 
 type TokenFreq = {

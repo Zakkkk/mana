@@ -2,7 +2,8 @@ import { Command } from "./types";
 import * as fs from "fs";
 
 import parse from "./parse";
-import { setCorpusPositionByName } from "./loadCorpus";
+import viewLayout from "./viewLayout";
+import setCorpusPositionByName from "./loadCorpus";
 
 const commands: Command[] = [
   {
@@ -32,8 +33,27 @@ const commands: Command[] = [
     },
   },
   {
-    token: "corpora",
+    token: "layouts",
     explain: "Lists all json files inside of /layouts",
+    args: 0,
+    action: async () => {
+      fs.readdirSync("layouts").forEach((file) => {
+        if (file.includes(".json")) console.log(file.replace(/\.[^/.]+$/, ""));
+      });
+    },
+  },
+  {
+    token: "view",
+    explain:
+      "[layout file name w/ extension]:\nViews a layout and all the stats associated.",
+    args: 1,
+    action: async (gs, args) => {
+      viewLayout(gs, args[0]);
+    },
+  },
+  {
+    token: "corpora",
+    explain: "Lists all json files inside of /parsed",
     args: 0,
     action: async () => {
       fs.readdirSync("parsed").forEach((file) => {
@@ -55,11 +75,11 @@ const commands: Command[] = [
   {
     token: "corpnow",
     explain:
-      "Outputs the current corpus being used, as well as the corpus position",
+      "Outputs the current corpus being used, as well as the corpus position.",
     args: 0,
     action: async (gs) => {
       console.log(
-        `${gs.currentCorpora}: ${gs.currentCorpora == -1 ? "No corpus is currently loded." : gs.loadedCorpora[gs.currentCorpora].name}`,
+        `${gs.currentCorpora}: ${gs.currentCorpora == -1 ? "No corpus is currently loaded." : gs.loadedCorpora[gs.currentCorpora].name}`,
       );
     },
   },
