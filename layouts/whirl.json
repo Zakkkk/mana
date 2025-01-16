@@ -1,0 +1,13 @@
+{
+    "name": "Whirl",
+    "rows": ["qgdfvzluoy", "nsthm'reai", "bcpwkxj;.,", "*"],
+    "fingermap": ["0123344567", "0123344567", "0123344567", "8"],
+    "hasMagic": true,
+    "magicIdentifier": "*",
+    "magicRules": [
+        {
+            "activator": "n",
+            "transformTo": "o"
+        }
+    ]
+}

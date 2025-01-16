@@ -15,21 +15,21 @@ async function readFileByStream(
 
     const rl = readline.createInterface({
       input: fileStream,
-      crlfDelay: Infinity, // Handles CRLF and LF endings
+      crlfDelay: Infinity,
     });
 
     rl.on("line", (line) => {
       try {
-        onLine(line); // Invoke the callback for each line
+        onLine(line);
       } catch (err) {
         console.error("Error in line callback:", err);
-        rl.close(); // Close the readline interface on error
+        rl.close();
         reject(err);
       }
     });
 
     rl.on("close", () => {
-      resolve(); // Resolve the promise when done
+      resolve();
     });
 
     rl.on("error", (err) => {

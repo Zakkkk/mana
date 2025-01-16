@@ -1,7 +1,17 @@
 import commands from "./commands";
+import { Corpus, GlobalSettings } from "./types";
 const readline = require("readline-sync");
 
 async function main() {
+  const settings: GlobalSettings = {
+    loadedCorpora: undefined,
+    currentCorpora: -1,
+  };
+
+  console.log(
+    "'help' to list all commands.\n'explain [command]' for an explanation of any command",
+  );
+
   for (;;) {
     const input = readline.question("> ");
     const args = input.split(" ");
@@ -17,8 +27,8 @@ async function main() {
             `Invalid number of arguments. Expecting ${commands[i].args} but got ${args.length}.`,
           );
         } else {
-          // the await below does in deed have an effect lol
-          await commands[i].action(args);
+          // the await below does indeed have an effect lol
+          await commands[i].action(settings, args);
           commandFound = true;
         }
       }
@@ -26,7 +36,7 @@ async function main() {
 
     if (!commandFound)
       console.log(
-        "Your input did not match a valid command. 'help' to list all commands.",
+        "Your input did not match a valid command.\n'help' to list all commands.\n'explain [command]' for an explanation of any command.",
       );
   }
 }

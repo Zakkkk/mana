@@ -1,42 +1,70 @@
 import { Command } from "./types";
+import * as fs from "fs";
 
 import parse from "./parse";
 
-const listAllCommandsString = `
-  parse 'filename' 'corpus name': parses a corpus
-  load 'corpusfilename': loads a corpus
-  clear: clears the terminal
-  end: ends the program
-`;
-
 const commands: Command[] = [
   {
+    token: "explain",
+    explain:
+      "Explains commands... but I have a feeling you already know that...",
+    args: 1,
+    action: (_, args) => {
+      for (let i = 0; i < commands.length; i++) {
+        if (args[0] == commands[i].token) {
+          console.log(commands[i].explain);
+          return;
+        }
+      }
+
+      console.log(`Command ${args[0]} not found.`);
+    },
+  },
+  {
     token: "parse",
+    explain:
+      "[filename] [corpus name]:\nTransforms a file with text into a file with information about the frequencies of bigrams/trigrams/fourgrams. Looks for files inside of the folder /corpus and writes the output to /parsed",
     args: 2,
-    action: async (args) => {
-      console.log(`Parsing corpus with filename of ${args[0]}...`);
+    action: async (_, args) => {
+      console.log(`Parsing corpus with filename of ${args[0]}`);
       await parse(args[0], args[1]);
     },
   },
   {
-    token: "clear",
+    token: "corpora",
+    explain: "Lists all json files inside of /layouts",
     args: 0,
-    action: (args) => {
+    action: async () => {
+      fs.readdirSync("parsed").forEach((file) => {
+        if (file.includes(".json")) console.log(file.replace(/\.[^/.]+$/, ""));
+      });
+    },
+  },
+  {
+    token: "clear",
+    explain: "Clears the terminal.",
+    args: 0,
+    action: () => {
       console.clear();
     },
   },
   {
     token: "end",
+    explain: "Ends the program.",
     args: 0,
-    action: (args) => {
+    action: () => {
       process.exit();
     },
   },
   {
     token: "help",
+    explain: "Lists all the commands available.",
     args: 0,
-    action: (args) => {
-      console.log(listAllCommandsString);
+    action: () => {
+      for (let i = 0; i < commands.length; i++) {
+        const command = commands[i];
+        console.log(`${command.token}: requires ${command.args} args`);
+      }
     },
   },
 ];

@@ -1,7 +1,13 @@
 type Command = {
   token: string;
+  explain: string;
   args: number;
-  action: (args: string[]) => void;
+  action: (settings: GlobalSettings, args: string[]) => void;
+};
+
+type GlobalSettings = {
+  loadedCorpora: Corpus[] | undefined;
+  currentCorpora: number;
 };
 
 type TokenFreq = {
@@ -17,9 +23,18 @@ type Corpus = {
   fourgrams: TokenFreq[];
 };
 
+type MagicRule = {
+  activator: string;
+  transformTo: string;
+};
+
 type Layout = {
   name: string;
   rows: string[];
+  fingermap: string[];
+  hasMagic: boolean;
+  magicIdentifier: string;
+  magicRules: MagicRule[];
 };
 
-export { Command, TokenFreq, Corpus, Layout };
+export { Command, TokenFreq, Corpus, Layout, GlobalSettings };

@@ -16,6 +16,11 @@ const commands_1 = __importDefault(require("./commands"));
 const readline = require("readline-sync");
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
+        const settings = {
+            loadedCorpora: undefined,
+            currentCorpora: -1,
+        };
+        console.log("'help' to list all commands.\n'explain [command]' for an explanation of any command");
         for (;;) {
             const input = readline.question("> ");
             const args = input.split(" ");
@@ -28,14 +33,14 @@ function main() {
                         console.log(`Invalid number of arguments. Expecting ${commands_1.default[i].args} but got ${args.length}.`);
                     }
                     else {
-                        // the await below does in deed have an effect lol
-                        yield commands_1.default[i].action(args);
+                        // the await below does indeed have an effect lol
+                        yield commands_1.default[i].action(settings, args);
                         commandFound = true;
                     }
                 }
             }
             if (!commandFound)
-                console.log("Your input did not match a valid command. 'help' to list all commands.");
+                console.log("Your input did not match a valid command.\n'help' to list all commands.\n'explain [command]' for an explanation of any command.");
         }
     });
 }
