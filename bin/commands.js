@@ -37,6 +37,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(require("fs"));
 const parse_1 = __importDefault(require("./parse"));
+const loadCorpus_1 = require("./loadCorpus");
 const commands = [
     {
         token: "explain",
@@ -57,7 +58,7 @@ const commands = [
         explain: "[filename] [corpus name]:\nTransforms a file with text into a file with information about the frequencies of bigrams/trigrams/fourgrams. Looks for files inside of the folder /corpus and writes the output to /parsed",
         args: 2,
         action: (_, args) => __awaiter(void 0, void 0, void 0, function* () {
-            console.log(`Parsing corpus with filename of ${args[0]}...`);
+            console.log(`Parsing corpus with filename of ${args[0]}`);
             yield (0, parse_1.default)(args[0], args[1]);
         }),
     },
@@ -70,6 +71,24 @@ const commands = [
                 if (file.includes(".json"))
                     console.log(file.replace(/\.[^/.]+$/, ""));
             });
+        }),
+    },
+    {
+        token: "corpus",
+        explain: "[corpus name]:\nSwitches the current corpus to one of the ones that can be listed.",
+        args: 1,
+        action: (gs, args) => __awaiter(void 0, void 0, void 0, function* () {
+            yield (0, loadCorpus_1.setCorpusPositionByName)(args[0], gs);
+            if (gs.currentCorpora == -1)
+                console.log(`Corpus ${args[0]} could not be loaded`);
+        }),
+    },
+    {
+        token: "corpnow",
+        explain: "Outputs the current corpus being used, as well as the corpus position",
+        args: 0,
+        action: (gs) => __awaiter(void 0, void 0, void 0, function* () {
+            console.log(`${gs.currentCorpora}: ${gs.currentCorpora == -1 ? "No corpus is currently loded." : gs.loadedCorpora[gs.currentCorpora].name}`);
         }),
     },
     {

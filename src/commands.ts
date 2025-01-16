@@ -2,6 +2,7 @@ import { Command } from "./types";
 import * as fs from "fs";
 
 import parse from "./parse";
+import { setCorpusPositionByName } from "./loadCorpus";
 
 const commands: Command[] = [
   {
@@ -38,6 +39,28 @@ const commands: Command[] = [
       fs.readdirSync("parsed").forEach((file) => {
         if (file.includes(".json")) console.log(file.replace(/\.[^/.]+$/, ""));
       });
+    },
+  },
+  {
+    token: "corpus",
+    explain:
+      "[corpus name]:\nSwitches the current corpus to one of the ones that can be listed.",
+    args: 1,
+    action: async (gs, args) => {
+      await setCorpusPositionByName(args[0], gs);
+      if (gs.currentCorpora == -1)
+        console.log(`Corpus ${args[0]} could not be loaded`);
+    },
+  },
+  {
+    token: "corpnow",
+    explain:
+      "Outputs the current corpus being used, as well as the corpus position",
+    args: 0,
+    action: async (gs) => {
+      console.log(
+        `${gs.currentCorpora}: ${gs.currentCorpora == -1 ? "No corpus is currently loded." : gs.loadedCorpora[gs.currentCorpora].name}`,
+      );
     },
   },
   {

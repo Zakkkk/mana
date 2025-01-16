@@ -4,7 +4,7 @@ const readline = require("readline-sync");
 
 async function main() {
   const settings: GlobalSettings = {
-    loadedCorpora: undefined,
+    loadedCorpora: [],
     currentCorpora: -1,
   };
 

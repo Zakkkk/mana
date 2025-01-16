@@ -1,6 +1,6 @@
 import * as fs from "fs";
 
-import { Corpus } from "./types";
+import { Corpus, GlobalSettings } from "./types";
 
 const loadCorpus = (corpusName: string): Corpus | number => {
   let data;
@@ -23,22 +23,29 @@ const loadCorpus = (corpusName: string): Corpus | number => {
   return corpus;
 };
 
-const getCorpusPositionByName = (
+const setCorpusPositionByName = async (
   corpusName: string,
-  loadedCorpora: Corpus[],
-): number => {
-  for (let i = 0; i < loadedCorpora.length; i++) {
-    if (loadedCorpora[i].name == corpusName) return i;
+  gs: GlobalSettings,
+): Promise<boolean> => {
+  for (let i = 0; i < gs.loadedCorpora.length; i++) {
+    if (gs.loadedCorpora[i].name == corpusName) {
+      gs.currentCorpora = i;
+      console.log(`Corpus has been set to ${corpusName}!`);
+      return true;
+    }
   }
 
   const newCorpus = loadCorpus(corpusName);
-  if (typeof newCorpus === "number") return -1;
+  if (typeof newCorpus === "number") return false;
   else if (newCorpus.name == corpusName) {
-    loadedCorpora.push(newCorpus);
-    return loadedCorpora.length - 1;
+    gs.loadedCorpora.push(newCorpus);
+    gs.currentCorpora = gs.loadedCorpora.length - 1;
+    console.log(`Corpus has been set to ${corpusName}!`);
+
+    return true;
   }
 
-  return -1;
+  return false;
 };
 
-export { loadCorpus, getCorpusPositionByName };
+export { loadCorpus, setCorpusPositionByName };

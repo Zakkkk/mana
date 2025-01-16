@@ -6,7 +6,7 @@ type Command = {
 };
 
 type GlobalSettings = {
-  loadedCorpora: Corpus[] | undefined;
+  loadedCorpora: Corpus[];
   currentCorpora: number;
 };
 

@@ -17,7 +17,7 @@ const readline = require("readline-sync");
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         const settings = {
-            loadedCorpora: undefined,
+            loadedCorpora: [],
             currentCorpora: -1,
         };
         console.log("'help' to list all commands.\n'explain [command]' for an explanation of any command");
