@@ -1,6 +1,6 @@
 import * as fs from "fs";
 
-import { Corpus, GlobalSettings } from "./types";
+import { Corpus, GlobalSettings, TokenFreq } from "./types";
 
 const loadCorpus = (corpusName: string): Corpus | number => {
   let data;
@@ -11,6 +11,21 @@ const loadCorpus = (corpusName: string): Corpus | number => {
     console.error(err);
     return -1;
   }
+
+  const addGram = (gram: string, ngram: Record<string, number>) => {
+    if (gram in ngram) ngram[gram] += 1;
+    else ngram[gram] = 1;
+  };
+
+  const arrayToRecord = (array: object[]): Record<string, number> => {
+    let record: Record<string, number> = {};
+
+    for (let i = 0; i < array.length; i++) {
+      //    addGram()
+    }
+
+    return record;
+  };
 
   let corpus: Corpus = {
     name: data.name,

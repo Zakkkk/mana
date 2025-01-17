@@ -11,17 +11,14 @@ type GlobalSettings = {
   loadedLayouts: Layout[];
 };
 
-type TokenFreq = {
-  value: string;
-  freq: number;
-};
+type TokenFreq = Record<string, number>;
 
 type Corpus = {
   name: string;
-  monograms: TokenFreq[];
-  bigramWords: TokenFreq[];
-  trigramWords: TokenFreq[];
-  fourgrams: TokenFreq[];
+  monograms: TokenFreq;
+  bigramWords: TokenFreq;
+  trigramWords: TokenFreq;
+  fourgrams: TokenFreq;
 };
 
 type MagicRule = {
@@ -38,4 +35,21 @@ type Layout = {
   magicRules: MagicRule[];
 };
 
-export { Command, TokenFreq, Corpus, Layout, GlobalSettings };
+type LayoutStats = {
+  heatmapScore?: number;
+  handbalanceScore?: number;
+  scissorScore?: number;
+  inroll?: number;
+  outroll?: number;
+  in3roll?: number;
+  out3roll?: number;
+  alternate?: number;
+  redirect?: number;
+  redirectWeak?: number;
+  sfs?: number;
+  sfb?: number;
+  lsb?: number;
+  lss?: number;
+};
+
+export { Command, TokenFreq, Corpus, Layout, GlobalSettings, LayoutStats };

@@ -42,6 +42,19 @@ const loadCorpus = (corpusName) => {
         console.error(err);
         return -1;
     }
+    const addGram = (gram, ngram) => {
+        if (gram in ngram)
+            ngram[gram] += 1;
+        else
+            ngram[gram] = 1;
+    };
+    const arrayToRecord = (array) => {
+        let record = {};
+        for (let i = 0; i < array.length; i++) {
+            //    addGram()
+        }
+        return record;
+    };
     let corpus = {
         name: data.name,
         monograms: data.monograms,

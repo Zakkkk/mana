@@ -52,6 +52,11 @@ const parse = (filename, corpusName) => __awaiter(void 0, void 0, void 0, functi
         ["”", "'"],
         ["…", ". . ."],
     ];
+    /*
+    bigram words
+    trigram starts
+    fougrams
+    */
     const monograms = {};
     const bigramWords = {};
     const trigramWords = {};
@@ -93,19 +98,12 @@ const parse = (filename, corpusName) => __awaiter(void 0, void 0, void 0, functi
             }
         }
     });
-    const recordToTokenFreqs = (record) => {
-        const tokenFreqs = [];
-        for (const key in record) {
-            tokenFreqs.push({ value: key, freq: record[key] });
-        }
-        return tokenFreqs;
-    };
     const corpus = {
         name: corpusName,
-        monograms: recordToTokenFreqs(monograms),
-        bigramWords: recordToTokenFreqs(bigramWords),
-        trigramWords: recordToTokenFreqs(trigramWords),
-        fourgrams: recordToTokenFreqs(fourgrams),
+        monograms: monograms,
+        bigramWords: bigramWords,
+        trigramWords: trigramWords,
+        fourgrams: fourgrams,
     };
     console.log("Corpus parsed!");
     try {
