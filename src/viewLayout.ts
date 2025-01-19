@@ -56,11 +56,11 @@ const viewLayout = (gs: GlobalSettings, layoutName: string) => {
       `Alt: ${Math.round(stats.alternate! * 10 ** 5) / 10 ** 3}%\n`,
       `Redirect: ${Math.round(stats.redirect! * 10 ** 5) / 10 ** 3}%\n`,
       `Redirect (Weak): ${Math.round(stats.redirectWeak! * 10 ** 5) / 10 ** 3}%\n`,
-      `Inroll: ${Math.round(stats.inroll! * 10 ** 5) / 10 ** 3}%\n`,
-      `Outroll: ${Math.round(stats.outroll! * 10 ** 5) / 10 ** 3}%\n`,
-      `In3roll: ${Math.round(stats.in3roll! * 10 ** 5) / 10 ** 3}%\n`,
-      `Out3roll: ${Math.round(stats.out3roll! * 10 ** 5) / 10 ** 3}%\n`,
       `Rolls (Total): ${Math.round((stats.out3roll! + stats.in3roll! + stats.outroll! + stats.inroll!) * 10 ** 5) / 10 ** 3}%\n`,
+      ` Inroll: ${Math.round(stats.inroll! * 10 ** 5) / 10 ** 3}%\n`,
+      ` Outroll: ${Math.round(stats.outroll! * 10 ** 5) / 10 ** 3}%\n`,
+      ` In3roll: ${Math.round(stats.in3roll! * 10 ** 5) / 10 ** 3}%\n`,
+      ` Out3roll: ${Math.round(stats.out3roll! * 10 ** 5) / 10 ** 3}%\n`,
     );
   } else {
     console.log("No corpus loaded to show stats.");

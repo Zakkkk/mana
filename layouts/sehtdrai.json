@@ -1,7 +1,7 @@
 {
-    "name": "Qwerty",
-    "rows": ["qwertyuiop", "asdfghjkl;'", "zxcvbnm,./"],
-    "fingermap": ["0123366789", "0123366789", "0123366789"],
+    "name": "Seht-Drai",
+    "rows": ["fulvbqgnoj", "sehtk'drai.", ";mpwzycx/,"],
+    "fingermap": ["0123366789", "01233667899", "1233366789"],
     "hasMagic": true,
     "magicIdentifier": "*",
     "magicRules": [
