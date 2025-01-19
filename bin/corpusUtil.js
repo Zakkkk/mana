@@ -1,12 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getSkip2grams = exports.getTrigrams = exports.getBigrams = exports.getMonograms = void 0;
-const addGram = (gram, ngram) => {
-    if (gram in ngram)
-        ngram[gram] += 1;
-    else
-        ngram[gram] = 1;
-};
 const addGramAmount = (gram, amount, ngram) => {
     if (gram in ngram)
         ngram[gram] += amount;

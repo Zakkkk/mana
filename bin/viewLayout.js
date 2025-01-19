@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const loadLayout_1 = __importDefault(require("./loadLayout"));
-const corpusUtil_1 = require("./corpusUtil");
+const getStats_1 = __importDefault(require("./getStats"));
 const viewLayout = (gs, layoutName) => {
     const layoutPosition = (0, loadLayout_1.default)(gs, layoutName);
     if (layoutPosition == -1) {
@@ -17,8 +17,10 @@ const viewLayout = (gs, layoutName) => {
         console.log(`\t${row.split("").join(" ")}`);
     });
     if (gs.currentCorpora != -1) {
-        const bigrams = (0, corpusUtil_1.getSkip2grams)(gs.loadedCorpora[gs.currentCorpora], layout);
-        console.log(bigrams);
+        const stats = (0, getStats_1.default)(layout, gs.loadedCorpora[gs.currentCorpora], {
+            heatmapScore: true,
+        });
+        console.log(`Heatmap score: ${stats.heatmapScore}`);
     }
     else {
         console.log("No corpus loaded to show stats.");

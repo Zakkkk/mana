@@ -1,19 +1,19 @@
-type Command = {
+export type Command = {
   token: string;
   explain: string;
   args: number;
   action: (settings: GlobalSettings, args: string[]) => void;
 };
 
-type GlobalSettings = {
+export type GlobalSettings = {
   loadedCorpora: Corpus[];
   currentCorpora: number;
   loadedLayouts: Layout[];
 };
 
-type TokenFreq = Record<string, number>;
+export type TokenFreq = Record<string, number>;
 
-type Corpus = {
+export type Corpus = {
   name: string;
   extendedMonograms: TokenFreq;
   extendedBigrams: TokenFreq;
@@ -26,7 +26,7 @@ type MagicRule = {
   transformTo: string;
 };
 
-type Layout = {
+export type Layout = {
   name: string;
   rows: string[];
   fingermap: string[];
@@ -35,7 +35,7 @@ type Layout = {
   magicRules: MagicRule[];
 };
 
-type LayoutStats = {
+export type LayoutStats = {
   heatmapScore?: number;
   handbalanceScore?: number;
   scissorScore?: number;
@@ -47,9 +47,12 @@ type LayoutStats = {
   redirect?: number;
   redirectWeak?: number;
   sfs?: number;
+  sfs2?: number;
   sfb?: number;
   lsb?: number;
   lss?: number;
 };
 
-export { Command, TokenFreq, Corpus, Layout, GlobalSettings, LayoutStats };
+export type LayoutStatOptions = {
+  [K in keyof LayoutStats]?: boolean;
+};

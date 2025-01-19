@@ -1,11 +1,13 @@
 import loadLayout from "./loadLayout";
-import { GlobalSettings, Layout } from "./types";
+import { GlobalSettings, Layout, LayoutStats } from "./types";
 import {
   getBigrams,
   getMonograms,
   getSkip2grams,
   getTrigrams,
 } from "./corpusUtil";
+import getLayoutStats from "./getLayoutStats";
+import getStats from "./getStats";
 
 const viewLayout = (gs: GlobalSettings, layoutName: string) => {
   const layoutPosition = loadLayout(gs, layoutName);
@@ -24,8 +26,15 @@ const viewLayout = (gs: GlobalSettings, layoutName: string) => {
   });
 
   if (gs.currentCorpora != -1) {
-    const bigrams = getSkip2grams(gs.loadedCorpora[gs.currentCorpora], layout);
-    console.log(bigrams);
+    const stats: LayoutStats = getStats(
+      layout,
+      gs.loadedCorpora[gs.currentCorpora],
+      {
+        heatmapScore: true,
+      },
+    );
+
+    console.log(`Heatmap score: ${stats.heatmapScore}`);
   } else {
     console.log("No corpus loaded to show stats.");
   }

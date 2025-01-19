@@ -1,0 +1,13 @@
+{
+    "name": "Sturdy",
+    "rows": ["vmlcpxfouj", "strdy.naei", "kqgwzbh';,"],
+    "fingermap": ["0123344567", "0123344567", "0123344567"],
+    "hasMagic": true,
+    "magicIdentifier": "*",
+    "magicRules": [
+        {
+            "activator": "(",
+            "transformTo": ")"
+        }
+    ]
+}

@@ -1,10 +1,5 @@
 import { Corpus, TokenFreq, Layout } from "./types";
 
-const addGram = (gram: string, ngram: Record<string, number>) => {
-  if (gram in ngram) ngram[gram] += 1;
-  else ngram[gram] = 1;
-};
-
 const addGramAmount = (
   gram: string,
   amount: number,
