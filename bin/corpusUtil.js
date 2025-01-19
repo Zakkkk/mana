@@ -11,7 +11,7 @@ const getMonograms = (corpus, layout) => {
     const monograms = {};
     if (!layout.hasMagic) {
         // figure this out later
-        return monograms;
+        // return monograms;
     }
     for (let extendedMonogram in corpus.extendedMonograms) {
         const freq = corpus.extendedMonograms[extendedMonogram];
@@ -33,7 +33,7 @@ const getBigrams = (corpus, layout) => {
     const bigrams = {};
     if (!layout.hasMagic) {
         // figure this out later
-        return bigrams;
+        // return bigrams;
     }
     for (let extendedBigram in corpus.extendedBigrams) {
         const freq = corpus.extendedBigrams[extendedBigram];
@@ -65,7 +65,7 @@ const getTrigrams = (corpus, layout) => {
     const trigrams = {};
     if (!layout.hasMagic) {
         // figure this out later
-        return trigrams;
+        // return trigrams;
     }
     for (let extendedTrigram in corpus.extendedTrigrams) {
         const freq = corpus.extendedTrigrams[extendedTrigram];
@@ -117,7 +117,7 @@ const getSkip2grams = (corpus, layout) => {
     const skip2grams = {};
     if (!layout.hasMagic) {
         // figure this out later
-        return skip2grams;
+        // return skip2grams;
     }
     for (let extendedSkip2gram in corpus.extendedSkip2grams) {
         const freq = corpus.extendedSkip2grams[extendedSkip2gram];

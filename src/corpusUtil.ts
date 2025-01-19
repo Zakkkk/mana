@@ -14,7 +14,7 @@ const getMonograms = (corpus: Corpus, layout: Layout): TokenFreq => {
 
   if (!layout.hasMagic) {
     // figure this out later
-    return monograms;
+    // return monograms;
   }
 
   for (let extendedMonogram in corpus.extendedMonograms) {
@@ -42,7 +42,7 @@ const getBigrams = (corpus: Corpus, layout: Layout): TokenFreq => {
 
   if (!layout.hasMagic) {
     // figure this out later
-    return bigrams;
+    // return bigrams;
   }
 
   for (let extendedBigram in corpus.extendedBigrams) {
@@ -83,7 +83,7 @@ const getTrigrams = (corpus: Corpus, layout: Layout): TokenFreq => {
 
   if (!layout.hasMagic) {
     // figure this out later
-    return trigrams;
+    // return trigrams;
   }
 
   for (let extendedTrigram in corpus.extendedTrigrams) {
@@ -149,7 +149,7 @@ const getSkip2grams = (corpus: Corpus, layout: Layout): TokenFreq => {
 
   if (!layout.hasMagic) {
     // figure this out later
-    return skip2grams;
+    // return skip2grams;
   }
 
   for (let extendedSkip2gram in corpus.extendedSkip2grams) {

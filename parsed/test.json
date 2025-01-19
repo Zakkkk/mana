@@ -1,1 +1,7 @@
-{"name":"test","extendedMonograms":{"e":1,"ee":4},"extendedBigrams":{"ee":1,"eee":3},"extendedTrigrams":{"eee":1,"eeee":2},"extendedSkip2grams":{"eee":1,"eeee":1}}
+{
+    "name": "test",
+    "extendedMonograms": { "e": 1, "ee": 4 },
+    "extendedBigrams": { "ee": 1, "eee": 3 },
+    "extendedTrigrams": { "eee": 1, "eeee": 2 },
+    "extendedSkip2grams": { "eee": 1, "eeee": 1 }
+}

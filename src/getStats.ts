@@ -148,6 +148,8 @@ const getStats = (
     stats.handbalanceScore = lefthand;
   }
 
+  // need to do scissors, lsb, sss
+
   if (chosenStats.sfb) {
     let sfb = 0;
 
@@ -184,7 +186,7 @@ const getStats = (
     for (const trigram in trigrams) {
       if (
         fingerKeyMap[trigram[0]] == fingerKeyMap[trigram[2]] &&
-        trigram[0] != trigram[1]
+        trigram[0] != trigram[2]
       ) {
         sfs += trigrams[trigram];
       }
@@ -192,6 +194,22 @@ const getStats = (
 
     sfs /= trigramTotal;
     stats.sfs = sfs;
+  }
+
+  if (chosenStats.sfs2) {
+    let sfs2 = 0;
+
+    for (const skip2gram in skip2grams) {
+      if (
+        fingerKeyMap[skip2gram[0]] == fingerKeyMap[skip2gram[1]] &&
+        skip2gram[0] != skip2gram[1]
+      ) {
+        sfs2 += skip2grams[skip2gram];
+      }
+    }
+
+    sfs2 /= trigramTotal;
+    stats.sfs2 = sfs2;
   }
 
   if (chosenStats.sfsr) {
@@ -224,6 +242,59 @@ const getStats = (
 
     alt /= trigramTotal;
     stats.alternate = alt;
+  }
+
+  if (chosenStats.redirect) {
+    let redirect = 0;
+
+    for (const trigram in trigrams) {
+      const a = trigram[0];
+      const b = trigram[1];
+      const c = trigram[2];
+
+      if (
+        getHandFromKey(a) == getHandFromKey(b) &&
+        getHandFromKey(b) == getHandFromKey(c) &&
+        fingerKeyMap[a] != fingerKeyMap[b] &&
+        fingerKeyMap[b] != fingerKeyMap[c] &&
+        fingerKeyMap[a] < fingerKeyMap[b] != fingerKeyMap[b] < fingerKeyMap[c]
+      ) {
+        redirect += trigrams[trigram];
+      }
+    }
+
+    redirect /= trigramTotal;
+    stats.redirect = redirect;
+  }
+
+  if (chosenStats.redirectWeak) {
+    let redirectWeak = 0;
+
+    const isIndex = (letter: string) =>
+      fingerKeyMap[letter] == 3 || fingerKeyMap[letter] == 6;
+
+    for (const trigram in trigrams) {
+      const a = trigram[0];
+      const b = trigram[1];
+      const c = trigram[2];
+
+      if (
+        getHandFromKey(a) == getHandFromKey(b) &&
+        getHandFromKey(b) == getHandFromKey(c) &&
+        fingerKeyMap[a] != fingerKeyMap[b] &&
+        fingerKeyMap[b] != fingerKeyMap[c] &&
+        fingerKeyMap[a] < fingerKeyMap[b] !=
+          fingerKeyMap[b] < fingerKeyMap[c] &&
+        !isIndex(a) &&
+        !isIndex(b) &&
+        !isIndex(c)
+      ) {
+        redirectWeak += trigrams[trigram];
+      }
+    }
+
+    redirectWeak /= trigramTotal;
+    stats.redirectWeak = redirectWeak;
   }
 
   const roll = (trigram: string) =>
