@@ -1,0 +1,77 @@
+{
+    "name": "Magic Sturdy",
+    "rows": ["vmlcpb*uoq", "strdyfneai", "xkjgwzh,.;", "'"],
+    "fingermap": ["0123366789", "0123366789", "0123366789", "4"],
+    "hasMagic": true,
+    "magicIdentifier": "*",
+    "magicRules": [
+        {
+            "activator": "a",
+            "transformTo": "o"
+        },
+        {
+            "activator": "c",
+            "transformTo": "y"
+        },
+        {
+            "activator": "d",
+            "transformTo": "y"
+        },
+        {
+            "activator": "e",
+            "transformTo": "u"
+        },
+        {
+            "activator": "g",
+            "transformTo": "y"
+        },
+        {
+            "activator": "i",
+            "transformTo": "o"
+        },
+        {
+            "activator": "l",
+            "transformTo": "k"
+        },
+        {
+            "activator": "m",
+            "transformTo": "e"
+        },
+        {
+            "activator": "n",
+            "transformTo": "i"
+        },
+        {
+            "activator": "o",
+            "transformTo": "a"
+        },
+        {
+            "activator": "p",
+            "transformTo": "y"
+        },
+        {
+            "activator": "q",
+            "transformTo": "u"
+        },
+        {
+            "activator": "r",
+            "transformTo": "l"
+        },
+        {
+            "activator": "s",
+            "transformTo": "k"
+        },
+        {
+            "activator": "t",
+            "transformTo": "m"
+        },
+        {
+            "activator": "u",
+            "transformTo": "e"
+        },
+        {
+            "activator": "y",
+            "transformTo": "p"
+        }
+    ]
+}
