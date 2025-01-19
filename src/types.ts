@@ -47,6 +47,7 @@ export type LayoutStats = {
   redirect?: number;
   redirectWeak?: number;
   sfs?: number;
+  sfsr?: number;
   sfs2?: number;
   sfb?: number;
   sfr?: number;

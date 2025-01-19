@@ -125,6 +125,28 @@ const getStats = (layout, corpus, chosenStats) => {
         sfr /= bigramTotal;
         stats.sfr = sfr;
     }
+    if (chosenStats.sfs) {
+        let sfs = 0;
+        for (const trigram in trigrams) {
+            if (fingerKeyMap[trigram[0]] == fingerKeyMap[trigram[2]] &&
+                trigram[0] != trigram[1]) {
+                sfs += trigrams[trigram];
+            }
+        }
+        sfs /= trigramTotal;
+        stats.sfs = sfs;
+    }
+    if (chosenStats.sfsr) {
+        let sfsr = 0;
+        for (const trigram in trigrams) {
+            if (fingerKeyMap[trigram[0]] == fingerKeyMap[trigram[2]] &&
+                trigram[0] == trigram[2]) {
+                sfsr += trigrams[trigram];
+            }
+        }
+        sfsr /= trigramTotal;
+        stats.sfsr = sfsr;
+    }
     if (chosenStats.alternate) {
         let alt = 0;
         for (const trigram in trigrams) {
@@ -151,6 +173,50 @@ const getStats = (layout, corpus, chosenStats) => {
         }
         inroll /= trigramTotal;
         stats.inroll = inroll;
+    }
+    if (chosenStats.outroll) {
+        let outroll = 0;
+        for (const trigram in trigrams) {
+            if (roll(trigram) &&
+                Number(getHandFromKey(trigram[0]) == getHandFromKey(trigram[1])
+                    ? fingerKeyMap[trigram[0]] > fingerKeyMap[trigram[1]]
+                    : fingerKeyMap[trigram[2]] < fingerKeyMap[trigram[1]]) != getHandFromKey(trigram[1])) {
+                outroll += trigrams[trigram];
+            }
+        }
+        outroll /= trigramTotal;
+        stats.outroll = outroll;
+    }
+    const onehand = (trigram) => getHandFromKey(trigram[0]) == getHandFromKey(trigram[1]) &&
+        getHandFromKey(trigram[1]) == getHandFromKey(trigram[2]) &&
+        fingerKeyMap[trigram[0]] != fingerKeyMap[trigram[1]] &&
+        fingerKeyMap[trigram[1]] != fingerKeyMap[trigram[2]] &&
+        fingerKeyMap[trigram[0]] != fingerKeyMap[trigram[2]] &&
+        fingerKeyMap[trigram[0]] < fingerKeyMap[trigram[1]] ==
+            fingerKeyMap[trigram[1]] < fingerKeyMap[trigram[2]];
+    if (chosenStats.in3roll) {
+        let in3roll = 0;
+        for (const trigram in trigrams) {
+            if (onehand(trigram) &&
+                Number(fingerKeyMap[trigram[0]] < fingerKeyMap[trigram[1]]) !=
+                    getHandFromKey(trigram[0])) {
+                in3roll += trigrams[trigram];
+            }
+        }
+        in3roll /= trigramTotal;
+        stats.in3roll = in3roll;
+    }
+    if (chosenStats.out3roll) {
+        let out3roll = 0;
+        for (const trigram in trigrams) {
+            if (onehand(trigram) &&
+                Number(fingerKeyMap[trigram[0]] < fingerKeyMap[trigram[1]]) ==
+                    getHandFromKey(trigram[0])) {
+                out3roll += trigrams[trigram];
+            }
+        }
+        out3roll /= trigramTotal;
+        stats.out3roll = out3roll;
     }
     return stats;
 };

@@ -111,19 +111,28 @@ const getTrigrams = (corpus: Corpus, layout: Layout): TokenFreq => {
           magicRule.transformTo == extendedTrigram[1]
         )
           extendedTrigram =
-            layout.magicIdentifier + extendedTrigram[2] + extendedTrigram[3];
-        else if (
+            extendedTrigram[0] +
+            layout.magicIdentifier +
+            extendedTrigram[2] +
+            extendedTrigram[3];
+        if (
           magicRule.activator == extendedTrigram[1] &&
           magicRule.transformTo == extendedTrigram[2]
         )
           extendedTrigram =
-            extendedTrigram[1] + layout.magicIdentifier + extendedTrigram[3];
-        else if (
+            extendedTrigram[0] +
+            extendedTrigram[1] +
+            layout.magicIdentifier +
+            extendedTrigram[3];
+        if (
           magicRule.activator == extendedTrigram[2] &&
           magicRule.transformTo == extendedTrigram[3]
         )
           extendedTrigram =
-            extendedTrigram[1] + extendedTrigram[2] + layout.magicIdentifier;
+            extendedTrigram[0] +
+            extendedTrigram[1] +
+            extendedTrigram[2] +
+            layout.magicIdentifier;
       });
     }
 
