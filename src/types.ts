@@ -49,6 +49,7 @@ export type LayoutStats = {
   sfs?: number;
   sfs2?: number;
   sfb?: number;
+  sfr?: number;
   lsb?: number;
   lss?: number;
 };

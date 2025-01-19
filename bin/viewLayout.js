@@ -19,8 +19,12 @@ const viewLayout = (gs, layoutName) => {
     if (gs.currentCorpora != -1) {
         const stats = (0, getStats_1.default)(layout, gs.loadedCorpora[gs.currentCorpora], {
             heatmapScore: true,
+            handbalanceScore: true,
+            sfb: true,
+            alternate: true,
+            inroll: true,
         });
-        console.log(`Heatmap score: ${stats.heatmapScore}`);
+        console.log(` Heatmap score: ${Math.round(stats.heatmapScore * 10 ** 5) / 10 ** 5}\n`, `Handbalance: ${Math.round(stats.handbalanceScore * 10 ** 5) / 10 ** 3}% / ${100 - Math.round(stats.handbalanceScore * 10 ** 5) / 10 ** 3}%\n`, `Sfb: ${Math.round(stats.sfb * 10 ** 5) / 10 ** 3}%\n`, `Alt: ${Math.round(stats.alternate * 10 ** 5) / 10 ** 3}%\n`, `Inroll: ${Math.round(stats.inroll * 10 ** 5) / 10 ** 3}%\n`);
     }
     else {
         console.log("No corpus loaded to show stats.");
