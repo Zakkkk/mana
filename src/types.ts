@@ -15,10 +15,10 @@ type TokenFreq = Record<string, number>;
 
 type Corpus = {
   name: string;
-  monograms: TokenFreq;
-  bigramWords: TokenFreq;
-  trigramWords: TokenFreq;
-  fourgrams: TokenFreq;
+  extendedMonograms: TokenFreq;
+  extendedBigrams: TokenFreq;
+  extendedTrigrams: TokenFreq;
+  extendedSkip2grams: TokenFreq;
 };
 
 type MagicRule = {

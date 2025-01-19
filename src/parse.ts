@@ -19,16 +19,10 @@ const parse = async (filename: string, corpusName: string) => {
     ["…", ". . ."],
   ];
 
-  /*
-  bigram words
-  trigram starts
-  fougrams
-  */
-
-  const monograms: Record<string, number> = {};
-  const bigramWords: Record<string, number> = {};
-  const trigramWords: Record<string, number> = {};
-  const fourgrams: Record<string, number> = {};
+  const extendedMonograms: Record<string, number> = {};
+  const extendedBigrams: Record<string, number> = {};
+  const extendedTrigrams: Record<string, number> = {};
+  const extendedSkip2gram: Record<string, number> = {};
 
   const addGram = (gram: string, ngram: Record<string, number>) => {
     if (gram in ngram) ngram[gram] += 1;
@@ -44,38 +38,52 @@ const parse = async (filename: string, corpusName: string) => {
     for (let k = 0; k < words.length; k++) {
       const word = words[k];
 
-      for (let j = 0; j < word.length; j++) addGram(word[j], monograms);
+      for (let i = 0; i < word.length; i++) {
+        const currentChar = word[i];
+        const getChar = (d: number) =>
+          word[i + d] != undefined ? word[i + d] : "";
 
-      if (word.length == 2) {
-        addGram(word, bigramWords);
-      } else if (word.length == 3) {
-        addGram(word, trigramWords);
-      } else if (word.length > 3) {
-        for (let i = 0; i < word.length; i++) {
-          const currentChar = word[i];
-          const getChar = (d: number) =>
-            word[i + d] != undefined ? word[i + d] : "";
+        const prev1Char = getChar(-1);
+        const prev2Char = getChar(-2);
+        const prev3Char = getChar(-3);
+        const prev4Char = getChar(-4);
 
-          const prev1Char = getChar(-1);
-          const prev2Char = getChar(-2);
-          const prev3Char = getChar(-3);
+        // Extended Monograms
+        if (i == 0) addGram(currentChar, extendedMonograms);
+        if (i > 0) addGram(prev1Char + currentChar, extendedMonograms);
 
-          const trigramWord = prev2Char + prev1Char + currentChar;
-          const fourgram = prev3Char + trigramWord;
+        // Extended Bigrams
+        if (i == 1) addGram(prev1Char + currentChar, extendedBigrams);
+        if (i > 1)
+          addGram(prev2Char + prev1Char + currentChar, extendedBigrams);
 
-          if (fourgram.length == 3) addGram(trigramWord, trigramWords);
-          if (fourgram.length == 4) addGram(fourgram, fourgrams);
-        }
+        // Extended Trigrams
+        if (i == 2)
+          addGram(prev2Char + prev1Char + currentChar, extendedTrigrams);
+        if (i > 2)
+          addGram(
+            prev3Char + prev2Char + prev1Char + currentChar,
+            extendedTrigrams,
+          );
+
+        // Extended Skip2grams
+        if (i == 3)
+          addGram(prev3Char + prev1Char + currentChar, extendedSkip2gram);
+        if (i > 3)
+          addGram(
+            prev4Char + prev3Char + prev1Char + currentChar,
+            extendedSkip2gram,
+          );
       }
     }
   });
 
   const corpus: Corpus = {
     name: corpusName,
-    monograms: monograms,
-    bigramWords: bigramWords,
-    trigramWords: trigramWords,
-    fourgrams: fourgrams,
+    extendedMonograms: extendedMonograms,
+    extendedBigrams: extendedBigrams,
+    extendedTrigrams: extendedTrigrams,
+    extendedSkip2grams: extendedSkip2gram,
   };
 
   console.log("Corpus parsed!");

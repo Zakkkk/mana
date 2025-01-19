@@ -29,10 +29,10 @@ const loadCorpus = (corpusName: string): Corpus | number => {
 
   let corpus: Corpus = {
     name: data.name,
-    monograms: data.monograms,
-    bigramWords: data.bigramWords,
-    trigramWords: data.trigramWords,
-    fourgrams: data.fourgrams,
+    extendedMonograms: data.extendedMonograms,
+    extendedBigrams: data.extendedBigrams,
+    extendedTrigrams: data.extendedTrigrams,
+    extendedSkip2grams: data.extendedSkip2grams,
   };
 
   return corpus;

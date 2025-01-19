@@ -1,34 +1,173 @@
 import { Corpus, TokenFreq, Layout } from "./types";
 
-// const addGram = (gram: string, grams: TokenFreq[]) => {
-//   for (let i = 0; i < grams.length; i++) {
-//     if (grams[i].value == gram) {
-//       grams[i].freq++;
-//       return;
-//     }
-//   }
+const addGram = (gram: string, ngram: Record<string, number>) => {
+  if (gram in ngram) ngram[gram] += 1;
+  else ngram[gram] = 1;
+};
 
-//   grams.push({ value: gram, freq: 1 });
-// };
+const getMonograms = (corpus: Corpus, layout: Layout): TokenFreq => {
+  const monograms: TokenFreq = {};
 
-const getBigrams = (corpus: Corpus): TokenFreq[] => {
-  const bigrams: TokenFreq[] = [];
+  if (!layout.hasMagic) {
+    // figure this out later
+    return monograms;
+  }
 
-  // bigrams.push(...corpus.bigramWords);
+  for (let extendedMonogram in corpus.extendedMonograms) {
+    if (extendedMonogram.length == 2) {
+      layout.magicRules.forEach((magicRule) => {
+        if (
+          magicRule.activator == extendedMonogram[0] &&
+          magicRule.transformTo == extendedMonogram[1]
+        )
+          extendedMonogram = layout.magicIdentifier;
+        else extendedMonogram = extendedMonogram[1];
+      });
+    }
+
+    addGram(extendedMonogram, monograms);
+  }
+
+  return monograms;
+};
+
+const getBigrams = (corpus: Corpus, layout: Layout): TokenFreq => {
+  const bigrams: TokenFreq = {};
+
+  if (!layout.hasMagic) {
+    // figure this out later
+    return bigrams;
+  }
+
+  for (let extendedBigram in corpus.extendedBigrams) {
+    if (extendedBigram.length == 2) {
+      layout.magicRules.forEach((magicRule) => {
+        if (
+          magicRule.activator == extendedBigram[0] &&
+          magicRule.transformTo == extendedBigram[1]
+        )
+          extendedBigram = extendedBigram[0] + layout.magicIdentifier;
+      });
+    } else if (extendedBigram.length == 3) {
+      layout.magicRules.forEach((magicRule) => {
+        if (
+          magicRule.activator == extendedBigram[0] &&
+          magicRule.transformTo == extendedBigram[1]
+        )
+          extendedBigram = layout.magicIdentifier + extendedBigram[2];
+        else if (
+          magicRule.activator == extendedBigram[1] &&
+          magicRule.transformTo == extendedBigram[2]
+        )
+          extendedBigram = extendedBigram[1] + layout.magicIdentifier;
+        else extendedBigram = extendedBigram[1] + extendedBigram[2];
+      });
+    }
+
+    addGram(extendedBigram, bigrams);
+  }
 
   return bigrams;
 };
 
-const getTrigrams = (corpus: Corpus, layout: Layout): TokenFreq[] => {
-  const trigrams: TokenFreq[] = [];
+const getTrigrams = (corpus: Corpus, layout: Layout): TokenFreq => {
+  const trigrams: TokenFreq = {};
 
-  // trigrams.push(...corpus.trigramWords);
+  if (!layout.hasMagic) {
+    // figure this out later
+    return trigrams;
+  }
 
-  // for (let i = 0; i < corpus.fourgrams.length; i++) {
-  //   const fourgram: TokenFreq = corpus.fourgrams[i];
-  // }
+  for (let extendedTrigram in corpus.extendedTrigrams) {
+    if (extendedTrigram.length == 3) {
+      layout.magicRules.forEach((magicRule) => {
+        if (
+          magicRule.activator == extendedTrigram[0] &&
+          magicRule.transformTo == extendedTrigram[1]
+        )
+          extendedTrigram =
+            extendedTrigram[0] + layout.magicIdentifier + extendedTrigram[2];
+        else if (
+          magicRule.activator == extendedTrigram[1] &&
+          magicRule.transformTo == extendedTrigram[2]
+        )
+          extendedTrigram =
+            extendedTrigram[0] + extendedTrigram[1] + layout.magicIdentifier;
+      });
+    } else if (extendedTrigram.length == 4) {
+      layout.magicRules.forEach((magicRule) => {
+        if (
+          magicRule.activator == extendedTrigram[0] &&
+          magicRule.transformTo == extendedTrigram[1]
+        )
+          extendedTrigram =
+            layout.magicIdentifier + extendedTrigram[2] + extendedTrigram[3];
+        else if (
+          magicRule.activator == extendedTrigram[1] &&
+          magicRule.transformTo == extendedTrigram[2]
+        )
+          extendedTrigram =
+            extendedTrigram[1] + layout.magicIdentifier + extendedTrigram[3];
+        else if (
+          magicRule.activator == extendedTrigram[2] &&
+          magicRule.transformTo == extendedTrigram[3]
+        )
+          extendedTrigram =
+            extendedTrigram[1] + extendedTrigram[2] + layout.magicIdentifier;
+        else
+          extendedTrigram =
+            extendedTrigram[1] + extendedTrigram[2] + extendedTrigram[3];
+      });
+    }
+
+    addGram(extendedTrigram, trigrams);
+  }
 
   return trigrams;
 };
 
-export { getBigrams, getTrigrams };
+const getSkip2grams = (corpus: Corpus, layout: Layout): TokenFreq => {
+  const skip2grams: TokenFreq = {};
+
+  if (!layout.hasMagic) {
+    // figure this out later
+    return skip2grams;
+  }
+
+  for (let extendedSkip2gram in corpus.extendedSkip2grams) {
+    let parts = [extendedSkip2gram[0], extendedSkip2gram[1]];
+
+    if (extendedSkip2gram.length == 3) {
+      layout.magicRules.forEach((magicRule) => {
+        if (
+          magicRule.activator == extendedSkip2gram[1] &&
+          magicRule.transformTo == extendedSkip2gram[2]
+        )
+          parts = [extendedSkip2gram[0], layout.magicIdentifier];
+        else parts = [extendedSkip2gram[0], extendedSkip2gram[2]];
+      });
+    } else if (extendedSkip2gram.length == 4) {
+      parts = [extendedSkip2gram[1], extendedSkip2gram[3]];
+
+      layout.magicRules.forEach((magicRule) => {
+        if (
+          magicRule.activator == extendedSkip2gram[0] &&
+          magicRule.transformTo == extendedSkip2gram[1]
+        )
+          parts[0] = layout.magicIdentifier;
+
+        if (
+          magicRule.activator == extendedSkip2gram[2] &&
+          magicRule.transformTo == extendedSkip2gram[3]
+        )
+          parts[1] = layout.magicIdentifier;
+      });
+    }
+
+    addGram(parts.join(""), skip2grams);
+  }
+
+  return skip2grams;
+};
+
+export { getMonograms, getBigrams, getTrigrams };
