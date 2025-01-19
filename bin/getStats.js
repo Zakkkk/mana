@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const corpusUtil_1 = require("./corpusUtil");
 const getHand = (finger) => (finger < 5 ? 0 : 1);
-const isThumb = (finger) => finger == 4 || finger == 5;
 const mismatchingLetters = (stringToCheck, allowedLetters) => [...stringToCheck].some((letter) => !allowedLetters.includes(letter));
 const getStats = (layout, corpus, chosenStats) => {
     const stats = {};
@@ -11,6 +10,7 @@ const getStats = (layout, corpus, chosenStats) => {
         for (let j = 0; j < layout.rows[i].length; j++)
             fingerKeyMap[layout.rows[i][j]] = parseInt(layout.fingermap[i][j]);
     const getHandFromKey = (key) => getHand(fingerKeyMap[key]);
+    const isThumb = (key) => fingerKeyMap[key] == 4 || fingerKeyMap[key] == 5;
     let monograms = {};
     let bigrams = {};
     let bigramTotal = 0;
@@ -180,7 +180,11 @@ const getStats = (layout, corpus, chosenStats) => {
                 getHandFromKey(b) == getHandFromKey(c) &&
                 fingerKeyMap[a] != fingerKeyMap[b] &&
                 fingerKeyMap[b] != fingerKeyMap[c] &&
-                fingerKeyMap[a] < fingerKeyMap[b] != fingerKeyMap[b] < fingerKeyMap[c]) {
+                fingerKeyMap[a] < fingerKeyMap[b] !=
+                    fingerKeyMap[b] < fingerKeyMap[c] &&
+                !isThumb(a) &&
+                !isThumb(b) &&
+                !isThumb(c)) {
                 redirect += trigrams[trigram];
             }
         }
@@ -202,7 +206,10 @@ const getStats = (layout, corpus, chosenStats) => {
                     fingerKeyMap[b] < fingerKeyMap[c] &&
                 !isIndex(a) &&
                 !isIndex(b) &&
-                !isIndex(c)) {
+                !isIndex(c) &&
+                !isThumb(a) &&
+                !isThumb(b) &&
+                !isThumb(c)) {
                 redirectWeak += trigrams[trigram];
             }
         }

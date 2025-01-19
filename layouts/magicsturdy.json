@@ -26,20 +26,8 @@
             "transformTo": "y"
         },
         {
-            "activator": "i",
-            "transformTo": "o"
-        },
-        {
             "activator": "l",
             "transformTo": "k"
-        },
-        {
-            "activator": "m",
-            "transformTo": "e"
-        },
-        {
-            "activator": "n",
-            "transformTo": "i"
         },
         {
             "activator": "o",
@@ -50,20 +38,12 @@
             "transformTo": "y"
         },
         {
-            "activator": "q",
-            "transformTo": "u"
-        },
-        {
             "activator": "r",
             "transformTo": "l"
         },
         {
             "activator": "s",
             "transformTo": "k"
-        },
-        {
-            "activator": "t",
-            "transformTo": "m"
         },
         {
             "activator": "u",

@@ -14,7 +14,6 @@ import {
 } from "./corpusUtil";
 
 const getHand = (finger: number): number => (finger < 5 ? 0 : 1);
-const isThumb = (finger: number): boolean => finger == 4 || finger == 5;
 
 const mismatchingLetters = (
   stringToCheck: string,
@@ -36,6 +35,8 @@ const getStats = (
       fingerKeyMap[layout.rows[i][j]] = parseInt(layout.fingermap[i][j]);
 
   const getHandFromKey = (key: string) => getHand(fingerKeyMap[key]);
+  const isThumb = (key: string): boolean =>
+    fingerKeyMap[key] == 4 || fingerKeyMap[key] == 5;
 
   let monograms: TokenFreq = {};
   let bigrams: TokenFreq = {};
@@ -257,7 +258,11 @@ const getStats = (
         getHandFromKey(b) == getHandFromKey(c) &&
         fingerKeyMap[a] != fingerKeyMap[b] &&
         fingerKeyMap[b] != fingerKeyMap[c] &&
-        fingerKeyMap[a] < fingerKeyMap[b] != fingerKeyMap[b] < fingerKeyMap[c]
+        fingerKeyMap[a] < fingerKeyMap[b] !=
+          fingerKeyMap[b] < fingerKeyMap[c] &&
+        !isThumb(a) &&
+        !isThumb(b) &&
+        !isThumb(c)
       ) {
         redirect += trigrams[trigram];
       }
@@ -287,7 +292,10 @@ const getStats = (
           fingerKeyMap[b] < fingerKeyMap[c] &&
         !isIndex(a) &&
         !isIndex(b) &&
-        !isIndex(c)
+        !isIndex(c) &&
+        !isThumb(a) &&
+        !isThumb(b) &&
+        !isThumb(c)
       ) {
         redirectWeak += trigrams[trigram];
       }

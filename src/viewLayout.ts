@@ -12,7 +12,12 @@ const viewLayout = (gs: GlobalSettings, layoutName: string) => {
 
   let layout = gs.loadedLayouts[layoutPosition];
 
-  console.log(layout.name);
+  console.log(
+    layout.name +
+      (gs.currentCorpora != -1
+        ? ` | ${gs.loadedCorpora[gs.currentCorpora].name}`
+        : ""),
+  );
 
   layout.rows.forEach((row) => {
     console.log(`\t${row.split("").join(" ")}`);
