@@ -51,6 +51,8 @@ const getBigrams = (corpus: Corpus, layout: Layout): TokenFreq => {
   }
 
   for (let extendedBigram in corpus.extendedBigrams) {
+    const freq = corpus.extendedBigrams[extendedBigram];
+
     if (extendedBigram.length == 2) {
       layout.magicRules.forEach((magicRule) => {
         if (
@@ -71,11 +73,11 @@ const getBigrams = (corpus: Corpus, layout: Layout): TokenFreq => {
           magicRule.transformTo == extendedBigram[2]
         )
           extendedBigram = extendedBigram[1] + layout.magicIdentifier;
-        else extendedBigram = extendedBigram[1] + extendedBigram[2];
       });
     }
 
-    addGram(extendedBigram, bigrams);
+    if (extendedBigram.length == 3) extendedBigram = extendedBigram.slice(1, 3);
+    addGramAmount(extendedBigram, freq, bigrams);
   }
 
   return bigrams;
@@ -90,6 +92,8 @@ const getTrigrams = (corpus: Corpus, layout: Layout): TokenFreq => {
   }
 
   for (let extendedTrigram in corpus.extendedTrigrams) {
+    const freq = corpus.extendedTrigrams[extendedTrigram];
+
     if (extendedTrigram.length == 3) {
       layout.magicRules.forEach((magicRule) => {
         if (
@@ -125,13 +129,12 @@ const getTrigrams = (corpus: Corpus, layout: Layout): TokenFreq => {
         )
           extendedTrigram =
             extendedTrigram[1] + extendedTrigram[2] + layout.magicIdentifier;
-        else
-          extendedTrigram =
-            extendedTrigram[1] + extendedTrigram[2] + extendedTrigram[3];
       });
     }
 
-    addGram(extendedTrigram, trigrams);
+    if (extendedTrigram.length == 4)
+      extendedTrigram = extendedTrigram.slice(1, 4);
+    addGramAmount(extendedTrigram, freq, trigrams);
   }
 
   return trigrams;
@@ -146,6 +149,7 @@ const getSkip2grams = (corpus: Corpus, layout: Layout): TokenFreq => {
   }
 
   for (let extendedSkip2gram in corpus.extendedSkip2grams) {
+    const freq = corpus.extendedSkip2grams[extendedSkip2gram];
     let parts = [extendedSkip2gram[0], extendedSkip2gram[1]];
 
     if (extendedSkip2gram.length == 3) {
@@ -175,7 +179,7 @@ const getSkip2grams = (corpus: Corpus, layout: Layout): TokenFreq => {
       });
     }
 
-    addGram(parts.join(""), skip2grams);
+    addGramAmount(parts.join(""), freq, skip2grams);
   }
 
   return skip2grams;

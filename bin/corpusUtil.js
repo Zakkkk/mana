@@ -26,13 +26,10 @@ const getMonograms = (corpus, layout) => {
                 if (magicRule.activator == extendedMonogram[0] &&
                     magicRule.transformTo == extendedMonogram[1])
                     extendedMonogram = layout.magicIdentifier;
-                //else extendedMonogram = extendedMonogram[1];
             });
         }
-        //addGram(extendedMonogram, monograms);
         if (extendedMonogram.length == 2)
             extendedMonogram = extendedMonogram[1];
-        // monograms[extendedMonogram] = freq;
         addGramAmount(extendedMonogram, freq, monograms);
     }
     return monograms;
@@ -45,6 +42,7 @@ const getBigrams = (corpus, layout) => {
         return bigrams;
     }
     for (let extendedBigram in corpus.extendedBigrams) {
+        const freq = corpus.extendedBigrams[extendedBigram];
         if (extendedBigram.length == 2) {
             layout.magicRules.forEach((magicRule) => {
                 if (magicRule.activator == extendedBigram[0] &&
@@ -60,11 +58,11 @@ const getBigrams = (corpus, layout) => {
                 else if (magicRule.activator == extendedBigram[1] &&
                     magicRule.transformTo == extendedBigram[2])
                     extendedBigram = extendedBigram[1] + layout.magicIdentifier;
-                else
-                    extendedBigram = extendedBigram[1] + extendedBigram[2];
             });
         }
-        addGram(extendedBigram, bigrams);
+        if (extendedBigram.length == 3)
+            extendedBigram = extendedBigram.slice(1, 3);
+        addGramAmount(extendedBigram, freq, bigrams);
     }
     return bigrams;
 };
@@ -76,6 +74,7 @@ const getTrigrams = (corpus, layout) => {
         return trigrams;
     }
     for (let extendedTrigram in corpus.extendedTrigrams) {
+        const freq = corpus.extendedTrigrams[extendedTrigram];
         if (extendedTrigram.length == 3) {
             layout.magicRules.forEach((magicRule) => {
                 if (magicRule.activator == extendedTrigram[0] &&
@@ -102,12 +101,11 @@ const getTrigrams = (corpus, layout) => {
                     magicRule.transformTo == extendedTrigram[3])
                     extendedTrigram =
                         extendedTrigram[1] + extendedTrigram[2] + layout.magicIdentifier;
-                else
-                    extendedTrigram =
-                        extendedTrigram[1] + extendedTrigram[2] + extendedTrigram[3];
             });
         }
-        addGram(extendedTrigram, trigrams);
+        if (extendedTrigram.length == 4)
+            extendedTrigram = extendedTrigram.slice(1, 4);
+        addGramAmount(extendedTrigram, freq, trigrams);
     }
     return trigrams;
 };
@@ -119,6 +117,7 @@ const getSkip2grams = (corpus, layout) => {
         return skip2grams;
     }
     for (let extendedSkip2gram in corpus.extendedSkip2grams) {
+        const freq = corpus.extendedSkip2grams[extendedSkip2gram];
         let parts = [extendedSkip2gram[0], extendedSkip2gram[1]];
         if (extendedSkip2gram.length == 3) {
             layout.magicRules.forEach((magicRule) => {
@@ -140,7 +139,7 @@ const getSkip2grams = (corpus, layout) => {
                     parts[1] = layout.magicIdentifier;
             });
         }
-        addGram(parts.join(""), skip2grams);
+        addGramAmount(parts.join(""), freq, skip2grams);
     }
     return skip2grams;
 };

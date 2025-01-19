@@ -1,6 +1,17 @@
 {
     "name": "Test Layout",
-    "rows": ["xfdpqj'ou.", "nstcymhaei", "bvkgwzl_/,", "r"],
+    "rows": ["xfdpqj'ou.", "nstcym*aei", "bvkgwzlh/,", "r"],
     "fingermap": ["0123344567", "0123344567", "0123344567", "8"],
-    "hasMagic": false
+    "hasMagic": true,
+    "magicIdentifier": "*",
+    "magicRules": [
+        {
+            "activator": "r",
+            "transformTo": "a"
+        },
+        {
+            "activator": "i",
+            "transformTo": "n"
+        }
+    ]
 }

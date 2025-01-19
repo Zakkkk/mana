@@ -17,8 +17,8 @@ const viewLayout = (gs, layoutName) => {
         console.log(`\t${row.split("").join(" ")}`);
     });
     if (gs.currentCorpora != -1) {
-        const monograms = (0, corpusUtil_1.getMonograms)(gs.loadedCorpora[gs.currentCorpora], layout);
-        console.log(monograms);
+        const bigrams = (0, corpusUtil_1.getSkip2grams)(gs.loadedCorpora[gs.currentCorpora], layout);
+        console.log(bigrams);
     }
     else {
         console.log("No corpus loaded to show stats.");

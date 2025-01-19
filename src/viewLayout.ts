@@ -1,6 +1,11 @@
 import loadLayout from "./loadLayout";
 import { GlobalSettings, Layout } from "./types";
-import { getMonograms } from "./corpusUtil";
+import {
+  getBigrams,
+  getMonograms,
+  getSkip2grams,
+  getTrigrams,
+} from "./corpusUtil";
 
 const viewLayout = (gs: GlobalSettings, layoutName: string) => {
   const layoutPosition = loadLayout(gs, layoutName);
@@ -19,8 +24,8 @@ const viewLayout = (gs: GlobalSettings, layoutName: string) => {
   });
 
   if (gs.currentCorpora != -1) {
-    const monograms = getMonograms(gs.loadedCorpora[gs.currentCorpora], layout);
-    console.log(monograms);
+    const bigrams = getSkip2grams(gs.loadedCorpora[gs.currentCorpora], layout);
+    console.log(bigrams);
   } else {
     console.log("No corpus loaded to show stats.");
   }
