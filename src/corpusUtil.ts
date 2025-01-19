@@ -5,6 +5,15 @@ const addGram = (gram: string, ngram: Record<string, number>) => {
   else ngram[gram] = 1;
 };
 
+const addGramAmount = (
+  gram: string,
+  amount: number,
+  ngram: Record<string, number>,
+) => {
+  if (gram in ngram) ngram[gram] += amount;
+  else ngram[gram] = amount;
+};
+
 const getMonograms = (corpus: Corpus, layout: Layout): TokenFreq => {
   const monograms: TokenFreq = {};
 
@@ -14,6 +23,8 @@ const getMonograms = (corpus: Corpus, layout: Layout): TokenFreq => {
   }
 
   for (let extendedMonogram in corpus.extendedMonograms) {
+    const freq = corpus.extendedMonograms[extendedMonogram];
+
     if (extendedMonogram.length == 2) {
       layout.magicRules.forEach((magicRule) => {
         if (
@@ -21,11 +32,11 @@ const getMonograms = (corpus: Corpus, layout: Layout): TokenFreq => {
           magicRule.transformTo == extendedMonogram[1]
         )
           extendedMonogram = layout.magicIdentifier;
-        else extendedMonogram = extendedMonogram[1];
       });
     }
 
-    addGram(extendedMonogram, monograms);
+    if (extendedMonogram.length == 2) extendedMonogram = extendedMonogram[1];
+    addGramAmount(extendedMonogram, freq, monograms);
   }
 
   return monograms;
@@ -170,4 +181,4 @@ const getSkip2grams = (corpus: Corpus, layout: Layout): TokenFreq => {
   return skip2grams;
 };
 
-export { getMonograms, getBigrams, getTrigrams };
+export { getMonograms, getBigrams, getTrigrams, getSkip2grams };

@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const loadLayout_1 = __importDefault(require("./loadLayout"));
+const corpusUtil_1 = require("./corpusUtil");
 const viewLayout = (gs, layoutName) => {
     const layoutPosition = (0, loadLayout_1.default)(gs, layoutName);
     if (layoutPosition == -1) {
@@ -16,6 +17,8 @@ const viewLayout = (gs, layoutName) => {
         console.log(`\t${row.split("").join(" ")}`);
     });
     if (gs.currentCorpora != -1) {
+        const monograms = (0, corpusUtil_1.getMonograms)(gs.loadedCorpora[gs.currentCorpora], layout);
+        console.log(monograms);
     }
     else {
         console.log("No corpus loaded to show stats.");

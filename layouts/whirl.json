@@ -6,8 +6,108 @@
     "magicIdentifier": "*",
     "magicRules": [
         {
+            "activator": "w",
+            "transformTo": "h"
+        },
+        {
+            "activator": "g",
+            "transformTo": "s"
+        },
+        {
+            "activator": "u",
+            "transformTo": "e"
+        },
+        {
+            "activator": "y",
+            "transformTo": ","
+        },
+        {
+            "activator": "a",
+            "transformTo": "a"
+        },
+        {
+            "activator": "b",
+            "transformTo": "b"
+        },
+        {
+            "activator": "c",
+            "transformTo": "c"
+        },
+        {
+            "activator": "d",
+            "transformTo": "d"
+        },
+        {
+            "activator": "e",
+            "transformTo": "e"
+        },
+        {
+            "activator": "f",
+            "transformTo": "f"
+        },
+        {
+            "activator": "h",
+            "transformTo": "h"
+        },
+        {
+            "activator": "i",
+            "transformTo": "i"
+        },
+        {
+            "activator": "j",
+            "transformTo": "j"
+        },
+        {
+            "activator": "k",
+            "transformTo": "k"
+        },
+        {
+            "activator": "l",
+            "transformTo": "l"
+        },
+        {
+            "activator": "m",
+            "transformTo": "m"
+        },
+        {
             "activator": "n",
+            "transformTo": "n"
+        },
+        {
+            "activator": "o",
             "transformTo": "o"
+        },
+        {
+            "activator": "p",
+            "transformTo": "p"
+        },
+        {
+            "activator": "q",
+            "transformTo": "q"
+        },
+        {
+            "activator": "r",
+            "transformTo": "r"
+        },
+        {
+            "activator": "s",
+            "transformTo": "s"
+        },
+        {
+            "activator": "t",
+            "transformTo": "t"
+        },
+        {
+            "activator": "v",
+            "transformTo": "v"
+        },
+        {
+            "activator": "x",
+            "transformTo": "x"
+        },
+        {
+            "activator": "z",
+            "transformTo": "z"
         }
     ]
 }
