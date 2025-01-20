@@ -39,6 +39,8 @@ const fs = __importStar(require("fs"));
 const parse_1 = __importDefault(require("./parse"));
 const viewLayout_1 = __importDefault(require("./viewLayout"));
 const loadCorpus_1 = __importDefault(require("./loadCorpus"));
+const getSfbs_1 = __importDefault(require("./getSfbs"));
+const loadLayout_1 = __importDefault(require("./loadLayout"));
 const commands = [
     {
         token: "explain",
@@ -80,6 +82,32 @@ const commands = [
         args: 1,
         action: (gs, args) => __awaiter(void 0, void 0, void 0, function* () {
             (0, viewLayout_1.default)(gs, args[0]);
+        }),
+    },
+    {
+        token: "sfbs",
+        explain: "[layoutname]:\n Lists the top 20 ordered sfbs with their frequencies.",
+        args: 1,
+        action: (gs, args) => __awaiter(void 0, void 0, void 0, function* () {
+            const layoutPos = (0, loadLayout_1.default)(gs, args[0]);
+            if (layoutPos == -1) {
+                console.log(`${args[0]} was not found.`);
+                return;
+            }
+            if (gs.currentCorpora == -1) {
+                console.log("No corpus is currently loaded. Run `corpus [corpasname]` to set one.");
+                return;
+            }
+            const topSfb = (0, getSfbs_1.default)(gs.loadedLayouts[layoutPos], gs.loadedCorpora[gs.currentCorpora]);
+            console.log(`Top 20 ${gs.loadedLayouts[layoutPos].name} sfbs in ${gs.loadedCorpora[gs.currentCorpora].name}:`);
+            let totalTopSfb = 0;
+            let i = 1;
+            for (const sfb in topSfb) {
+                console.log(` ${i}. ${sfb}: ${Math.round(topSfb[sfb] * 10 ** 5) / 10 ** 3}%`);
+                totalTopSfb += Math.round(topSfb[sfb] * 10 ** 5) / 10 ** 3;
+                i++;
+            }
+            console.log(`Total 20 sfb: ${totalTopSfb}%`);
         }),
     },
     {

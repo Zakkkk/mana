@@ -1,8 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.mismatchingLetters = void 0;
 const corpusUtil_1 = require("./corpusUtil");
 const getHand = (finger) => (finger < 5 ? 0 : 1);
 const mismatchingLetters = (stringToCheck, allowedLetters) => [...stringToCheck].some((letter) => !allowedLetters.includes(letter));
+exports.mismatchingLetters = mismatchingLetters;
 const getStats = (layout, corpus, chosenStats) => {
     const stats = {};
     const fingerKeyMap = {};
@@ -32,7 +34,7 @@ const getStats = (layout, corpus, chosenStats) => {
         chosenStats.sfr) {
         bigrams = (0, corpusUtil_1.getBigrams)(corpus, layout);
         for (const bigram in bigrams) {
-            if (!mismatchingLetters(bigram, [...layout.rows].join(""))) {
+            if (!(0, exports.mismatchingLetters)(bigram, [...layout.rows].join(""))) {
                 bigramTotal += bigrams[bigram];
             }
             else
@@ -49,7 +51,7 @@ const getStats = (layout, corpus, chosenStats) => {
         chosenStats.redirectWeak) {
         trigrams = (0, corpusUtil_1.getTrigrams)(corpus, layout);
         for (const trigram in trigrams) {
-            if (!mismatchingLetters(trigram, [...layout.rows].join(""))) {
+            if (!(0, exports.mismatchingLetters)(trigram, [...layout.rows].join(""))) {
                 trigramTotal += trigrams[trigram];
             }
             else
@@ -59,7 +61,7 @@ const getStats = (layout, corpus, chosenStats) => {
     if (chosenStats.sfs2) {
         skip2grams = (0, corpusUtil_1.getSkip2grams)(corpus, layout);
         for (const skip2gram in skip2grams) {
-            if (!mismatchingLetters(skip2gram, [...layout.rows].join(""))) {
+            if (!(0, exports.mismatchingLetters)(skip2gram, [...layout.rows].join(""))) {
                 skip2gramtotal += skip2grams[skip2gram];
             }
             else

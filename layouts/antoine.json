@@ -1,0 +1,89 @@
+{
+    "name": "Antoine",
+    "rows": [" mln kv ry", "pdht*z-⎵si b", " cfw qx'jg", "aoue"],
+    "fingermap": ["00123366789", "001233667899", "0012336678", "4455"],
+    "hasMagic": true,
+    "magicIdentifier": "*",
+    "magicRules": [
+        {
+            "activator": "c",
+            "transformTo": "m"
+        },
+        {
+            "activator": "d",
+            "transformTo": "m"
+        },
+        {
+            "activator": "e",
+            "transformTo": "u"
+        },
+        {
+            "activator": "f",
+            "transformTo": "l"
+        },
+        {
+            "activator": "h",
+            "transformTo": "l"
+        },
+        {
+            "activator": "j",
+            "transformTo": "r"
+        },
+        {
+            "activator": "k",
+            "transformTo": "q"
+        },
+        {
+            "activator": "l",
+            "transformTo": "f"
+        },
+        {
+            "activator": "m",
+            "transformTo": "p"
+        },
+        {
+            "activator": "n",
+            "transformTo": "t"
+        },
+        {
+            "activator": "o",
+            "transformTo": "a"
+        },
+        {
+            "activator": "p",
+            "transformTo": "m"
+        },
+        {
+            "activator": "r",
+            "transformTo": "s"
+        },
+        {
+            "activator": "s",
+            "transformTo": "r"
+        },
+        {
+            "activator": "t",
+            "transformTo": "w"
+        },
+        {
+            "activator": "u",
+            "transformTo": "e"
+        },
+        {
+            "activator": "v",
+            "transformTo": "x"
+        },
+        {
+            "activator": "w",
+            "transformTo": "n"
+        },
+        {
+            "activator": "x",
+            "transformTo": "v"
+        },
+        {
+            "activator": "z",
+            "transformTo": "q"
+        }
+    ]
+}

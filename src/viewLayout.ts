@@ -20,7 +20,7 @@ const viewLayout = (gs: GlobalSettings, layoutName: string) => {
   );
 
   layout.rows.forEach((row) => {
-    console.log(`\t${row.split("").join(" ")}`);
+    console.log(`\t${row.split(" ").join("~").split("").join(" ")}`);
   });
 
   if (gs.currentCorpora != -1) {
@@ -48,8 +48,9 @@ const viewLayout = (gs: GlobalSettings, layoutName: string) => {
     console.log(
       ` Heatmap score: ${Math.round(stats.heatmapScore! * 10 ** 5) / 10 ** 5}\n`,
       `Handbalance: ${Math.round(stats.handbalanceScore! * 10 ** 5) / 10 ** 3}% / ${100 - Math.round(stats.handbalanceScore! * 10 ** 5) / 10 ** 3}%\n`,
-      `Sfb: ${Math.round(stats.sfb! * 10 ** 5) / 10 ** 3}%\n`,
-      `Sfr: ${Math.round(stats.sfr! * 10 ** 5) / 10 ** 3}%\n`,
+      `Sfb (Total): ${Math.round((stats.sfb! + stats.sfr!) * 10 ** 5) / 10 ** 3}%\n`,
+      ` Sfb: ${Math.round(stats.sfb! * 10 ** 5) / 10 ** 3}%\n`,
+      ` Sfr: ${Math.round(stats.sfr! * 10 ** 5) / 10 ** 3}%\n`,
       `Sfs: ${Math.round(stats.sfs! * 10 ** 5) / 10 ** 3}%\n`,
       `Sfs2: ${Math.round(stats.sfs2! * 10 ** 5) / 10 ** 3}%\n`,
       `Sfsr: ${Math.round(stats.sfsr! * 10 ** 5) / 10 ** 3}%\n`,

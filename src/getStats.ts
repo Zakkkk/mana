@@ -15,7 +15,7 @@ import {
 
 const getHand = (finger: number): number => (finger < 5 ? 0 : 1);
 
-const mismatchingLetters = (
+export const mismatchingLetters = (
   stringToCheck: string,
   allowedLetters: string,
 ): boolean =>
