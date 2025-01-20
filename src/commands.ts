@@ -7,6 +7,8 @@ import setCorpusPositionByName from "./loadCorpus";
 import { sfbs } from "./commands/sfbs";
 import loadLayout from "./loadLayout";
 import { sfs } from "./commands/sfs";
+import { hs } from "./commands/hs";
+import { fs as fullScissor } from "./commands/fs";
 
 const commands: Command[] = [
   {
@@ -56,6 +58,8 @@ const commands: Command[] = [
   },
   sfbs,
   sfs,
+  fullScissor,
+  hs,
   {
     token: "corpora",
     explain: "Lists all json files inside of /parsed",
