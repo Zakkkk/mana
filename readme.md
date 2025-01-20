@@ -35,6 +35,9 @@ Example:
             "transformTo": "s"
         }
     ]
-}
+}```
 
-```
+To test this new layout out, load up a corpus and then run `view [layoutname]`
+
+## Corpora
+To see all available corpora run the command `corpora`. You can select a corpus with the command `corpus [corpusname]`. If you want to use your own corpus, paste a file into `/corpus` and then run the command `parse filename.txt`.

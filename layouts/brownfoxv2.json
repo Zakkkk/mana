@@ -1,0 +1,93 @@
+{
+    "name": "Brown Fox v2",
+    "rows": ["xlspkjwou,", "nrthf*caei/", "bqzdvgm'y."],
+    "fingermap": ["0123366789", "01233667899", "0123366789"],
+    "hasMagic": true,
+    "magicIdentifier": "*",
+    "magicRules": [
+        {
+            "activator": "b",
+            "transformTo": "l"
+        },
+        {
+            "activator": "d",
+            "transformTo": "v"
+        },
+        {
+            "activator": "n",
+            "transformTo": "g"
+        },
+        {
+            "activator": "p",
+            "transformTo": "h"
+        },
+        {
+            "activator": "q",
+            "transformTo": "u"
+        },
+        {
+            "activator": "r",
+            "transformTo": "l"
+        },
+        {
+            "activator": "s",
+            "transformTo": "t"
+        },
+        {
+            "activator": "t",
+            "transformTo": "s"
+        },
+        {
+            "activator": "e",
+            "transformTo": "y"
+        },
+        {
+            "activator": "y",
+            "transformTo": "e"
+        },
+        {
+            "activator": "a",
+            "transformTo": "y"
+        },
+        {
+            "activator": "h",
+            "transformTo": "y"
+        },
+        {
+            "activator": "l",
+            "transformTo": "y"
+        },
+        {
+            "activator": "o",
+            "transformTo": "y"
+        },
+        {
+            "activator": "u",
+            "transformTo": "y"
+        },
+        {
+            "activator": "v",
+            "transformTo": "y"
+        },
+        {
+            "activator": "k",
+            "transformTo": "y"
+        },
+        {
+            "activator": "f",
+            "transformTo": "y"
+        },
+        {
+            "activator": "i",
+            "transformTo": "y"
+        },
+        {
+            "activator": "x",
+            "transformTo": "y"
+        },
+        {
+            "activator": "z",
+            "transformTo": "y"
+        }
+    ]
+}
