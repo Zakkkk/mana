@@ -8,7 +8,6 @@ const getSfbs = (bigrams, fingerKeyMap) => {
         if (fingerKeyMap[bigram[0]] == fingerKeyMap[bigram[1]] &&
             bigram[0] != bigram[1])
             sfbs[bigram] = bigrams[bigram];
-        // if (bigrams[bigram] != undefined) sfbs[bigram] = bigrams[bigram];
     }
     return sfbs;
 };
@@ -25,10 +24,16 @@ const getSfr = (bigrams, fingerKeyMap) => {
 exports.getSfr = getSfr;
 const getSfs = (trigrams, fingerKeyMap) => {
     const sfs = {};
+    const addGramAmount = (gram, amount, ngram) => {
+        if (gram in ngram)
+            ngram[gram] += amount;
+        else
+            ngram[gram] = amount;
+    };
     for (const trigram in trigrams) {
         if (fingerKeyMap[trigram[0]] == fingerKeyMap[trigram[2]] &&
             trigram[0] != trigram[2]) {
-            sfs[trigram] == trigrams[trigram];
+            addGramAmount(trigram[0] + trigram[2], trigrams[trigram], sfs);
         }
     }
     return sfs;

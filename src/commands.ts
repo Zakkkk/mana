@@ -4,8 +4,9 @@ import * as fs from "fs";
 import parse from "./parse";
 import viewLayout from "./viewLayout";
 import setCorpusPositionByName from "./loadCorpus";
-import getNSortedSfbs, { sfbs } from "./commands/sfbs";
+import { sfbs } from "./commands/sfbs";
 import loadLayout from "./loadLayout";
+import { sfs } from "./commands/sfs";
 
 const commands: Command[] = [
   {
@@ -54,6 +55,7 @@ const commands: Command[] = [
     },
   },
   sfbs,
+  sfs,
   {
     token: "corpora",
     explain: "Lists all json files inside of /parsed",

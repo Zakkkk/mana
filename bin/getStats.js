@@ -93,8 +93,9 @@ const getStats = (layout, corpus, chosenStats) => {
     }
     if (chosenStats.sfs) {
         let sfsTotal = 0;
-        for (const sfs in (0, rules_1.getSfr)(trigrams, fingerKeyMap))
-            sfsTotal += trigrams[sfs];
+        const sfsAmounts = (0, rules_1.getSfs)(trigrams, fingerKeyMap);
+        for (const sfs in sfsAmounts)
+            sfsTotal += sfsAmounts[sfs];
         stats.sfs = sfsTotal;
     }
     if (chosenStats.sfs2) {

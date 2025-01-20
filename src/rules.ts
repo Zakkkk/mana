@@ -14,7 +14,6 @@ export const getSfbs = (
       bigram[0] != bigram[1]
     )
       sfbs[bigram] = bigrams[bigram];
-    // if (bigrams[bigram] != undefined) sfbs[bigram] = bigrams[bigram];
   }
 
   return sfbs;
@@ -43,12 +42,21 @@ export const getSfs = (
 ): TokenFreq => {
   const sfs: TokenFreq = {};
 
+  const addGramAmount = (
+    gram: string,
+    amount: number,
+    ngram: Record<string, number>,
+  ) => {
+    if (gram in ngram) ngram[gram] += amount;
+    else ngram[gram] = amount;
+  };
+
   for (const trigram in trigrams) {
     if (
       fingerKeyMap[trigram[0]] == fingerKeyMap[trigram[2]] &&
       trigram[0] != trigram[2]
     ) {
-      sfs[trigram] == trigrams[trigram];
+      addGramAmount(trigram[0] + trigram[2], trigrams[trigram], sfs);
     }
   }
 

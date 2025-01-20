@@ -19,7 +19,7 @@ export const sfbs: Command = {
 
     if (gs.currentCorpora == -1) {
       console.log(
-        "No corpus is currently loaded. Run `corpus [corpasname]` to set one.",
+        "No corpus is currently loaded. Run `corpus [corpusname]` to set one.",
       );
 
       return;
@@ -74,5 +74,3 @@ const getNSortedSfbs = (
 
   return topSortedSfb;
 };
-
-export default getSfbs;

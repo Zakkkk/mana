@@ -40,6 +40,7 @@ const parse_1 = __importDefault(require("./parse"));
 const viewLayout_1 = __importDefault(require("./viewLayout"));
 const loadCorpus_1 = __importDefault(require("./loadCorpus"));
 const sfbs_1 = require("./commands/sfbs");
+const sfs_1 = require("./commands/sfs");
 const commands = [
     {
         token: "explain",
@@ -84,6 +85,7 @@ const commands = [
         }),
     },
     sfbs_1.sfbs,
+    sfs_1.sfs,
     {
         token: "corpora",
         explain: "Lists all json files inside of /parsed",

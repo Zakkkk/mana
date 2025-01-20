@@ -147,7 +147,8 @@ const getStats = (
 
   if (chosenStats.sfs) {
     let sfsTotal = 0;
-    for (const sfs in getSfs(trigrams, fingerKeyMap)) sfsTotal += trigrams[sfs];
+    const sfsAmounts = getSfs(trigrams, fingerKeyMap);
+    for (const sfs in sfsAmounts) sfsTotal += sfsAmounts[sfs];
     stats.sfs = sfsTotal;
   }
 
