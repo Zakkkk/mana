@@ -4,7 +4,7 @@ import * as fs from "fs";
 import parse from "./parse";
 import viewLayout from "./viewLayout";
 import setCorpusPositionByName from "./loadCorpus";
-import getSfbs from "./getSfbs";
+import getNSortedSfbs, { sfbs } from "./commands/sfbs";
 import loadLayout from "./loadLayout";
 
 const commands: Command[] = [
@@ -53,51 +53,7 @@ const commands: Command[] = [
       viewLayout(gs, args[0]);
     },
   },
-  {
-    token: "sfbs",
-    explain:
-      "[layoutname]:\n Lists the top 20 ordered sfbs with their frequencies.",
-    args: 1,
-    action: async (gs, args) => {
-      const layoutPos = loadLayout(gs, args[0]);
-      if (layoutPos == -1) {
-        console.log(`${args[0]} was not found.`);
-        return;
-      }
-
-      if (gs.currentCorpora == -1) {
-        console.log(
-          "No corpus is currently loaded. Run `corpus [corpasname]` to set one.",
-        );
-
-        return;
-      }
-
-      const topSfb: TokenFreq = getSfbs(
-        gs.loadedLayouts[layoutPos],
-        gs.loadedCorpora[gs.currentCorpora],
-      );
-
-      console.log(
-        `Top 20 ${gs.loadedLayouts[layoutPos].name} sfbs in ${gs.loadedCorpora[gs.currentCorpora].name}:`,
-      );
-
-      let totalTopSfb = 0;
-
-      let i = 1;
-      for (const sfb in topSfb) {
-        console.log(
-          ` ${i}. ${sfb}: ${Math.round(topSfb[sfb]! * 10 ** 5) / 10 ** 3}%`,
-        );
-
-        totalTopSfb += Math.round(topSfb[sfb]! * 10 ** 5) / 10 ** 3;
-
-        i++;
-      }
-
-      console.log(`Total 20 sfb: ${totalTopSfb}%`);
-    },
-  },
+  sfbs,
   {
     token: "corpora",
     explain: "Lists all json files inside of /parsed",

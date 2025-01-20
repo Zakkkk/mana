@@ -38,7 +38,8 @@ export type Layout = {
 export type LayoutStats = {
   heatmapScore?: number;
   handbalanceScore?: number;
-  scissorScore?: number;
+  fullScissors?: number;
+  halfScissors?: number;
   inroll?: number;
   outroll?: number;
   in3roll?: number;
