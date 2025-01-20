@@ -17,7 +17,7 @@ const viewLayout = (gs, layoutName) => {
             ? ` | ${gs.loadedCorpora[gs.currentCorpora].name}`
             : ""));
     layout.rows.forEach((row) => {
-        console.log(`\t${row.split(" ").join("~").split("").join(" ")}`);
+        console.log(`\t${row.split(" ").join("~").split("").join(" ")}\n\n`);
     });
     if (gs.currentCorpora != -1) {
         const stats = (0, getStats_1.default)(layout, gs.loadedCorpora[gs.currentCorpora], {

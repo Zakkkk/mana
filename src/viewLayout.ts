@@ -20,8 +20,10 @@ const viewLayout = (gs: GlobalSettings, layoutName: string) => {
   );
 
   layout.rows.forEach((row) => {
-    console.log(`\t${row.split(" ").join("~").split("").join(" ")}\n\n`);
+    console.log(`\t${row.split(" ").join("~").split("").join(" ")}`);
   });
+
+  console.log("");
 
   if (gs.currentCorpora != -1) {
     const stats: LayoutStats = getStats(

@@ -88,6 +88,10 @@
         {
             "activator": "z",
             "transformTo": "y"
+        },
+        {
+            "activator": "f",
+            "transformTo": "f"
         }
     ]
 }
