@@ -78,12 +78,36 @@ const getStats = (layout, corpus, chosenStats) => {
         lefthand /= total;
         stats.handbalanceScore = lefthand;
     }
-    // need to do scissors, lsb, ss
     if (chosenStats.sfb) {
         let sfbTotal = 0;
         for (const sfb in (0, rules_1.getSfbs)(bigrams, fingerKeyMap))
             sfbTotal += bigrams[sfb];
         stats.sfb = sfbTotal;
+    }
+    if (chosenStats.lsb) {
+        let lsbTotal = 0;
+        for (const lsb in (0, rules_1.getLsb)(bigrams, fingerKeyMap, layout))
+            lsbTotal += bigrams[lsb];
+        stats.lsb = lsbTotal;
+    }
+    if (chosenStats.lss) {
+        let lssTotal = 0;
+        const lssAmounts = (0, rules_1.getLss)(trigrams, fingerKeyMap, layout);
+        for (const lss in lssAmounts)
+            lssTotal += lssAmounts[lss];
+        stats.lss = lssTotal;
+    }
+    if (chosenStats.halfScissors) {
+        let hsTotal = 0;
+        for (const hs in (0, rules_1.getHalfScissors)(bigrams, fingerKeyMap, layout))
+            hsTotal += bigrams[hs];
+        stats.halfScissors = hsTotal;
+    }
+    if (chosenStats.fullScissors) {
+        let fsTotal = 0;
+        for (const fs in (0, rules_1.getFullScissors)(bigrams, fingerKeyMap, layout))
+            fsTotal += bigrams[fs];
+        stats.fullScissors = fsTotal;
     }
     if (chosenStats.sfr) {
         let sfrTotal = 0;

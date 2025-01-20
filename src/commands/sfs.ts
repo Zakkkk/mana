@@ -40,7 +40,7 @@ export const sfs: Command = {
     let i = 1;
     for (const sfs in topSfs) {
       console.log(
-        ` ${i}. ${sfs[0]}${sfs[1]}: ${Math.round(topSfs[sfs]! * 10 ** 5) / 10 ** 3}%`,
+        ` ${i}. ${sfs[0]}_${sfs[1]}: ${Math.round(topSfs[sfs]! * 10 ** 5) / 10 ** 3}%`,
       );
 
       totalTopSfs += Math.round(topSfs[sfs]! * 10 ** 5) / 10 ** 3;

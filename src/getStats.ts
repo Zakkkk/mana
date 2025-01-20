@@ -15,8 +15,12 @@ import {
 
 import {
   getAlternates,
+  getFullScissors,
+  getHalfScissors,
   getIn3roll,
   getInrolls,
+  getLsb,
+  getLss,
   getOut3roll,
   getOutrolls,
   getRedirects,
@@ -131,12 +135,38 @@ const getStats = (
     stats.handbalanceScore = lefthand;
   }
 
-  // need to do scissors, lsb, ss
-
   if (chosenStats.sfb) {
     let sfbTotal = 0;
     for (const sfb in getSfbs(bigrams, fingerKeyMap)) sfbTotal += bigrams[sfb];
     stats.sfb = sfbTotal;
+  }
+
+  if (chosenStats.lsb) {
+    let lsbTotal = 0;
+    for (const lsb in getLsb(bigrams, fingerKeyMap, layout))
+      lsbTotal += bigrams[lsb];
+    stats.lsb = lsbTotal;
+  }
+
+  if (chosenStats.lss) {
+    let lssTotal = 0;
+    const lssAmounts = getLss(trigrams, fingerKeyMap, layout);
+    for (const lss in lssAmounts) lssTotal += lssAmounts[lss];
+    stats.lss = lssTotal;
+  }
+
+  if (chosenStats.halfScissors) {
+    let hsTotal = 0;
+    for (const hs in getHalfScissors(bigrams, fingerKeyMap, layout))
+      hsTotal += bigrams[hs];
+    stats.halfScissors = hsTotal;
+  }
+
+  if (chosenStats.fullScissors) {
+    let fsTotal = 0;
+    for (const fs in getFullScissors(bigrams, fingerKeyMap, layout))
+      fsTotal += bigrams[fs];
+    stats.fullScissors = fsTotal;
   }
 
   if (chosenStats.sfr) {
