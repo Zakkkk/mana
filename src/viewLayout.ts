@@ -20,7 +20,7 @@ const viewLayout = (gs: GlobalSettings, layoutName: string) => {
   );
 
   layout.rows.forEach((row) => {
-    console.log(`\t${row.split(" ").join("~").split("").join(" ")}`);
+    console.log(`\t${row.split(" ").join("~").split("").join(" ")}\n`);
   });
 
   if (gs.currentCorpora != -1) {

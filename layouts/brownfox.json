@@ -1,0 +1,57 @@
+{
+    "name": "Brown Fox",
+    "rows": ["qldwzjfou,", "nrtsg*haei/", "pxbcvkm'y."],
+    "fingermap": ["0123366789", "01233667899", "0123366789"],
+    "hasMagic": true,
+    "magicIdentifier": "*",
+    "magicRules": [
+        {
+            "activator": "b",
+            "transformTo": "l"
+        },
+        {
+            "activator": "c",
+            "transformTo": "s"
+        },
+        {
+            "activator": "g",
+            "transformTo": "s"
+        },
+        {
+            "activator": "p",
+            "transformTo": "l"
+        },
+        {
+            "activator": "q",
+            "transformTo": "u"
+        },
+        {
+            "activator": "r",
+            "transformTo": "l"
+        },
+        {
+            "activator": "s",
+            "transformTo": "c"
+        },
+        {
+            "activator": "w",
+            "transformTo": "s"
+        },
+        {
+            "activator": "y",
+            "transformTo": ","
+        },
+        {
+            "activator": "e",
+            "transformTo": "y"
+        },
+        {
+            "activator": "y",
+            "transformTo": "e"
+        },
+        {
+            "activator": "u",
+            "transformTo": "y"
+        }
+    ]
+}
