@@ -35,7 +35,8 @@ Example:
             "transformTo": "s"
         }
     ]
-}```
+}
+```
 
 To test this new layout out, load up a corpus and then run `view [layoutname]`
 
