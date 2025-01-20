@@ -41,4 +41,4 @@ Example:
 To test this new layout out, load up a corpus and then run `view [layoutname]`
 
 ## Corpora
-To see all available corpora run the command `corpora`. You can select a corpus with the command `corpus [corpusname]`. If you want to use your own corpus, paste a file into `/corpus` and then run the command `parse filename.txt`.
+To see all available corpora run the command `corpora`. You can select a corpus with the command `corpus [corpusname]`. If you want to use your own corpus, upload a file into `/corpus` and then run the command `parse filename.txt corpusname`, you can then load that corpus with the command `corpus [mycorpusname]`.
