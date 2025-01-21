@@ -1,4 +1,4 @@
-# What is Typingscript?
+# Mana: A Magic Keyboard Analyser
 This is a keyboard layout analyser that collects stats on any layout. This analyser also works with magic. The magic rules that work are ones where the magic key maps to one singular letter, and keeps the letter right before the same. This analyser does not consider spacegrams.
 
 For example `d*->do` is acceptable but `d*->dof` or `d*->ao` is not.
