@@ -69,7 +69,7 @@ exports.allCommands = [
     getCommand("sfsr's", "sfsr", rules_1.getSfsr, corpusUtil_1.getTrigrams, false),
     getCommand("alts", "alt", rules_1.getAlternates, corpusUtil_1.getTrigrams, false),
     getCommand("redirects", "red", rules_1.getRedirects, corpusUtil_1.getTrigrams, false),
-    getCommand("weak redirects", "wred", rules_1.getRedirectWeaks, corpusUtil_1.getTrigrams, false),
+    getCommand("weak redirects", "redw", rules_1.getRedirectWeaks, corpusUtil_1.getTrigrams, false),
     getCommand("inrolls", "inroll", rules_1.getInrolls, corpusUtil_1.getTrigrams, false),
     getCommand("outrolls", "outroll", rules_1.getOutrolls, corpusUtil_1.getTrigrams, false),
     getCommand("in 3rolls", "in3roll", rules_1.getIn3roll, corpusUtil_1.getTrigrams, false),
