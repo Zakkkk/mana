@@ -32,7 +32,7 @@ export const hs: Command = {
     );
 
     console.log(
-      `Top 20 ${gs.loadedLayouts[layoutPos].name} full scissors in ${gs.loadedCorpora[gs.currentCorpora].name}:`,
+      `Top 20 ${gs.loadedLayouts[layoutPos].name} half scissors in ${gs.loadedCorpora[gs.currentCorpora].name}:`,
     );
 
     let totalTopHs = 0;

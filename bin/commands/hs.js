@@ -32,7 +32,7 @@ exports.hs = {
             return;
         }
         const topHs = getNSortedHs(gs.loadedLayouts[layoutPos], gs.loadedCorpora[gs.currentCorpora], 20);
-        console.log(`Top 20 ${gs.loadedLayouts[layoutPos].name} full scissors in ${gs.loadedCorpora[gs.currentCorpora].name}:`);
+        console.log(`Top 20 ${gs.loadedLayouts[layoutPos].name} half scissors in ${gs.loadedCorpora[gs.currentCorpora].name}:`);
         let totalTopHs = 0;
         let i = 1;
         for (const hs in topHs) {

@@ -1,0 +1,65 @@
+{
+    "name": "Vylet",
+    "rows": ["wcmpbxlouj-", "rsthfynaei,", "qvgdkz*';."],
+    "fingermap": ["01233667899", "01233667899", "0123366789"],
+    "hasMagic": true,
+    "magicIdentifier": "*",
+    "magicRules": [
+        {
+            "activator": "c",
+            "transformTo": "k"
+        },
+        {
+            "activator": ",",
+            "transformTo": "l"
+        },
+        {
+            "activator": "l",
+            "transformTo": "l"
+        },
+        {
+            "activator": "g",
+            "transformTo": "h"
+        },
+        {
+            "activator": "p",
+            "transformTo": "t"
+        },
+        {
+            "activator": "r",
+            "transformTo": "k"
+        },
+        {
+            "activator": "s",
+            "transformTo": "c"
+        },
+        {
+            "activator": "w",
+            "transformTo": "r"
+        },
+        {
+            "activator": "f",
+            "transformTo": "t"
+        },
+        {
+            "activator": "m",
+            "transformTo": "b"
+        },
+        {
+            "activator": "b",
+            "transformTo": "t"
+        },
+        {
+            "activator": "a",
+            "transformTo": "x"
+        },
+        {
+            "activator": "e",
+            "transformTo": "x"
+        },
+        {
+            "activator": "i",
+            "transformTo": "x"
+        }
+    ]
+}
