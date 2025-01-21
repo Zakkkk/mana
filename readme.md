@@ -26,14 +26,8 @@ Example:
     "hasMagic": true,
     "magicIdentifier": "*",
     "magicRules": [
-        {
-            "activator": "n",
-            "transformTo": "o"
-        },
-        {
-            "activator": "c",
-            "transformTo": "s"
-        }
+        "do",
+        "ab"
     ]
 }
 ```

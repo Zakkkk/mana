@@ -4,18 +4,5 @@
     "fingermap": ["0123366789", "0123366789", "0123366789", "4"],
     "hasMagic": true,
     "magicIdentifier": "*",
-    "magicRules": [
-        {
-            "activator": "e",
-            "transformTo": "e"
-        },
-        {
-            "activator": "h",
-            "transformTo": "o"
-        },
-        {
-            "activator": "h",
-            "transformTo": "a"
-        }
-    ]
+    "magicRules": []
 }

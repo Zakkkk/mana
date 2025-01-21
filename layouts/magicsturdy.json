@@ -5,53 +5,17 @@
     "hasMagic": true,
     "magicIdentifier": "*",
     "magicRules": [
-        {
-            "activator": "a",
-            "transformTo": "o"
-        },
-        {
-            "activator": "c",
-            "transformTo": "y"
-        },
-        {
-            "activator": "d",
-            "transformTo": "y"
-        },
-        {
-            "activator": "e",
-            "transformTo": "u"
-        },
-        {
-            "activator": "g",
-            "transformTo": "y"
-        },
-        {
-            "activator": "l",
-            "transformTo": "k"
-        },
-        {
-            "activator": "o",
-            "transformTo": "a"
-        },
-        {
-            "activator": "p",
-            "transformTo": "y"
-        },
-        {
-            "activator": "r",
-            "transformTo": "l"
-        },
-        {
-            "activator": "s",
-            "transformTo": "k"
-        },
-        {
-            "activator": "u",
-            "transformTo": "e"
-        },
-        {
-            "activator": "y",
-            "transformTo": "p"
-        }
+        "ao",
+        "cy",
+        "dy",
+        "eu",
+        "gy",
+        "lk",
+        "oa",
+        "py",
+        "rl",
+        "sk",
+        "ue",
+        "yp"
     ]
 }
