@@ -7,6 +7,7 @@ exports.allCommands = void 0;
 const corpusUtil_1 = require("./corpusUtil");
 const getStats_1 = require("./getStats");
 const loadLayout_1 = __importDefault(require("./loadLayout"));
+const messages_1 = require("./messages");
 const rules_1 = require("./rules");
 const getCommand = (name, token, getSpecificStats, getOverallNGrams, getLayout) => {
     const command = {
@@ -21,7 +22,7 @@ const getCommand = (name, token, getSpecificStats, getOverallNGrams, getLayout) 
             }
             const layout = gs.loadedLayouts[layoutPos];
             if (gs.currentCorpora == -1) {
-                console.log("No corpus is currently loaded. Run `corpus [corpusname]` to set one.");
+                (0, messages_1.noCorpusLoaded)();
                 return;
             }
             const ngramsOverall = getOverallNGrams(gs.loadedCorpora[gs.currentCorpora], gs.loadedLayouts[(0, loadLayout_1.default)(gs, args[0])]);
