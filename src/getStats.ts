@@ -92,7 +92,7 @@ const getStats = (
       [0.65, 0.85, 0.85, 0.65, 0.6, 0.7, 0.75, 0.95, 0.95, 0.75],
       [0.85, 0.9, 0.9, 0.9, 0.7, 0.8, 1.0, 1.0, 1.0, 0.95, 0.65],
       [0.65, 0.5, 0.65, 0.75, 0.65, 0.75, 0.85, 0.75, 0.6, 0.75],
-      [1],
+      [1, 1],
     ];
 
     for (let i = 0; i < layout.rows.length; i++)
@@ -102,7 +102,8 @@ const getStats = (
             ? 0
             : monograms[layout.rows[i][j]];
 
-        stats.heatmapScore += freq * heatmap[i][j];
+        stats.heatmapScore +=
+          freq * (heatmap[i][j] == undefined ? 0 : heatmap[i][j]);
       }
 
     // based on the lowest score being a 0.5 (lowest heatmap score)

@@ -53,7 +53,7 @@ const viewLayout = (gs: GlobalSettings, layoutName: string) => {
     );
 
     console.log(
-      ` Heatmap score: ${Math.round(stats.heatmapScore! * 10 ** 5) / 10 ** 5}\n`,
+      ` Heatmap score: ${Math.round(stats.heatmapScore! * 10 ** 5) / 10 ** 3}%\n`,
       `Handbalance: ${Math.round(stats.handbalanceScore! * 10 ** 5) / 10 ** 3}% / ${100 - Math.round(stats.handbalanceScore! * 10 ** 5) / 10 ** 3}%\n`,
       `Sfb (Total): ${Math.round((stats.sfb! + stats.sfr!) * 10 ** 5) / 10 ** 3}%\n`,
       ` Sfb: ${Math.round(stats.sfb! * 10 ** 5) / 10 ** 3}%\n`,
