@@ -21,7 +21,7 @@ export type Corpus = {
   extendedSkip2grams: TokenFreq;
 };
 
-type MagicRule = {
+export type MagicRule = {
   activator: string;
   transformTo: string;
 };

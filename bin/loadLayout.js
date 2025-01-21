@@ -42,9 +42,20 @@ const loadLayout = (gs, layoutName) => {
                 return gs.loadedLayouts.length - 1;
             }
             if (data.magicIdentifier != undefined && data.magicRules != undefined) {
+                const magicRules = [];
+                data.magicRules.forEach((magicRule) => {
+                    magicRules.push({
+                        activator: magicRule[0],
+                        transformTo: magicRule[1],
+                    });
+                });
+                data.magicRules = magicRules;
                 gs.loadedLayouts.push(data);
                 return gs.loadedLayouts.length - 1;
             }
+        }
+        else {
+            console.log("The layout could not be loaded because it is missing inforamtion.");
         }
     }
     catch (err) {

@@ -4,11 +4,7 @@ import * as fs from "fs";
 import parse from "./parse";
 import viewLayout from "./viewLayout";
 import setCorpusPositionByName from "./loadCorpus";
-import { sfbs } from "./commands/sfbs";
-import loadLayout from "./loadLayout";
-import { sfs } from "./commands/sfs";
-import { hs } from "./commands/hs";
-import { fs as fullScissor } from "./commands/fs";
+import { allCommands } from "./examples";
 
 const commands: Command[] = [
   {
@@ -56,10 +52,6 @@ const commands: Command[] = [
       viewLayout(gs, args[0]);
     },
   },
-  sfbs,
-  sfs,
-  fullScissor,
-  hs,
   {
     token: "corpora",
     explain: "Lists all json files inside of /parsed",
@@ -119,6 +111,7 @@ const commands: Command[] = [
       }
     },
   },
+  ...allCommands,
 ];
 
 export default commands;

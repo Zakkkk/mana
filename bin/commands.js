@@ -39,10 +39,7 @@ const fs = __importStar(require("fs"));
 const parse_1 = __importDefault(require("./parse"));
 const viewLayout_1 = __importDefault(require("./viewLayout"));
 const loadCorpus_1 = __importDefault(require("./loadCorpus"));
-const sfbs_1 = require("./commands/sfbs");
-const sfs_1 = require("./commands/sfs");
-const hs_1 = require("./commands/hs");
-const fs_1 = require("./commands/fs");
+const examples_1 = require("./examples");
 const commands = [
     {
         token: "explain",
@@ -86,10 +83,6 @@ const commands = [
             (0, viewLayout_1.default)(gs, args[0]);
         }),
     },
-    sfbs_1.sfbs,
-    sfs_1.sfs,
-    fs_1.fs,
-    hs_1.hs,
     {
         token: "corpora",
         explain: "Lists all json files inside of /parsed",
@@ -146,5 +139,6 @@ const commands = [
             }
         },
     },
+    ...examples_1.allCommands,
 ];
 exports.default = commands;
