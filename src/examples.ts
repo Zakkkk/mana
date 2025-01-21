@@ -124,7 +124,7 @@ export const allCommands: Command[] = [
   getCommand("sfsr's", "sfsr", getSfsr, getTrigrams, false),
   getCommand("alts", "alt", getAlternates, getTrigrams, false),
   getCommand("redirects", "red", getRedirects, getTrigrams, false),
-  getCommand("weak redirects", "wred", getRedirectWeaks, getTrigrams, false),
+  getCommand("weak redirects", "redw", getRedirectWeaks, getTrigrams, false),
   getCommand("inrolls", "inroll", getInrolls, getTrigrams, false),
   getCommand("outrolls", "outroll", getOutrolls, getTrigrams, false),
   getCommand("in 3rolls", "in3roll", getIn3roll, getTrigrams, false),
