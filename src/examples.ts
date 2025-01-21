@@ -1,6 +1,7 @@
 import { getBigrams, getSkip2grams, getTrigrams } from "./corpusUtil";
 import { getFingerKeyMap } from "./getStats";
 import loadLayout from "./loadLayout";
+import { noCorpusLoaded } from "./messages";
 import {
   getAlternates,
   getFullScissors,
@@ -46,9 +47,7 @@ const getCommand = (
       const layout = gs.loadedLayouts[layoutPos];
 
       if (gs.currentCorpora == -1) {
-        console.log(
-          "No corpus is currently loaded. Run `corpus [corpusname]` to set one.",
-        );
+        noCorpusLoaded();
 
         return;
       }

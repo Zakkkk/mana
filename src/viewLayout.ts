@@ -1,6 +1,7 @@
 import loadLayout from "./loadLayout";
-import { GlobalSettings, Layout, LayoutStats } from "./types";
+import { GlobalSettings, LayoutStats } from "./types";
 import getStats from "./getStats";
+import { noCorpusLoaded } from "./messages";
 
 const viewLayout = (gs: GlobalSettings, layoutName: string) => {
   const layoutPosition = loadLayout(gs, layoutName);
@@ -74,7 +75,7 @@ const viewLayout = (gs: GlobalSettings, layoutName: string) => {
       ` Out3roll: ${Math.round(stats.out3roll! * 10 ** 5) / 10 ** 3}%`,
     );
   } else {
-    console.log("No corpus loaded to show stats.");
+    noCorpusLoaded();
   }
 };
 
