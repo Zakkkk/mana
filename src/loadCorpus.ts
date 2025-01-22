@@ -7,25 +7,16 @@ const loadCorpus = (corpusName: string): Corpus | number => {
 
   try {
     data = JSON.parse(fs.readFileSync(`parsed/${corpusName}.json`, "utf8"));
+
+    try {
+      fs.writeFileSync(`defaultLoadCorpus`, corpusName, {
+        flag: "w",
+      });
+    } catch {}
   } catch (err) {
     console.error(err);
     return -1;
   }
-
-  const addGram = (gram: string, ngram: Record<string, number>) => {
-    if (gram in ngram) ngram[gram] += 1;
-    else ngram[gram] = 1;
-  };
-
-  const arrayToRecord = (array: object[]): Record<string, number> => {
-    let record: Record<string, number> = {};
-
-    for (let i = 0; i < array.length; i++) {
-      //    addGram()
-    }
-
-    return record;
-  };
 
   let corpus: Corpus = {
     name: data.name,

@@ -37,24 +37,17 @@ const loadCorpus = (corpusName) => {
     let data;
     try {
         data = JSON.parse(fs.readFileSync(`parsed/${corpusName}.json`, "utf8"));
+        try {
+            fs.writeFileSync(`defaultLoadCorpus`, corpusName, {
+                flag: "w",
+            });
+        }
+        catch (_a) { }
     }
     catch (err) {
         console.error(err);
         return -1;
     }
-    const addGram = (gram, ngram) => {
-        if (gram in ngram)
-            ngram[gram] += 1;
-        else
-            ngram[gram] = 1;
-    };
-    const arrayToRecord = (array) => {
-        let record = {};
-        for (let i = 0; i < array.length; i++) {
-            //    addGram()
-        }
-        return record;
-    };
     let corpus = {
         name: data.name,
         extendedMonograms: data.extendedMonograms,

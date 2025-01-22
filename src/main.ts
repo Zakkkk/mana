@@ -1,6 +1,8 @@
 import commands from "./commands";
 import { GlobalSettings } from "./types";
-const readline = require("readline-sync");
+import readline from "readline-sync";
+import * as fs from "fs";
+import setCorpusPositionByName from "./loadCorpus";
 
 async function main() {
   const settings: GlobalSettings = {
@@ -8,6 +10,13 @@ async function main() {
     currentCorpora: -1,
     loadedLayouts: [],
   };
+
+  try {
+    setCorpusPositionByName(
+      fs.readFileSync("defaultLoadCorpus", "utf-8"),
+      settings,
+    );
+  } catch {}
 
   console.log(
     "'help' to list all commands.\n'explain [command]' for an explanation of any command.",

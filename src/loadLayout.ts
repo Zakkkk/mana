@@ -46,7 +46,7 @@ const loadLayout = (gs: GlobalSettings, layoutName: string): number => {
       );
     }
   } catch (err) {
-    console.error(err);
+    console.error("No corpus found.");
     return -1;
   }
 

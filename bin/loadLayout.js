@@ -59,7 +59,7 @@ const loadLayout = (gs, layoutName) => {
         }
     }
     catch (err) {
-        console.error(err);
+        console.error("No corpus found.");
         return -1;
     }
     return -1;
