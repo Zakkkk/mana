@@ -21,7 +21,7 @@ Navigate to `/layouts` and create a `layoutname.json` file. Make sure the file n
 
 The fingermap numbers range from 0 (left pinky) to 4 and 5 (left and right thumb) and then up to 9.
 
-Layouts may only have one magic key in them (for now), and the magic identifier must be listed. At the moment layouts with magic are not supporsed, so just keep `hasMagic` to true, and don't list any magic rules.
+Layouts may only have one magic key in them (for now), and the magic identifier must be listed. At the moment layouts with magic are not supported, so just keep `hasMagic` to true, and don't list any magic rules.
 
 Example:
 
