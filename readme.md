@@ -52,6 +52,6 @@ If you want to use your own corpus, upload a file into `/corpus` and then run th
 For any (n)-gram, (n)-grams which are found at the start of a word are saved, as well as (n+1)-grams in every string. The (n+1) is required to see back into the future to find out if the next key will be a magic key. The first letter in the (n+1)-gram will not be counted in any calculation.
 
 ## Thanks
-Special thanks to (pine)[https://github.com/ClemenPine/] for helping out throughout the process, as well as other (AKL discord)[https://discord.com/invite/sxTV2G5Acg] members.
+Special thanks to [pine](https://github.com/ClemenPine/) for helping out throughout the process, as well as other [AKL discord](https://discord.com/invite/sxTV2G5Acg) members.
 
 Please message me on discord (name: zak.7) for any reason!
