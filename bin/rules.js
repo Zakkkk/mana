@@ -23,6 +23,7 @@ const getLsb = (bigrams, fingerKeyMap, layout) => {
     };
     for (const bigram in bigrams) {
         if (getHand(fingerKeyMap[bigram[0]]) == getHand(fingerKeyMap[bigram[1]]) &&
+            ![bigram[0], bigram[1]].some((x) => [4, 5].includes(fingerKeyMap[x])) &&
             Math.abs(fingerKeyMap[bigram[0]] - fingerKeyMap[bigram[1]]) == 1 &&
             Math.abs(getX(bigram[0]) - getX(bigram[1])) >= 2)
             lsb[bigram] = bigrams[bigram];
@@ -112,6 +113,7 @@ const getLss = (trigrams, fingerKeyMap, layout) => {
     };
     for (const trigram in trigrams) {
         if (getHand(fingerKeyMap[trigram[0]]) == getHand(fingerKeyMap[trigram[2]]) &&
+            ![trigram[0], trigram[2]].some((x) => [4, 5].includes(fingerKeyMap[x])) &&
             Math.abs(fingerKeyMap[trigram[0]] - fingerKeyMap[trigram[2]]) == 1 &&
             Math.abs(getX(trigram[0]) - getX(trigram[2])) >= 2)
             addGramAmount(trigram[0] + trigram[2], trigrams[trigram], lss);
