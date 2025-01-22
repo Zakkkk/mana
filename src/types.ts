@@ -1,7 +1,8 @@
 export type Command = {
   token: string;
   explain: string;
-  args: number;
+  minArgs?: number;
+  maxArgs?: number;
   action: (settings: GlobalSettings, args: string[]) => void;
 };
 
@@ -36,10 +37,17 @@ export type Layout = {
 };
 
 export type LayoutStats = {
+  // Monogram Data
   heatmapScore?: number;
   handbalanceScore?: number;
+  fingerFreq?: number[];
+  // Bigram Data
+  sfb?: number;
+  sfr?: number;
+  lsb?: number;
   fullScissors?: number;
   halfScissors?: number;
+  // Trigram Data
   inroll?: number;
   outroll?: number;
   in3roll?: number;
@@ -47,13 +55,16 @@ export type LayoutStats = {
   alternate?: number;
   redirect?: number;
   redirectWeak?: number;
+  lss?: number;
   sfs?: number;
   sfsr?: number;
+  skipFullScissors?: number;
+  skipHalfScissors?: number;
+  // 2Skip Data
   sfs2?: number;
-  sfb?: number;
-  sfr?: number;
-  lsb?: number;
-  lss?: number;
+  lss2?: number;
+  skip2FullScissors?: number;
+  skip2HalfScissors?: number;
 };
 
 export type LayoutStatOptions = {

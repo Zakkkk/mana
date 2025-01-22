@@ -30,8 +30,11 @@ function main() {
             let commandFound = false;
             for (let i = 0; i < commands_1.default.length; i++) {
                 if (command == commands_1.default[i].token) {
-                    if (args.length != commands_1.default[i].args) {
-                        console.log(`Invalid number of arguments. Expecting ${commands_1.default[i].args} but got ${args.length}.`);
+                    const minArgsCount = commands_1.default[i].minArgs == undefined ? 0 : commands_1.default[i].minArgs;
+                    const hasMaxArgs = commands_1.default[i].maxArgs != undefined;
+                    if (args.length < minArgsCount ||
+                        (hasMaxArgs && args.length > commands_1.default[i].maxArgs)) {
+                        console.log(`Invalid number of arguments. Accepting ${minArgsCount}-${hasMaxArgs ? commands_1.default[i].maxArgs : "∞"} but got ${args.length}.`);
                     }
                     else {
                         // the await below does indeed have an effect lol

@@ -35,9 +35,12 @@ const getCommand = (
 ): Command => {
   const command: Command = {
     token: token,
-    args: 1,
-    explain: `[layoutname]:\nLists the top 20 ordered ${name} with their frequencies.`,
+    minArgs: 1,
+    maxArgs: 2,
+    explain: `[layoutname] [optional amount]:\nLists the top ordered ${name} with their frequencies.`,
     action: (gs, args) => {
+      const maxAmount = args.length == 2 ? parseInt(args[1]) : 20;
+
       const layoutPos = loadLayout(gs, args[0]);
       if (layoutPos == -1) {
         console.log(`${args[0]} was not found.`);
@@ -81,11 +84,11 @@ const getCommand = (
         topSorted[ngram] = sorted[ngram];
 
         loopCount++;
-        if (loopCount >= 20) break;
+        if (loopCount >= maxAmount) break;
       }
 
       console.log(
-        `Top 20 ${layout.name} ${name} in ${gs.loadedCorpora[gs.currentCorpora].name}:`,
+        `Top ${maxAmount} ${layout.name} ${name} in ${gs.loadedCorpora[gs.currentCorpora].name}:`,
       );
 
       let totalTop = 0;
@@ -101,14 +104,14 @@ const getCommand = (
         i++;
       }
 
-      console.log(`Total 20 ${name}: ${totalTop}%`);
+      console.log(`Total ${maxAmount} ${name}: ${totalTop}%`);
     },
   };
 
   return command;
 };
 
-export const allCommands: Command[] = [
+export const allExamples: Command[] = [
   getCommand("sfb's", "sfb", getSfbs, getBigrams, false),
   getCommand("sfr's", "sfr", getSfr, getBigrams, false),
   // @ts-ignore

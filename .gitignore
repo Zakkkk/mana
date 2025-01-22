@@ -2,3 +2,5 @@ node_modules
 .DS_Store
 todo.txt
 layouts/test
+parsed/test
+corpus/test

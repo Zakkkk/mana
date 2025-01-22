@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.allCommands = void 0;
+exports.allExamples = void 0;
 const corpusUtil_1 = require("./corpusUtil");
 const getStats_1 = require("./getStats");
 const loadLayout_1 = __importDefault(require("./loadLayout"));
@@ -12,9 +12,11 @@ const rules_1 = require("./rules");
 const getCommand = (name, token, getSpecificStats, getOverallNGrams, getLayout) => {
     const command = {
         token: token,
-        args: 1,
-        explain: `[layoutname]:\nLists the top 20 ordered ${name} with their frequencies.`,
+        minArgs: 1,
+        maxArgs: 2,
+        explain: `[layoutname] [optional amount]:\nLists the top ordered ${name} with their frequencies.`,
         action: (gs, args) => {
+            const maxAmount = args.length == 2 ? parseInt(args[1]) : 20;
             const layoutPos = (0, loadLayout_1.default)(gs, args[0]);
             if (layoutPos == -1) {
                 console.log(`${args[0]} was not found.`);
@@ -37,10 +39,10 @@ const getCommand = (name, token, getSpecificStats, getOverallNGrams, getLayout) 
             for (const ngram in sorted) {
                 topSorted[ngram] = sorted[ngram];
                 loopCount++;
-                if (loopCount >= 20)
+                if (loopCount >= maxAmount)
                     break;
             }
-            console.log(`Top 20 ${layout.name} ${name} in ${gs.loadedCorpora[gs.currentCorpora].name}:`);
+            console.log(`Top ${maxAmount} ${layout.name} ${name} in ${gs.loadedCorpora[gs.currentCorpora].name}:`);
             let totalTop = 0;
             let i = 1;
             for (const ngram in topSorted) {
@@ -48,12 +50,12 @@ const getCommand = (name, token, getSpecificStats, getOverallNGrams, getLayout) 
                 totalTop += Math.round(topSorted[ngram] * 10 ** 5) / 10 ** 3;
                 i++;
             }
-            console.log(`Total 20 ${name}: ${totalTop}%`);
+            console.log(`Total ${maxAmount} ${name}: ${totalTop}%`);
         },
     };
     return command;
 };
-exports.allCommands = [
+exports.allExamples = [
     getCommand("sfb's", "sfb", rules_1.getSfbs, corpusUtil_1.getBigrams, false),
     getCommand("sfr's", "sfr", rules_1.getSfr, corpusUtil_1.getBigrams, false),
     // @ts-ignore

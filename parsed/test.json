@@ -1,7 +1,1 @@
-{
-    "name": "test",
-    "extendedMonograms": { "e": 1, "ee": 4 },
-    "extendedBigrams": { "ee": 1, "eee": 3 },
-    "extendedTrigrams": { "eee": 1, "eeee": 2 },
-    "extendedSkip2grams": { "eee": 1, "eeee": 1 }
-}
+{"name":"test","extendedMonograms":{"n":2,"nu":1,"um":1,"mb":1,"be":1,"er":2,"a":1,"ar":1,"ro":1,"ou":1,"un":1,"nd":1,"m":1,"me":1,"ea":1,"an":1,"t":1,"th":1,"he":1,"re":1,"j":1,"ju":1,"us":1,"st":1,"no":1,"ot":1},"extendedBigrams":{"nu":1,"num":1,"umb":1,"mbe":1,"ber":1,"ar":1,"aro":1,"rou":1,"oun":1,"und":1,"me":1,"mea":1,"ean":1,"th":1,"the":1,"her":1,"ere":1,"ju":1,"jus":1,"ust":1,"no":1,"not":1},"extendedTrigrams":{"num":1,"numb":1,"umbe":1,"mber":1,"aro":1,"arou":1,"roun":1,"ound":1,"mea":1,"mean":1,"the":1,"ther":1,"here":1,"jus":1,"just":1,"not":1},"extendedSkip2grams":{"nmb":1,"nube":1,"umer":1,"aou":1,"arun":1,"rond":1,"man":1,"ter":1,"thre":1,"jst":1}}
