@@ -68,6 +68,8 @@ swaps.push({
                 layout.rows = swapLettersInArray(layout.rows, swap[0], swap[1]);
             }
             else {
+                for (let i = 0; i < swap.length - 1; i++)
+                    layout.rows = swapLettersInArray(layout.rows, swap[i], swap[i + 1]);
             }
         });
         (0, viewLayout_1.default)(gs, "", layout);
