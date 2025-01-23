@@ -104,7 +104,7 @@ swaps.push({
 
       fs.writeFileSync(
         `layouts/${layoutName}.json`,
-        JSON.stringify(layoutFromFile),
+        JSON.stringify(layoutFromFile, null, 2),
         {
           flag: "w",
         },

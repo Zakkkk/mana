@@ -106,7 +106,7 @@ swaps.push({
         try {
             const layoutFromFile = JSON.parse(fs.readFileSync(`layouts/${layoutName}.json`, "utf8"));
             layoutFromFile.rows = layout.rows;
-            fs.writeFileSync(`layouts/${layoutName}.json`, JSON.stringify(layoutFromFile), {
+            fs.writeFileSync(`layouts/${layoutName}.json`, JSON.stringify(layoutFromFile, null, 2), {
                 flag: "w",
             });
             console.log("Layout updated!");
