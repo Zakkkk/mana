@@ -6,13 +6,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const loadLayout_1 = __importDefault(require("./loadLayout"));
 const getStats_1 = __importDefault(require("./getStats"));
 const messages_1 = require("./messages");
-const viewLayout = (gs, layoutName) => {
-    const layoutPosition = (0, loadLayout_1.default)(gs, layoutName);
-    if (layoutPosition == -1) {
-        console.log(`Layout ${layoutName} was not found.`);
-        return;
+const viewLayout = (gs, layoutName, layout) => {
+    if (layout == undefined) {
+        const layoutPosition = (0, loadLayout_1.default)(gs, layoutName);
+        if (layoutPosition == -1) {
+            console.log(`Layout ${layoutName} was not found.`);
+            return;
+        }
+        layout = gs.loadedLayouts[layoutPosition];
     }
-    let layout = gs.loadedLayouts[layoutPosition];
     console.log(layout.name +
         (gs.currentCorpora != -1
             ? ` | ${gs.loadedCorpora[gs.currentCorpora].name}`

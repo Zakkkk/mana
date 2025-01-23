@@ -8,6 +8,7 @@ import { allExamples } from "./examples";
 import loadLayout from "./loadLayout";
 import { noCorpusLoaded } from "./messages";
 import { getBigrams, getTrigrams } from "./corpusUtil";
+import { swaps } from "./swap";
 
 const commands: Command[] = [
   {
@@ -169,6 +170,7 @@ const commands: Command[] = [
       console.log(getTrigrams(gs.loadedCorpora[gs.currentCorpora], layout));
     },
   },
+  ...swaps,
   ...allExamples,
 ];
 

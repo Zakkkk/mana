@@ -1,17 +1,23 @@
 import loadLayout from "./loadLayout";
-import { GlobalSettings, LayoutStats } from "./types";
+import { GlobalSettings, Layout, LayoutStats } from "./types";
 import getStats from "./getStats";
 import { noCorpusLoaded } from "./messages";
 
-const viewLayout = (gs: GlobalSettings, layoutName: string) => {
-  const layoutPosition = loadLayout(gs, layoutName);
+const viewLayout = (
+  gs: GlobalSettings,
+  layoutName: string,
+  layout?: Layout,
+) => {
+  if (layout == undefined) {
+    const layoutPosition = loadLayout(gs, layoutName);
 
-  if (layoutPosition == -1) {
-    console.log(`Layout ${layoutName} was not found.`);
-    return;
+    if (layoutPosition == -1) {
+      console.log(`Layout ${layoutName} was not found.`);
+      return;
+    }
+
+    layout = gs.loadedLayouts[layoutPosition];
   }
-
-  let layout = gs.loadedLayouts[layoutPosition];
 
   console.log(
     layout.name +

@@ -1,4 +1,4 @@
-import { Corpus, TokenFreq } from "./types";
+import { Corpus } from "./types";
 import * as fs from "fs";
 
 import readFileByStream from "./readFile";

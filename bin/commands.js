@@ -43,6 +43,7 @@ const examples_1 = require("./examples");
 const loadLayout_1 = __importDefault(require("./loadLayout"));
 const messages_1 = require("./messages");
 const corpusUtil_1 = require("./corpusUtil");
+const swap_1 = require("./swap");
 const commands = [
     {
         token: "explain",
@@ -186,6 +187,7 @@ const commands = [
             console.log((0, corpusUtil_1.getTrigrams)(gs.loadedCorpora[gs.currentCorpora], layout));
         },
     },
+    ...swap_1.swaps,
     ...examples_1.allExamples,
 ];
 exports.default = commands;
