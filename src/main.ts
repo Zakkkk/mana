@@ -4,6 +4,8 @@ import readline from "readline-sync";
 import * as fs from "fs";
 import setCorpusPositionByName from "./loadCorpus";
 
+import { setupKeypressHandling } from "./keypressHandler";
+
 async function main() {
   const settings: GlobalSettings = {
     loadedCorpora: [],
@@ -22,11 +24,11 @@ async function main() {
     "'help' to list all commands.\n'explain [command]' for an explanation of any command.",
   );
 
-  for (;;) {
-    const input = readline.question("> ");
+  process.stdout.write("> ");
+
+  setupKeypressHandling(async (input) => {
     const args = input.split(" ");
-    const command = args[0];
-    args.shift();
+    const command = args.shift();
 
     let commandFound = false;
 
@@ -41,21 +43,23 @@ async function main() {
           (hasMaxArgs && args.length > commands[i].maxArgs!)
         ) {
           console.log(
-            `Invalid number of arguments. Accepting ${minArgsCount}-${hasMaxArgs ? commands[i].maxArgs! : "∞"} but got ${args.length}.`,
+            `Invalid number of arguments. Accepting ${minArgsCount}-${
+              hasMaxArgs ? commands[i].maxArgs! : "∞"
+            } but got ${args.length}.`,
           );
         } else {
-          // the await below does indeed have an effect lol
           await commands[i].action(settings, args);
           commandFound = true;
         }
       }
     }
 
-    if (!commandFound)
+    if (!commandFound) {
       console.log(
         "Your input did not match a valid command.\n'help' to list all commands.\n'explain [command]' for an explanation of any command.",
       );
-  }
+    }
+  });
 }
 
 main();

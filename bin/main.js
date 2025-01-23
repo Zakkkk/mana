@@ -36,9 +36,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const commands_1 = __importDefault(require("./commands"));
-const readline_sync_1 = __importDefault(require("readline-sync"));
 const fs = __importStar(require("fs"));
 const loadCorpus_1 = __importDefault(require("./loadCorpus"));
+const keypressHandler_1 = require("./keypressHandler");
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         const settings = {
@@ -51,11 +51,10 @@ function main() {
         }
         catch (_a) { }
         console.log("'help' to list all commands.\n'explain [command]' for an explanation of any command.");
-        for (;;) {
-            const input = readline_sync_1.default.question("> ");
+        process.stdout.write("> ");
+        (0, keypressHandler_1.setupKeypressHandling)((input) => __awaiter(this, void 0, void 0, function* () {
             const args = input.split(" ");
-            const command = args[0];
-            args.shift();
+            const command = args.shift();
             let commandFound = false;
             for (let i = 0; i < commands_1.default.length; i++) {
                 if (command == commands_1.default[i].token) {
@@ -66,15 +65,15 @@ function main() {
                         console.log(`Invalid number of arguments. Accepting ${minArgsCount}-${hasMaxArgs ? commands_1.default[i].maxArgs : "∞"} but got ${args.length}.`);
                     }
                     else {
-                        // the await below does indeed have an effect lol
                         yield commands_1.default[i].action(settings, args);
                         commandFound = true;
                     }
                 }
             }
-            if (!commandFound)
+            if (!commandFound) {
                 console.log("Your input did not match a valid command.\n'help' to list all commands.\n'explain [command]' for an explanation of any command.");
-        }
+            }
+        }));
     });
 }
 main();
