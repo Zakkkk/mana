@@ -65,9 +65,9 @@ exports.allExamples = [
     // @ts-ignore
     getCommand("lss2's", "lss2", rules_1.getLsb, corpusUtil_1.getSkip2grams, true),
     // @ts-ignore
-    getCommand("half scissors", "hs", rules_1.getHalfScissors, corpusUtil_1.getBigrams, true),
+    getCommand("half scissors", "hsb", rules_1.getHalfScissors, corpusUtil_1.getBigrams, true),
     // @ts-ignore
-    getCommand("full scissors", "fs", rules_1.getSkipFullScissors, corpusUtil_1.getBigrams, true),
+    getCommand("full scissors", "fsb", rules_1.getFullScissors, corpusUtil_1.getBigrams, true),
     getCommand("skip half scissors", "hss", 
     // @ts-ignore
     rules_1.getSkipHalfScissors, corpusUtil_1.getTrigrams, true),

@@ -122,9 +122,9 @@ export const allExamples: Command[] = [
   // @ts-ignore
   getCommand("lss2's", "lss2", getLsb, getSkip2grams, true),
   // @ts-ignore
-  getCommand("half scissors", "hs", getHalfScissors, getBigrams, true),
+  getCommand("half scissors", "hsb", getHalfScissors, getBigrams, true),
   // @ts-ignore
-  getCommand("full scissors", "fs", getSkipFullScissors, getBigrams, true),
+  getCommand("full scissors", "fsb", getFullScissors, getBigrams, true),
   getCommand(
     "skip half scissors",
     "hss",

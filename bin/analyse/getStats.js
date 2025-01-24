@@ -126,7 +126,7 @@ const getStats = (layout, corpus, chosenStats) => {
     }
     if (chosenStats.skipFullScissors) {
         let fssTotal = 0;
-        const fssAmounts = (0, rules_1.getFullScissors)(trigrams, fingerKeyMap, layout);
+        const fssAmounts = (0, rules_1.getSkipFullScissors)(trigrams, fingerKeyMap, layout);
         for (const fss in fssAmounts)
             fssTotal += fssAmounts[fss];
         stats.skipFullScissors = fssTotal;

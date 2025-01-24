@@ -106,8 +106,8 @@ const getSkipFullScissors = (trigrams, fingerKeyMap, layout) => {
     for (const trigram in trigrams) {
         if (getHand(fingerKeyMap[trigram[0]]) == getHand(fingerKeyMap[trigram[2]]) &&
             fingerKeyMap[trigram[0]] != fingerKeyMap[trigram[2]] &&
-            Math.abs(getY(trigram[0]) - getY(trigram[2])) == 1 &&
-            ![3, 4, 5, 6].includes(fingerKeyMap[getY(trigram[0]) > getY(trigram[1]) ? trigram[0] : trigram[2]]))
+            Math.abs(getY(trigram[0]) - getY(trigram[2])) >= 2 &&
+            ![3, 4, 5, 6].includes(fingerKeyMap[getY(trigram[0]) > getY(trigram[2]) ? trigram[0] : trigram[2]]))
             addGramAmount(trigram[0] + trigram[2], trigrams[trigram], skipFullScissors);
     }
     return skipFullScissors;
@@ -127,9 +127,8 @@ const getSfs = (trigrams, fingerKeyMap) => {
     const sfs = {};
     for (const trigram in trigrams) {
         if (fingerKeyMap[trigram[0]] == fingerKeyMap[trigram[2]] &&
-            trigram[0] != trigram[2]) {
+            trigram[0] != trigram[2])
             addGramAmount(trigram[0] + trigram[2], trigrams[trigram], sfs);
-        }
     }
     return sfs;
 };

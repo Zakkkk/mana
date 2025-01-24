@@ -171,10 +171,10 @@ export const getSkipFullScissors = (
     if (
       getHand(fingerKeyMap[trigram[0]]) == getHand(fingerKeyMap[trigram[2]]) &&
       fingerKeyMap[trigram[0]] != fingerKeyMap[trigram[2]] &&
-      Math.abs(getY(trigram[0]) - getY(trigram[2])) == 1 &&
+      Math.abs(getY(trigram[0]) - getY(trigram[2])) >= 2 &&
       ![3, 4, 5, 6].includes(
         fingerKeyMap[
-          getY(trigram[0]) > getY(trigram[1]) ? trigram[0] : trigram[2]
+          getY(trigram[0]) > getY(trigram[2]) ? trigram[0] : trigram[2]
         ],
       )
     )
@@ -215,9 +215,8 @@ export const getSfs = (
     if (
       fingerKeyMap[trigram[0]] == fingerKeyMap[trigram[2]] &&
       trigram[0] != trigram[2]
-    ) {
+    )
       addGramAmount(trigram[0] + trigram[2], trigrams[trigram], sfs);
-    }
   }
 
   return sfs;
