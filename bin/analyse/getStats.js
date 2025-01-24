@@ -18,16 +18,14 @@ const getStats = (layout, corpus, chosenStats) => {
     let bigrams = {};
     let trigrams = {};
     let skip2grams = {};
-    if (chosenStats.heatmapScore || chosenStats.handbalanceScore) {
+    if (chosenStats.heatmapScore || chosenStats.handbalanceScore)
         monograms = (0, corpusUtil_1.getMonograms)(corpus, layout);
-    }
     if (chosenStats.lsb ||
         chosenStats.fullScissors ||
         chosenStats.halfScissors ||
         chosenStats.sfb ||
-        chosenStats.sfr) {
+        chosenStats.sfr)
         bigrams = (0, corpusUtil_1.getBigrams)(corpus, layout);
-    }
     if (chosenStats.alternate ||
         chosenStats.in3roll ||
         chosenStats.inroll ||
@@ -35,12 +33,15 @@ const getStats = (layout, corpus, chosenStats) => {
         chosenStats.out3roll ||
         chosenStats.outroll ||
         chosenStats.redirect ||
-        chosenStats.redirectWeak) {
+        chosenStats.redirectWeak ||
+        chosenStats.skipFullScissors ||
+        chosenStats.skipHalfScissors)
         trigrams = (0, corpusUtil_1.getTrigrams)(corpus, layout);
-    }
-    if (chosenStats.sfs2) {
+    if (chosenStats.sfs2 ||
+        chosenStats.skip2FullScissors ||
+        chosenStats.skip2HalfScissors ||
+        chosenStats.lss2)
         skip2grams = (0, corpusUtil_1.getSkip2grams)(corpus, layout);
-    }
     if (chosenStats.heatmapScore) {
         stats.heatmapScore = 0;
         const heatmap = [
@@ -98,6 +99,12 @@ const getStats = (layout, corpus, chosenStats) => {
             lssTotal += lssAmounts[lss];
         stats.lss = lssTotal;
     }
+    if (chosenStats.lss2) {
+        let lss2Total = 0;
+        for (const lss2 in (0, rules_1.getLsb)(skip2grams, fingerKeyMap, layout))
+            lss2Total += skip2grams[lss2];
+        stats.lss2 = lss2Total;
+    }
     if (chosenStats.halfScissors) {
         let hsTotal = 0;
         for (const hs in (0, rules_1.getHalfScissors)(bigrams, fingerKeyMap, layout))
@@ -109,6 +116,32 @@ const getStats = (layout, corpus, chosenStats) => {
         for (const fs in (0, rules_1.getFullScissors)(bigrams, fingerKeyMap, layout))
             fsTotal += bigrams[fs];
         stats.fullScissors = fsTotal;
+    }
+    if (chosenStats.skipHalfScissors) {
+        let hssTotal = 0;
+        const hssAmounts = (0, rules_1.getHalfScissors)(trigrams, fingerKeyMap, layout);
+        for (const hss in hssAmounts)
+            hssTotal += hssAmounts[hss];
+        stats.skipHalfScissors = hssTotal;
+    }
+    if (chosenStats.skipFullScissors) {
+        let fssTotal = 0;
+        const fssAmounts = (0, rules_1.getFullScissors)(trigrams, fingerKeyMap, layout);
+        for (const fss in fssAmounts)
+            fssTotal += fssAmounts[fss];
+        stats.skipFullScissors = fssTotal;
+    }
+    if (chosenStats.skip2HalfScissors) {
+        let hss2Total = 0;
+        for (const hss2 in (0, rules_1.getHalfScissors)(skip2grams, fingerKeyMap, layout))
+            hss2Total += skip2grams[hss2];
+        stats.skip2HalfScissors = hss2Total;
+    }
+    if (chosenStats.skip2FullScissors) {
+        let fss2Total = 0;
+        for (const fss2 in (0, rules_1.getFullScissors)(skip2grams, fingerKeyMap, layout))
+            fss2Total += skip2grams[fss2];
+        stats.skip2FullScissors = fss2Total;
     }
     if (chosenStats.sfr) {
         let sfrTotal = 0;
@@ -125,7 +158,7 @@ const getStats = (layout, corpus, chosenStats) => {
     }
     if (chosenStats.sfs2) {
         let sfs2Total = 0;
-        for (const sfs2 in (0, rules_1.getSfs2)(skip2grams, fingerKeyMap))
+        for (const sfs2 in (0, rules_1.getSfbs)(skip2grams, fingerKeyMap))
             sfs2Total += skip2grams[sfs2];
         stats.sfs2 = sfs2Total;
     }

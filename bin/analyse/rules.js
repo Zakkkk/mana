@@ -1,7 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOut3roll = exports.getIn3roll = exports.getOutrolls = exports.getInrolls = exports.getRedirectWeaks = exports.getRedirects = exports.getAlternates = exports.getSfsr = exports.getSfs2 = exports.getLss = exports.getSfs = exports.getSfr = exports.getFullScissors = exports.getHalfScissors = exports.getLsb = exports.getSfbs = void 0;
+exports.getOut3roll = exports.getIn3roll = exports.getOutrolls = exports.getInrolls = exports.getRedirectWeaks = exports.getRedirects = exports.getAlternates = exports.getSfsr = exports.getLss = exports.getSfs = exports.getSfr = exports.getSkipFullScissors = exports.getFullScissors = exports.getSkipHalfScissors = exports.getHalfScissors = exports.getLsb = exports.getSfbs = void 0;
 const getHand = (finger) => (finger < 5 ? 0 : 1);
+const addGramAmount = (gram, amount, ngram) => {
+    if (gram in ngram)
+        ngram[gram] += amount;
+    else
+        ngram[gram] = amount;
+};
 const getSfbs = (bigrams, fingerKeyMap) => {
     const sfbs = {};
     for (const bigram in bigrams) {
@@ -50,6 +56,25 @@ const getHalfScissors = (bigrams, fingerKeyMap, layout) => {
     return halfScissor;
 };
 exports.getHalfScissors = getHalfScissors;
+const getSkipHalfScissors = (trigrams, fingerKeyMap, layout) => {
+    const skipHalfScissor = {};
+    const getY = (key) => {
+        for (let i = 0; i < layout.rows.length; i++) {
+            if (layout.rows[i].includes(key))
+                return i;
+        }
+        return -1;
+    };
+    for (const trigram in trigrams) {
+        if (getHand(fingerKeyMap[trigram[0]]) == getHand(fingerKeyMap[trigram[2]]) &&
+            fingerKeyMap[trigram[0]] != fingerKeyMap[trigram[2]] &&
+            Math.abs(getY(trigram[0]) - getY(trigram[2])) == 1 &&
+            [1, 2, 7, 8].includes(fingerKeyMap[getY(trigram[0]) > getY(trigram[2]) ? trigram[0] : trigram[2]]))
+            addGramAmount(trigram[0] + trigram[2], trigrams[trigram], skipHalfScissor);
+    }
+    return skipHalfScissor;
+};
+exports.getSkipHalfScissors = getSkipHalfScissors;
 const getFullScissors = (bigrams, fingerKeyMap, layout) => {
     const fullScissor = {};
     const getY = (key) => {
@@ -69,6 +94,25 @@ const getFullScissors = (bigrams, fingerKeyMap, layout) => {
     return fullScissor;
 };
 exports.getFullScissors = getFullScissors;
+const getSkipFullScissors = (trigrams, fingerKeyMap, layout) => {
+    const skipFullScissors = {};
+    const getY = (key) => {
+        for (let i = 0; i < layout.rows.length; i++) {
+            if (layout.rows[i].includes(key))
+                return i;
+        }
+        return -1;
+    };
+    for (const trigram in trigrams) {
+        if (getHand(fingerKeyMap[trigram[0]]) == getHand(fingerKeyMap[trigram[2]]) &&
+            fingerKeyMap[trigram[0]] != fingerKeyMap[trigram[2]] &&
+            Math.abs(getY(trigram[0]) - getY(trigram[2])) == 1 &&
+            ![3, 4, 5, 6].includes(fingerKeyMap[getY(trigram[0]) > getY(trigram[1]) ? trigram[0] : trigram[2]]))
+            addGramAmount(trigram[0] + trigram[2], trigrams[trigram], skipFullScissors);
+    }
+    return skipFullScissors;
+};
+exports.getSkipFullScissors = getSkipFullScissors;
 const getSfr = (bigrams, fingerKeyMap) => {
     const sfr = {};
     for (const bigram in bigrams) {
@@ -81,12 +125,6 @@ const getSfr = (bigrams, fingerKeyMap) => {
 exports.getSfr = getSfr;
 const getSfs = (trigrams, fingerKeyMap) => {
     const sfs = {};
-    const addGramAmount = (gram, amount, ngram) => {
-        if (gram in ngram)
-            ngram[gram] += amount;
-        else
-            ngram[gram] = amount;
-    };
     for (const trigram in trigrams) {
         if (fingerKeyMap[trigram[0]] == fingerKeyMap[trigram[2]] &&
             trigram[0] != trigram[2]) {
@@ -105,12 +143,6 @@ const getLss = (trigrams, fingerKeyMap, layout) => {
         }
         return -1;
     };
-    const addGramAmount = (gram, amount, ngram) => {
-        if (gram in ngram)
-            ngram[gram] += amount;
-        else
-            ngram[gram] = amount;
-    };
     for (const trigram in trigrams) {
         if (getHand(fingerKeyMap[trigram[0]]) == getHand(fingerKeyMap[trigram[2]]) &&
             ![trigram[0], trigram[2]].some((x) => [4, 5].includes(fingerKeyMap[x])) &&
@@ -121,17 +153,6 @@ const getLss = (trigrams, fingerKeyMap, layout) => {
     return lss;
 };
 exports.getLss = getLss;
-const getSfs2 = (skip2grams, fingerKeyMap) => {
-    const sfs2 = {};
-    for (const skip2gram in skip2grams) {
-        if (fingerKeyMap[skip2gram[0]] == fingerKeyMap[skip2gram[1]] &&
-            skip2gram[0] != skip2gram[1]) {
-            sfs2[skip2gram] = skip2grams[skip2gram];
-        }
-    }
-    return sfs2;
-};
-exports.getSfs2 = getSfs2;
 const getSfsr = (trigrams, fingerKeyMap) => {
     const sfsr = {};
     for (const trigram in trigrams) {

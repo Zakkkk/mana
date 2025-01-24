@@ -6,6 +6,8 @@ import {
   getAlternates,
   getFullScissors,
   getHalfScissors,
+  getSkipFullScissors,
+  getSkipHalfScissors,
   getIn3roll,
   getInrolls,
   getLsb,
@@ -17,7 +19,6 @@ import {
   getSfbs,
   getSfr,
   getSfs,
-  getSfs2,
   getSfsr,
 } from "../analyse/rules";
 import { Command, Corpus, Layout, TokenFreq } from "../types";
@@ -119,11 +120,45 @@ export const allExamples: Command[] = [
   // @ts-ignore
   getCommand("lss's", "lss", getLss, getTrigrams, true),
   // @ts-ignore
+  getCommand("lss2's", "lss2", getLsb, getSkip2grams, true),
+  // @ts-ignore
   getCommand("half scissors", "hs", getHalfScissors, getBigrams, true),
   // @ts-ignore
-  getCommand("full scissors", "fs", getFullScissors, getBigrams, true),
+  getCommand("full scissors", "fs", getSkipFullScissors, getBigrams, true),
+  getCommand(
+    "skip half scissors",
+    "hss",
+    // @ts-ignore
+    getSkipHalfScissors,
+    getTrigrams,
+    true,
+  ),
+  getCommand(
+    "skip full scissors",
+    "fss",
+    // @ts-ignore
+    getSkipFullScissors,
+    getTrigrams,
+    true,
+  ),
+  getCommand(
+    "skip 2 full scissors",
+    "hss2",
+    // @ts-ignore
+    getFullScissors,
+    getSkip2grams,
+    true,
+  ),
+  getCommand(
+    "skip 2 full scissors",
+    "fss2",
+    // @ts-ignore
+    getFullScissors,
+    getSkip2grams,
+    true,
+  ),
   getCommand("sfs's", "sfs", getSfs, getTrigrams, false),
-  getCommand("sfs2's", "sfs2", getSfs2, getSkip2grams, false),
+  getCommand("sfs2's", "sfs2", getSfbs, getSkip2grams, false),
   getCommand("sfsr's", "sfsr", getSfsr, getTrigrams, false),
   getCommand("alts", "alt", getAlternates, getTrigrams, false),
   getCommand("redirects", "red", getRedirects, getTrigrams, false),

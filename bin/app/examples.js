@@ -63,11 +63,25 @@ exports.allExamples = [
     // @ts-ignore
     getCommand("lss's", "lss", rules_1.getLss, corpusUtil_1.getTrigrams, true),
     // @ts-ignore
+    getCommand("lss2's", "lss2", rules_1.getLsb, corpusUtil_1.getSkip2grams, true),
+    // @ts-ignore
     getCommand("half scissors", "hs", rules_1.getHalfScissors, corpusUtil_1.getBigrams, true),
     // @ts-ignore
-    getCommand("full scissors", "fs", rules_1.getFullScissors, corpusUtil_1.getBigrams, true),
+    getCommand("full scissors", "fs", rules_1.getSkipFullScissors, corpusUtil_1.getBigrams, true),
+    getCommand("skip half scissors", "hss", 
+    // @ts-ignore
+    rules_1.getSkipHalfScissors, corpusUtil_1.getTrigrams, true),
+    getCommand("skip full scissors", "fss", 
+    // @ts-ignore
+    rules_1.getSkipFullScissors, corpusUtil_1.getTrigrams, true),
+    getCommand("skip 2 full scissors", "hss2", 
+    // @ts-ignore
+    rules_1.getFullScissors, corpusUtil_1.getSkip2grams, true),
+    getCommand("skip 2 full scissors", "fss2", 
+    // @ts-ignore
+    rules_1.getFullScissors, corpusUtil_1.getSkip2grams, true),
     getCommand("sfs's", "sfs", rules_1.getSfs, corpusUtil_1.getTrigrams, false),
-    getCommand("sfs2's", "sfs2", rules_1.getSfs2, corpusUtil_1.getSkip2grams, false),
+    getCommand("sfs2's", "sfs2", rules_1.getSfbs, corpusUtil_1.getSkip2grams, false),
     getCommand("sfsr's", "sfsr", rules_1.getSfsr, corpusUtil_1.getTrigrams, false),
     getCommand("alts", "alt", rules_1.getAlternates, corpusUtil_1.getTrigrams, false),
     getCommand("redirects", "red", rules_1.getRedirects, corpusUtil_1.getTrigrams, false),

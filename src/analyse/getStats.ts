@@ -17,6 +17,8 @@ import {
   getAlternates,
   getFullScissors,
   getHalfScissors,
+  getSkipFullScissors,
+  getSkipHalfScissors,
   getIn3roll,
   getInrolls,
   getLsb,
@@ -28,7 +30,6 @@ import {
   getSfbs,
   getSfr,
   getSfs,
-  getSfs2,
   getSfsr,
 } from "./rules";
 
@@ -54,9 +55,8 @@ const getStats = (
   let trigrams: TokenFreq = {};
   let skip2grams: TokenFreq = {};
 
-  if (chosenStats.heatmapScore || chosenStats.handbalanceScore) {
+  if (chosenStats.heatmapScore || chosenStats.handbalanceScore)
     monograms = getMonograms(corpus, layout);
-  }
 
   if (
     chosenStats.lsb ||
@@ -64,9 +64,8 @@ const getStats = (
     chosenStats.halfScissors ||
     chosenStats.sfb ||
     chosenStats.sfr
-  ) {
+  )
     bigrams = getBigrams(corpus, layout);
-  }
 
   if (
     chosenStats.alternate ||
@@ -76,14 +75,19 @@ const getStats = (
     chosenStats.out3roll ||
     chosenStats.outroll ||
     chosenStats.redirect ||
-    chosenStats.redirectWeak
-  ) {
+    chosenStats.redirectWeak ||
+    chosenStats.skipFullScissors ||
+    chosenStats.skipHalfScissors
+  )
     trigrams = getTrigrams(corpus, layout);
-  }
 
-  if (chosenStats.sfs2) {
+  if (
+    chosenStats.sfs2 ||
+    chosenStats.skip2FullScissors ||
+    chosenStats.skip2HalfScissors ||
+    chosenStats.lss2
+  )
     skip2grams = getSkip2grams(corpus, layout);
-  }
 
   if (chosenStats.heatmapScore) {
     stats.heatmapScore = 0;
@@ -156,6 +160,13 @@ const getStats = (
     stats.lss = lssTotal;
   }
 
+  if (chosenStats.lss2) {
+    let lss2Total = 0;
+    for (const lss2 in getLsb(skip2grams, fingerKeyMap, layout))
+      lss2Total += skip2grams[lss2];
+    stats.lss2 = lss2Total;
+  }
+
   if (chosenStats.halfScissors) {
     let hsTotal = 0;
     for (const hs in getHalfScissors(bigrams, fingerKeyMap, layout))
@@ -168,6 +179,34 @@ const getStats = (
     for (const fs in getFullScissors(bigrams, fingerKeyMap, layout))
       fsTotal += bigrams[fs];
     stats.fullScissors = fsTotal;
+  }
+
+  if (chosenStats.skipHalfScissors) {
+    let hssTotal = 0;
+    const hssAmounts = getHalfScissors(trigrams, fingerKeyMap, layout);
+    for (const hss in hssAmounts) hssTotal += hssAmounts[hss];
+    stats.skipHalfScissors = hssTotal;
+  }
+
+  if (chosenStats.skipFullScissors) {
+    let fssTotal = 0;
+    const fssAmounts = getFullScissors(trigrams, fingerKeyMap, layout);
+    for (const fss in fssAmounts) fssTotal += fssAmounts[fss];
+    stats.skipFullScissors = fssTotal;
+  }
+
+  if (chosenStats.skip2HalfScissors) {
+    let hss2Total = 0;
+    for (const hss2 in getHalfScissors(skip2grams, fingerKeyMap, layout))
+      hss2Total += skip2grams[hss2];
+    stats.skip2HalfScissors = hss2Total;
+  }
+
+  if (chosenStats.skip2FullScissors) {
+    let fss2Total = 0;
+    for (const fss2 in getFullScissors(skip2grams, fingerKeyMap, layout))
+      fss2Total += skip2grams[fss2];
+    stats.skip2FullScissors = fss2Total;
   }
 
   if (chosenStats.sfr) {
@@ -185,7 +224,7 @@ const getStats = (
 
   if (chosenStats.sfs2) {
     let sfs2Total = 0;
-    for (const sfs2 in getSfs2(skip2grams, fingerKeyMap))
+    for (const sfs2 in getSfbs(skip2grams, fingerKeyMap))
       sfs2Total += skip2grams[sfs2];
     stats.sfs2 = sfs2Total;
   }

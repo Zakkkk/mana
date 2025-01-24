@@ -2,6 +2,15 @@ import { Layout, TokenFreq } from "../types";
 
 const getHand = (finger: number): number => (finger < 5 ? 0 : 1);
 
+const addGramAmount = (
+  gram: string,
+  amount: number,
+  ngram: Record<string, number>,
+) => {
+  if (gram in ngram) ngram[gram] += amount;
+  else ngram[gram] = amount;
+};
+
 export const getSfbs = (
   bigrams: TokenFreq,
   fingerKeyMap: TokenFreq,
@@ -77,6 +86,42 @@ export const getHalfScissors = (
   return halfScissor;
 };
 
+export const getSkipHalfScissors = (
+  trigrams: TokenFreq,
+  fingerKeyMap: TokenFreq,
+  layout: Layout,
+): TokenFreq => {
+  const skipHalfScissor: TokenFreq = {};
+
+  const getY = (key: string) => {
+    for (let i = 0; i < layout.rows.length; i++) {
+      if (layout.rows[i].includes(key)) return i;
+    }
+
+    return -1;
+  };
+
+  for (const trigram in trigrams) {
+    if (
+      getHand(fingerKeyMap[trigram[0]]) == getHand(fingerKeyMap[trigram[2]]) &&
+      fingerKeyMap[trigram[0]] != fingerKeyMap[trigram[2]] &&
+      Math.abs(getY(trigram[0]) - getY(trigram[2])) == 1 &&
+      [1, 2, 7, 8].includes(
+        fingerKeyMap[
+          getY(trigram[0]) > getY(trigram[2]) ? trigram[0] : trigram[2]
+        ],
+      )
+    )
+      addGramAmount(
+        trigram[0] + trigram[2],
+        trigrams[trigram],
+        skipHalfScissor,
+      );
+  }
+
+  return skipHalfScissor;
+};
+
 export const getFullScissors = (
   bigrams: TokenFreq,
   fingerKeyMap: TokenFreq,
@@ -107,6 +152,42 @@ export const getFullScissors = (
   return fullScissor;
 };
 
+export const getSkipFullScissors = (
+  trigrams: TokenFreq,
+  fingerKeyMap: TokenFreq,
+  layout: Layout,
+): TokenFreq => {
+  const skipFullScissors: TokenFreq = {};
+
+  const getY = (key: string) => {
+    for (let i = 0; i < layout.rows.length; i++) {
+      if (layout.rows[i].includes(key)) return i;
+    }
+
+    return -1;
+  };
+
+  for (const trigram in trigrams) {
+    if (
+      getHand(fingerKeyMap[trigram[0]]) == getHand(fingerKeyMap[trigram[2]]) &&
+      fingerKeyMap[trigram[0]] != fingerKeyMap[trigram[2]] &&
+      Math.abs(getY(trigram[0]) - getY(trigram[2])) == 1 &&
+      ![3, 4, 5, 6].includes(
+        fingerKeyMap[
+          getY(trigram[0]) > getY(trigram[1]) ? trigram[0] : trigram[2]
+        ],
+      )
+    )
+      addGramAmount(
+        trigram[0] + trigram[2],
+        trigrams[trigram],
+        skipFullScissors,
+      );
+  }
+
+  return skipFullScissors;
+};
+
 export const getSfr = (
   bigrams: TokenFreq,
   fingerKeyMap: TokenFreq,
@@ -129,15 +210,6 @@ export const getSfs = (
   fingerKeyMap: TokenFreq,
 ): TokenFreq => {
   const sfs: TokenFreq = {};
-
-  const addGramAmount = (
-    gram: string,
-    amount: number,
-    ngram: Record<string, number>,
-  ) => {
-    if (gram in ngram) ngram[gram] += amount;
-    else ngram[gram] = amount;
-  };
 
   for (const trigram in trigrams) {
     if (
@@ -166,15 +238,6 @@ export const getLss = (
     return -1;
   };
 
-  const addGramAmount = (
-    gram: string,
-    amount: number,
-    ngram: Record<string, number>,
-  ) => {
-    if (gram in ngram) ngram[gram] += amount;
-    else ngram[gram] = amount;
-  };
-
   for (const trigram in trigrams) {
     if (
       getHand(fingerKeyMap[trigram[0]]) == getHand(fingerKeyMap[trigram[2]]) &&
@@ -186,24 +249,6 @@ export const getLss = (
   }
 
   return lss;
-};
-
-export const getSfs2 = (
-  skip2grams: TokenFreq,
-  fingerKeyMap: TokenFreq,
-): TokenFreq => {
-  const sfs2: TokenFreq = {};
-
-  for (const skip2gram in skip2grams) {
-    if (
-      fingerKeyMap[skip2gram[0]] == fingerKeyMap[skip2gram[1]] &&
-      skip2gram[0] != skip2gram[1]
-    ) {
-      sfs2[skip2gram] = skip2grams[skip2gram];
-    }
-  }
-
-  return sfs2;
 };
 
 export const getSfsr = (
