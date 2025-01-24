@@ -74,9 +74,9 @@ exports.allExamples = [
     getCommand("skip full scissors", "fss", 
     // @ts-ignore
     rules_1.getSkipFullScissors, corpusUtil_1.getTrigrams, true),
-    getCommand("skip 2 full scissors", "hss2", 
+    getCommand("skip 2 half scissors", "hss2", 
     // @ts-ignore
-    rules_1.getFullScissors, corpusUtil_1.getSkip2grams, true),
+    rules_1.getHalfScissors, corpusUtil_1.getSkip2grams, true),
     getCommand("skip 2 full scissors", "fss2", 
     // @ts-ignore
     rules_1.getFullScissors, corpusUtil_1.getSkip2grams, true),

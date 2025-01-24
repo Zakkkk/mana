@@ -142,10 +142,10 @@ export const allExamples: Command[] = [
     true,
   ),
   getCommand(
-    "skip 2 full scissors",
+    "skip 2 half scissors",
     "hss2",
     // @ts-ignore
-    getFullScissors,
+    getHalfScissors,
     getSkip2grams,
     true,
   ),
