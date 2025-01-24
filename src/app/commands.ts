@@ -1,13 +1,13 @@
-import { Command, TokenFreq } from "./types";
+import { Command } from "../types";
 import * as fs from "fs";
 
-import parse from "./parse";
+import parse from "../corpus/parseCorpus";
 import viewLayout from "./viewLayout";
-import setCorpusPositionByName from "./loadCorpus";
+import setCorpusPositionByName from "../corpus/loadCorpus";
 import { allExamples } from "./examples";
 import loadLayout from "./loadLayout";
 import { noCorpusLoaded } from "./messages";
-import { getBigrams, getTrigrams } from "./corpusUtil";
+import { getBigrams, getTrigrams } from "../corpus/corpusUtil";
 import { swaps } from "./swap";
 
 const commands: Command[] = [

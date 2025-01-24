@@ -1,4 +1,4 @@
-import { Layout, TokenFreq } from "./types";
+import { Layout, TokenFreq } from "../types";
 
 const getHand = (finger: number): number => (finger < 5 ? 0 : 1);
 

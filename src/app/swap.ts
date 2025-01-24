@@ -1,5 +1,5 @@
 import loadLayout from "./loadLayout";
-import { Command } from "./types";
+import { Command } from "../types";
 import viewLayout from "./viewLayout";
 import * as fs from "fs";
 

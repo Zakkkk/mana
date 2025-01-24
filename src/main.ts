@@ -1,10 +1,9 @@
-import commands from "./commands";
+import commands from "./app/commands";
 import { GlobalSettings } from "./types";
-import readline from "readline-sync";
 import * as fs from "fs";
-import setCorpusPositionByName from "./loadCorpus";
+import setCorpusPositionByName from "./corpus/loadCorpus";
 
-import { setupKeypressHandling } from "./keypressHandler";
+import { setupKeypressHandling } from "./app/keypressHandler";
 
 async function main() {
   const settings: GlobalSettings = {

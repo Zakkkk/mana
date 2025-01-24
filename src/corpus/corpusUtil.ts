@@ -1,4 +1,4 @@
-import { Corpus, TokenFreq, Layout } from "./types";
+import { Corpus, TokenFreq, Layout } from "../types";
 
 const addGramAmount = (
   gram: string,

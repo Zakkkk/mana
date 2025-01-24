@@ -1,6 +1,6 @@
 import loadLayout from "./loadLayout";
-import { GlobalSettings, Layout, LayoutStats } from "./types";
-import getStats from "./getStats";
+import { GlobalSettings, Layout, LayoutStats } from "../types";
+import getStats from "../analyse/getStats";
 import { noCorpusLoaded } from "./messages";
 
 const viewLayout = (

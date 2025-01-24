@@ -1,6 +1,6 @@
 import * as fs from "fs";
 
-import { Corpus, GlobalSettings, TokenFreq } from "./types";
+import { Corpus, GlobalSettings, TokenFreq } from "../types";
 
 const loadCorpus = (corpusName: string): Corpus | number => {
   let data;

@@ -35,10 +35,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const commands_1 = __importDefault(require("./commands"));
+const commands_1 = __importDefault(require("./app/commands"));
 const fs = __importStar(require("fs"));
-const loadCorpus_1 = __importDefault(require("./loadCorpus"));
-const keypressHandler_1 = require("./keypressHandler");
+const loadCorpus_1 = __importDefault(require("./corpus/loadCorpus"));
+const keypressHandler_1 = require("./app/keypressHandler");
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         const settings = {

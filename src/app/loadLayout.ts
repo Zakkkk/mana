@@ -1,6 +1,6 @@
 import * as fs from "fs";
 
-import { Layout, GlobalSettings, MagicRule } from "./types";
+import { GlobalSettings, MagicRule } from "../types";
 
 const loadLayout = (gs: GlobalSettings, layoutName: string): number => {
   for (let i = 0; i < gs.loadedLayouts.length; i++) {

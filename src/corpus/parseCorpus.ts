@@ -1,7 +1,7 @@
-import { Corpus } from "./types";
+import { Corpus } from "../types";
 import * as fs from "fs";
 
-import readFileByStream from "./readFile";
+import readFileByStream from "../util/readFile";
 
 const parse = async (filename: string, corpusName: string) => {
   const keySwaps: string[][] = [

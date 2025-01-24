@@ -4,14 +4,14 @@ import {
   Layout,
   Corpus,
   TokenFreq,
-} from "./types";
+} from "../types";
 
 import {
   getMonograms,
   getBigrams,
   getTrigrams,
   getSkip2grams,
-} from "./corpusUtil";
+} from "../corpus/corpusUtil";
 
 import {
   getAlternates,

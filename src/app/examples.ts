@@ -1,5 +1,5 @@
-import { getBigrams, getSkip2grams, getTrigrams } from "./corpusUtil";
-import { getFingerKeyMap } from "./getStats";
+import { getBigrams, getSkip2grams, getTrigrams } from "../corpus/corpusUtil";
+import { getFingerKeyMap } from "../analyse/getStats";
 import loadLayout from "./loadLayout";
 import { noCorpusLoaded } from "./messages";
 import {
@@ -19,8 +19,8 @@ import {
   getSfs,
   getSfs2,
   getSfsr,
-} from "./rules";
-import { Command, Corpus, GlobalSettings, Layout, TokenFreq } from "./types";
+} from "../analyse/rules";
+import { Command, Corpus, Layout, TokenFreq } from "../types";
 
 const getCommand = (
   name: string,
