@@ -43,7 +43,7 @@ swaps.push({
     layout.name += " (Modified)";
 
     swaps.forEach((swap) => {
-      if (swap.length < 2) {
+      if (swap.length < 1) {
         console.log("Must have at least two letters to swap. Example 'ab'");
         return;
       }
