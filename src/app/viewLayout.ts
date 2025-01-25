@@ -21,24 +21,24 @@ const printGrid = (rows: string[][]): void => {
 
   const s = (amount: number): string => (amount < 0 ? "" : " ".repeat(amount));
 
-  for (let i = 0; i < rows.length; i++) printingRows.push("┃");
+  for (let i = 0; i < rows.length; i++) printingRows.push("│");
   for (let i = 0; i < rows.length; i++) {
     for (let j = 0; j < rows[i].length; j++)
       printingRows[i] +=
-        `  ${rows[i][j]}${s(longestWidths[j] - rows[i][j].length)}  ┃`;
+        `  ${rows[i][j]}${s(longestWidths[j] - rows[i][j].length)}  │`;
   }
 
-  let sepString = `┣`;
+  let sepString = `├`;
   for (let j = 0; j < rows[0].length; j++)
-    sepString += `${"━".repeat(4 + longestWidths[j])}${j == rows[0].length - 1 ? `┫` : `╋`}`;
+    sepString += `${"─".repeat(4 + longestWidths[j])}${j == rows[0].length - 1 ? `┤` : `┼`}`;
 
-  let start = "┏";
+  let start = "┌";
   for (let j = 0; j < rows[0].length; j++)
-    start += `${"━".repeat(4 + longestWidths[j])}${j == rows[0].length - 1 ? `┓` : `┳`}`;
+    start += `${"─".repeat(4 + longestWidths[j])}${j == rows[0].length - 1 ? `┐` : `┬`}`;
 
-  let end = "┗";
+  let end = "└";
   for (let j = 0; j < rows[0].length; j++)
-    end += `${"━".repeat(4 + longestWidths[j])}${j == rows[0].length - 1 ? `┛` : `┻`}`;
+    end += `${"─".repeat(4 + longestWidths[j])}${j == rows[0].length - 1 ? `┘` : `┴`}`;
 
   const startRow = printingRows[0];
   printingRows.shift();
