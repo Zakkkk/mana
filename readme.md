@@ -51,6 +51,38 @@ If you want to use your own corpus, upload a file into `/corpus` and then run th
 ## How is the magic calculated?
 For any (n)-gram, (n)-grams which are found at the start of a word are saved, as well as (n+1)-grams in every string. The (n+1) is required to see back into the future to find out if the next key will be a magic key. The first letter in the (n+1)-gram will not be counted in any calculation.
 
+## Stats available
+```
+Vylet | e10k
+  w c m p b x l o u j -
+  r s t h f y n a e i ,
+  q v g d k z * ' ; .
+
+Heatmap score: 76.518%
+Handbalance: 46.703% / 53.297%
+
+Alt: 37.704%
+Rolls (Total): 46.711%
+  Inroll: 30.099%
+  Outroll: 14.268%
+  In3roll: 2.131%
+  Out3roll: 0.212%
+Redirect (+sfs): 6.883%
+  Redirect (Weak) (+sfs): 0.633%
+
+┌────────────────┬──────────┬────────────┬─────────────┐
+│                │  bigram  │  skipgram  │  skipgram2  │
+├────────────────┼──────────┼────────────┼─────────────┤
+│  same finger   │  1.399%  │  6.564%    │  8.771%     │
+│  repeat        │  2.833%  │  4.168%    │  --         │
+│  stretch       │  0.47%   │  1.097%    │  1.71%      │
+│  half scissor  │  6.006%  │  5.626%    │  9.129%     │
+│  full scissor  │  0.019%  │  0.234%    │  0.707%     │
+└────────────────┴──────────┴────────────┴─────────────┘
+```
+
+You can see examples of any of these stats with commands like `sfb vylet` or `sfs vylet 30` to see the top 30. Command `help` to see the rest of the commands for examples.
+
 ## Thanks
 Special thanks to [pine](https://github.com/ClemenPine/) for helping out throughout the process, as well as other [AKL discord](https://discord.com/invite/sxTV2G5Acg) members.
 
