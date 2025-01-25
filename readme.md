@@ -1,4 +1,4 @@
-# Mana: A Magic Keyboard Analyser
+# Mana: A Magic Keyboard Analyser 🔮
 The first analyser for keyboard layouts that contain magic keys!
 
 The magic rules that work are ones where the magic key maps to one singular letter, and keeps the initial letter the same. This analyser does not consider spacegrams.
