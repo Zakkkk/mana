@@ -3,6 +3,51 @@ import { GlobalSettings, Layout, LayoutStats } from "../types";
 import getStats from "../analyse/getStats";
 import { noCorpusLoaded } from "./messages";
 
+const printGrid = (rows: string[][]): void => {
+  let longestWidths: number[] = [];
+  for (let i = 0; i < rows.length; i++) {
+    for (let j = 0; j < rows[0].length; j++) {
+      rows[i][j] = `${rows[i][j]}`;
+
+      const width = rows[i][j].length;
+      if (longestWidths[j] == undefined) {
+        longestWidths[j] = width;
+        continue;
+      } else if (width >= longestWidths[j]) longestWidths[j] = width;
+    }
+  }
+
+  let printingRows: string[] = [];
+
+  const s = (amount: number): string => (amount < 0 ? "" : " ".repeat(amount));
+
+  for (let i = 0; i < rows.length; i++) printingRows.push("┃");
+  for (let i = 0; i < rows.length; i++) {
+    for (let j = 0; j < rows[i].length; j++)
+      printingRows[i] +=
+        `  ${rows[i][j]}${s(longestWidths[j] - rows[i][j].length)}  ┃`;
+  }
+
+  let sepString = `┣`;
+  for (let j = 0; j < rows[0].length; j++)
+    sepString += `${"━".repeat(4 + longestWidths[j])}${j == rows[0].length - 1 ? `┫` : `╋`}`;
+
+  let start = "┏";
+  for (let j = 0; j < rows[0].length; j++)
+    start += `${"━".repeat(4 + longestWidths[j])}${j == rows[0].length - 1 ? `┓` : `┳`}`;
+
+  let end = "┗";
+  for (let j = 0; j < rows[0].length; j++)
+    end += `${"━".repeat(4 + longestWidths[j])}${j == rows[0].length - 1 ? `┛` : `┻`}`;
+
+  const startRow = printingRows[0];
+  printingRows.shift();
+
+  printingRows = [start, startRow, sepString, ...printingRows, end];
+
+  for (const line of printingRows) console.log(line);
+};
+
 const viewLayout = (
   gs: GlobalSettings,
   layoutName: string,
@@ -27,7 +72,7 @@ const viewLayout = (
   );
 
   layout.rows.forEach((row) => {
-    console.log(`\t${row.split(" ").join("~").split("").join(" ")}`);
+    console.log(`  ${row.split(" ").join("~").split("").join(" ")}`);
   });
 
   console.log("");
@@ -63,33 +108,50 @@ const viewLayout = (
       },
     );
 
+    const r = (n: number): number => Math.round(n * 10 ** 5) / 10 ** 3;
+
+    console.log(`Heatmap score: ${r(stats.heatmapScore!)}%`);
     console.log(
-      ` Heatmap score: ${Math.round(stats.heatmapScore! * 10 ** 5) / 10 ** 3}%\n`,
-      `Handbalance: ${Math.round(stats.handbalanceScore! * 10 ** 5) / 10 ** 3}% / ${100 - Math.round(stats.handbalanceScore! * 10 ** 5) / 10 ** 3}%\n`,
-      `Sfb (Total): ${Math.round((stats.sfb! + stats.sfr!) * 10 ** 5) / 10 ** 3}%\n`,
-      ` Sfb: ${Math.round(stats.sfb! * 10 ** 5) / 10 ** 3}%\n`,
-      ` Sfr: ${Math.round(stats.sfr! * 10 ** 5) / 10 ** 3}%\n`,
-      `Lsb: ${Math.round(stats.lsb! * 10 ** 5) / 10 ** 3}%\n`,
-      `Lss: ${Math.round(stats.lss! * 10 ** 5) / 10 ** 3}%\n`,
-      `Lss2: ${Math.round(stats.lss2! * 10 ** 5) / 10 ** 3}%\n`,
-      `Half Scissors: ${Math.round(stats.halfScissors! * 10 ** 5) / 10 ** 3}%\n`,
-      `Full Scissors: ${Math.round(stats.fullScissors! * 10 ** 5) / 10 ** 3}%\n`,
-      `Skip Half Scissors: ${Math.round(stats.skipHalfScissors! * 10 ** 5) / 10 ** 3}%\n`,
-      `Skip Full Scissors: ${Math.round(stats.skipFullScissors! * 10 ** 5) / 10 ** 3}%\n`,
-      `Skip 2 Half Scissors: ${Math.round(stats.skip2HalfScissors! * 10 ** 5) / 10 ** 3}%\n`,
-      `Skip 2 Full Scissors: ${Math.round(stats.skip2FullScissors! * 10 ** 5) / 10 ** 3}%\n`,
-      `Sfs: ${Math.round(stats.sfs! * 10 ** 5) / 10 ** 3}%\n`,
-      `Sfs2: ${Math.round(stats.sfs2! * 10 ** 5) / 10 ** 3}%\n`,
-      `Sfsr: ${Math.round(stats.sfsr! * 10 ** 5) / 10 ** 3}%\n`,
-      `Alt: ${Math.round(stats.alternate! * 10 ** 5) / 10 ** 3}%\n`,
-      `Redirect (+sfs): ${Math.round(stats.redirect! * 10 ** 5) / 10 ** 3}%\n`,
-      ` Redirect (Weak) (+sfs): ${Math.round(stats.redirectWeak! * 10 ** 5) / 10 ** 3}%\n`,
-      `Rolls (Total): ${Math.round((stats.out3roll! + stats.in3roll! + stats.outroll! + stats.inroll!) * 10 ** 5) / 10 ** 3}%\n`,
-      ` Inroll: ${Math.round(stats.inroll! * 10 ** 5) / 10 ** 3}%\n`,
-      ` Outroll: ${Math.round(stats.outroll! * 10 ** 5) / 10 ** 3}%\n`,
-      ` In3roll: ${Math.round(stats.in3roll! * 10 ** 5) / 10 ** 3}%\n`,
-      ` Out3roll: ${Math.round(stats.out3roll! * 10 ** 5) / 10 ** 3}%`,
+      `Handbalance: ${r(stats.handbalanceScore!)}% / ${100 - r(stats.handbalanceScore!)}%\n`,
     );
+
+    console.log(`Alt: ${r(stats.alternate!)}%`);
+    console.log(
+      `Rolls (Total): ${r(stats.out3roll! + stats.in3roll! + stats.inroll! + stats.outroll!)}%\n`,
+      ` Inroll: ${r(stats.inroll!)}%\n`,
+      ` Outroll: ${r(stats.outroll!)}%\n`,
+      ` In3roll: ${r(stats.in3roll!)}%\n`,
+      ` Out3roll: ${r(stats.out3roll!)}%`,
+    );
+
+    console.log(
+      `Redirect (+sfs): ${r(stats.redirect!)}%\n`,
+      ` Redirect (Weak) (+sfs): ${r(stats.redirectWeak!)}%\n`,
+    );
+
+    const t = (n: number | undefined): string =>
+      `${Math.round(n! * 10 ** 5) / 10 ** 3}%`;
+
+    const grid: string[][] = [
+      ["", "bigram", "skipgram", "skipgram2"],
+      ["same finger", t(stats.sfb), t(stats.sfs), t(stats.sfs2)],
+      ["repeat", t(stats.sfr), t(stats.sfsr), "--"],
+      ["stretch", t(stats.lsb), t(stats.lss), t(stats.lss2)],
+      [
+        "half scissor",
+        t(stats.halfScissors),
+        t(stats.skipHalfScissors),
+        t(stats.skip2HalfScissors),
+      ],
+      [
+        "full scissor",
+        t(stats.fullScissors),
+        t(stats.skipFullScissors),
+        t(stats.skip2FullScissors),
+      ],
+    ];
+
+    printGrid(grid);
   } else {
     noCorpusLoaded();
   }
