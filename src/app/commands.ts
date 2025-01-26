@@ -170,6 +170,39 @@ const commands: Command[] = [
       console.log(getTrigrams(gs.loadedCorpora[gs.currentCorpora], layout));
     },
   },
+  {
+    token: "rules",
+    explain: "[layoutname]:\n lists the magic rules for a layout",
+    minArgs: 1,
+    maxArgs: 1,
+    action: (gs, args) => {
+      const layoutPos = loadLayout(gs, args[0]);
+      if (layoutPos == -1) {
+        console.log(`${args[0]} was not found.`);
+        return;
+      }
+
+      const layout = gs.loadedLayouts[layoutPos];
+
+      if (gs.currentCorpora == -1) {
+        noCorpusLoaded();
+        return;
+      }
+
+      if (!layout.hasMagic) {
+        console.log("This is not a magic layout.");
+        return;
+      }
+
+      let magicRules = "";
+
+      layout.magicRules.forEach((magicRule) => {
+        magicRules += magicRule.activator + magicRule.transformTo + " ";
+      });
+
+      console.log(magicRules);
+    },
+  },
   ...swaps,
   ...allExamples,
 ];

@@ -60,6 +60,13 @@ const viewLayout = (gs, layoutName, layout) => {
     layout.rows.forEach((row) => {
         console.log(`  ${row.split(" ").join("~").split("").join(" ")}`);
     });
+    if (layout.hasMagic) {
+        let magicRules = "";
+        layout.magicRules.forEach((magicRule) => {
+            magicRules += magicRule.activator + magicRule.transformTo + " ";
+        });
+        console.log("\nMagic rules: " + magicRules);
+    }
     console.log("");
     if (gs.currentCorpora != -1) {
         const stats = (0, getStats_1.default)(layout, gs.loadedCorpora[gs.currentCorpora], {

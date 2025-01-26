@@ -3,7 +3,7 @@ export type Command = {
   explain: string;
   minArgs?: number;
   maxArgs?: number;
-  action: (settings: GlobalSettings, args: string[]) => void;
+  action: (settings: GlobalSettings, args: string[]) => any | void;
 };
 
 export type GlobalSettings = {
