@@ -5,7 +5,7 @@ The magic rules that work are ones where the magic key maps to one singular lett
 
 For example `d*->do` is acceptable but `d*->dof` or `d*->ao` is not.
 
-Coming soon: magic combos suggestion, layout generation, mutiple magic keys
+Coming soon: magic combos suggestion, layout generation, mutiple magic keys, ability to test out a layout with a corpus transform.
 
 ## Installing
 To run this program, [node](https://nodejs.org/en/download) is required. Make sure it is installed to path. Run `npm install` in the directory to install required packages.
