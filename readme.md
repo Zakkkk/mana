@@ -53,31 +53,33 @@ For any (n)-gram, (n)-grams which are found at the start of a word are saved, as
 
 ## Stats available
 ```
-Vylet | e10k
+Vylet | monkeyracer
   w c m p b x l o u j -
   r s t h f y n a e i ,
   q v g d k z * ' ; .
 
-Heatmap score: 76.518%
-Handbalance: 46.703% / 53.297%
+Magic rules: ck ,l gh pt rk sc wr ft mb bt ax ex ix
 
-Alt: 37.704%
-Rolls (Total): 46.711%
-  Inroll: 30.099%
-  Outroll: 14.268%
-  In3roll: 2.131%
-  Out3roll: 0.212%
-Redirect (+sfs): 6.883%
-  Redirect (Weak) (+sfs): 0.633%
+Heatmap score: 74.502%
+Handbalance: 44.475% / 55.525%
+
+Alt: 35.47%
+Rolls (Total): 49.81%
+  Inroll: 31.924%
+  Outroll: 14.886%
+  In3roll: 1.176%
+  Out3roll: 1.824%
+Redirect (+sfs): 6.215%
+  Redirect (Weak) (+sfs): 0.561%
 
 ┌────────────────┬──────────┬────────────┬─────────────┐
 │                │  bigram  │  skipgram  │  skipgram2  │
 ├────────────────┼──────────┼────────────┼─────────────┤
-│  same finger   │  1.399%  │  6.564%    │  8.771%     │
-│  repeat        │  2.833%  │  4.168%    │  --         │
-│  stretch       │  0.47%   │  1.097%    │  1.71%      │
-│  half scissor  │  6.006%  │  5.626%    │  9.129%     │
-│  full scissor  │  0.019%  │  0.234%    │  0.707%     │
+│  same finger   │  1.011%  │  6.437%    │  8.743%     │
+│  repeat        │  2.822%  │  3.122%    │  --         │
+│  stretch       │  1.953%  │  1.98%     │  3.084%     │
+│  half scissor  │  4.671%  │  5.476%    │  9.898%     │
+│  full scissor  │  0.324%  │  0.873%    │  1.284%     │
 └────────────────┴──────────┴────────────┴─────────────┘
 ```
 
