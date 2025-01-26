@@ -41,6 +41,21 @@ Example:
 
 To test this new layout out, load up a corpus and then run `view [layoutname]`
 
+## Modifying the layout through commands
+To adjust the layout through the cli program, instead of opening an editor, you can use the following commands.
+ - swap layoutname ab
+ - swap layoutname ab bc cd
+ - swap layoutname abcd
+    - this command will have the same effect as the example before it
+ - swap! layoutname ab
+    - using the ! after any layout change command will write the changes to the file.
+- rulesadd layoutname do ab
+    - adds the magic rule `d*->do` and `a*->ab`
+- rulesrm layoutname do
+    - removes the rule `d*->do`
+-ruleschange layoutname da
+    - changes the rule `d*` to output `da`
+
 ## Corpora
 To see all available corpora run the command `corpora`.
 
