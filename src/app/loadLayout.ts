@@ -26,17 +26,6 @@ const loadLayout = (gs: GlobalSettings, layoutName: string): number => {
       }
 
       if (data.magicIdentifier != undefined && data.magicRules != undefined) {
-        const magicRules: MagicRule[] = [];
-
-        data.magicRules.forEach((magicRule: string) => {
-          magicRules.push({
-            activator: magicRule[0],
-            transformTo: magicRule[1],
-          });
-        });
-
-        data.magicRules = magicRules;
-
         gs.loadedLayouts.push(data);
         return gs.loadedLayouts.length - 1;
       }

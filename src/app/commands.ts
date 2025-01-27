@@ -194,13 +194,7 @@ const commands: Command[] = [
         return;
       }
 
-      let magicRules = "";
-
-      layout.magicRules.forEach((magicRule) => {
-        magicRules += magicRule.activator + magicRule.transformTo + " ";
-      });
-
-      console.log(magicRules);
+      console.log(layout.magicRules.join(" "));
     },
   },
   ...edits,

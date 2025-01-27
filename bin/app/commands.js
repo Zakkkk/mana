@@ -207,11 +207,7 @@ const commands = [
                 console.log("This is not a magic layout.");
                 return;
             }
-            let magicRules = "";
-            layout.magicRules.forEach((magicRule) => {
-                magicRules += magicRule.activator + magicRule.transformTo + " ";
-            });
-            console.log(magicRules);
+            console.log(layout.magicRules.join(" "));
         },
     },
     ...edit_1.edits,

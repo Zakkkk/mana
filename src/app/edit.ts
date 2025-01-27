@@ -130,7 +130,7 @@ edits.push({
 
     const hasRuleWithStart = (rule: string): boolean => {
       for (let i = 0; i < layout.magicRules.length; i++)
-        if (layout.magicRules[i].activator == rule[0]) return true;
+        if (layout.magicRules[i][0] == rule[0]) return true;
       return false;
     };
 
@@ -149,10 +149,7 @@ edits.push({
         return;
       }
 
-      layout.magicRules.push({
-        activator: rule[0],
-        transformTo: rule[1],
-      });
+      layout.magicRules.push(rule);
     });
 
     if (noErrors) viewLayout(gs, "", layout);
@@ -232,11 +229,7 @@ edits.push({
       }
 
       layout.magicRules.forEach((layoutRule, i) => {
-        if (
-          layoutRule.activator == rule[0] &&
-          layoutRule.transformTo == rule[1]
-        )
-          layout.magicRules.splice(i, 1);
+        if (layoutRule == rule) layout.magicRules.splice(i, 1);
       });
     });
 
@@ -317,8 +310,7 @@ edits.push({
       }
 
       layout.magicRules.forEach((layoutRule, i) => {
-        if (layoutRule.activator == rule[0])
-          layout.magicRules[i].transformTo = rule[1];
+        if (layoutRule[0] == rule[0]) layout.magicRules[i] = rule;
       });
     });
 

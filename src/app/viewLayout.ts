@@ -79,7 +79,7 @@ const viewLayout = (
     let magicRules = "";
 
     layout.magicRules.forEach((magicRule) => {
-      magicRules += magicRule.activator + magicRule.transformTo + " ";
+      magicRules += magicRule + " ";
     });
 
     console.log("\nMagic rules: " + magicRules);

@@ -29,8 +29,8 @@ const getMonograms = (corpus: Corpus, layout: Layout): TokenFreq => {
     if (extendedMonogram.length == 2) {
       layout.magicRules.forEach((magicRule) => {
         if (
-          magicRule.activator == extendedMonogram[0] &&
-          magicRule.transformTo == extendedMonogram[1]
+          magicRule[0] == extendedMonogram[0] &&
+          magicRule[1] == extendedMonogram[1]
         )
           extendedMonogram = layout.magicIdentifier;
       });
@@ -62,21 +62,21 @@ const getBigrams = (corpus: Corpus, layout: Layout): TokenFreq => {
     if (extendedBigram.length == 2) {
       layout.magicRules.forEach((magicRule) => {
         if (
-          magicRule.activator == extendedBigram[0] &&
-          magicRule.transformTo == extendedBigram[1]
+          magicRule[0] == extendedBigram[0] &&
+          magicRule[1] == extendedBigram[1]
         )
           extendedBigram = extendedBigram[0] + layout.magicIdentifier;
       });
     } else if (extendedBigram.length == 3) {
       layout.magicRules.forEach((magicRule) => {
         if (
-          magicRule.activator == extendedBigram[0] &&
-          magicRule.transformTo == extendedBigram[1]
+          magicRule[0] == extendedBigram[0] &&
+          magicRule[1] == extendedBigram[1]
         )
           extendedBigram = layout.magicIdentifier + extendedBigram[2];
         else if (
-          magicRule.activator == extendedBigram[1] &&
-          magicRule.transformTo == extendedBigram[2]
+          magicRule[0] == extendedBigram[1] &&
+          magicRule[1] == extendedBigram[2]
         )
           extendedBigram = extendedBigram[1] + layout.magicIdentifier;
       });
@@ -115,14 +115,14 @@ const getTrigrams = (corpus: Corpus, layout: Layout): TokenFreq => {
     if (extendedTrigram.length == 3) {
       layout.magicRules.forEach((magicRule) => {
         if (
-          magicRule.activator == extendedTrigram[0] &&
-          magicRule.transformTo == extendedTrigram[1]
+          magicRule[0] == extendedTrigram[0] &&
+          magicRule[1] == extendedTrigram[1]
         )
           extendedTrigram =
             extendedTrigram[0] + layout.magicIdentifier + extendedTrigram[2];
         else if (
-          magicRule.activator == extendedTrigram[1] &&
-          magicRule.transformTo == extendedTrigram[2]
+          magicRule[0] == extendedTrigram[1] &&
+          magicRule[1] == extendedTrigram[2]
         )
           extendedTrigram =
             extendedTrigram[0] + extendedTrigram[1] + layout.magicIdentifier;
@@ -130,8 +130,8 @@ const getTrigrams = (corpus: Corpus, layout: Layout): TokenFreq => {
     } else if (extendedTrigram.length == 4) {
       layout.magicRules.forEach((magicRule) => {
         if (
-          magicRule.activator == extendedTrigram[0] &&
-          magicRule.transformTo == extendedTrigram[1]
+          magicRule[0] == extendedTrigram[0] &&
+          magicRule[1] == extendedTrigram[1]
         )
           extendedTrigram =
             extendedTrigram[0] +
@@ -139,8 +139,8 @@ const getTrigrams = (corpus: Corpus, layout: Layout): TokenFreq => {
             extendedTrigram[2] +
             extendedTrigram[3];
         if (
-          magicRule.activator == extendedTrigram[1] &&
-          magicRule.transformTo == extendedTrigram[2]
+          magicRule[0] == extendedTrigram[1] &&
+          magicRule[1] == extendedTrigram[2]
         )
           extendedTrigram =
             extendedTrigram[0] +
@@ -148,8 +148,8 @@ const getTrigrams = (corpus: Corpus, layout: Layout): TokenFreq => {
             layout.magicIdentifier +
             extendedTrigram[3];
         if (
-          magicRule.activator == extendedTrigram[2] &&
-          magicRule.transformTo == extendedTrigram[3]
+          magicRule[0] == extendedTrigram[2] &&
+          magicRule[1] == extendedTrigram[3]
         )
           extendedTrigram =
             extendedTrigram[0] +
@@ -194,8 +194,8 @@ const getSkip2grams = (corpus: Corpus, layout: Layout): TokenFreq => {
     if (extendedSkip2gram.length == 3) {
       layout.magicRules.forEach((magicRule) => {
         if (
-          magicRule.activator == extendedSkip2gram[1] &&
-          magicRule.transformTo == extendedSkip2gram[2]
+          magicRule[0] == extendedSkip2gram[1] &&
+          magicRule[1] == extendedSkip2gram[2]
         )
           parts = [extendedSkip2gram[0], layout.magicIdentifier];
         else parts = [extendedSkip2gram[0], extendedSkip2gram[2]];
@@ -205,14 +205,14 @@ const getSkip2grams = (corpus: Corpus, layout: Layout): TokenFreq => {
 
       layout.magicRules.forEach((magicRule) => {
         if (
-          magicRule.activator == extendedSkip2gram[0] &&
-          magicRule.transformTo == extendedSkip2gram[1]
+          magicRule[0] == extendedSkip2gram[0] &&
+          magicRule[1] == extendedSkip2gram[1]
         )
           parts[0] = layout.magicIdentifier;
 
         if (
-          magicRule.activator == extendedSkip2gram[2] &&
-          magicRule.transformTo == extendedSkip2gram[3]
+          magicRule[0] == extendedSkip2gram[2] &&
+          magicRule[1] == extendedSkip2gram[3]
         )
           parts[1] = layout.magicIdentifier;
       });

@@ -22,10 +22,7 @@ export type Corpus = {
   extendedSkip2grams: TokenFreq;
 };
 
-export type MagicRule = {
-  activator: string;
-  transformTo: string;
-};
+export type MagicRule = string;
 
 export type Layout = {
   name: string;
