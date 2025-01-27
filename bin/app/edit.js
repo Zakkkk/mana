@@ -26,12 +26,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.swaps = void 0;
+exports.edits = void 0;
 const loadLayout_1 = __importDefault(require("./loadLayout"));
 const viewLayout_1 = __importDefault(require("./viewLayout"));
 const fs = __importStar(require("fs"));
-const swaps = [];
-exports.swaps = swaps;
+const edits = [];
+exports.edits = edits;
 const layoutNameModification = " (Modified)";
 function swapLettersInArray(array, letter1, letter2) {
     return array.map((str) => str
@@ -45,13 +45,13 @@ function swapLettersInArray(array, letter1, letter2) {
     })
         .join(""));
 }
-swaps.push({
+edits.push({
     token: "swap",
     minArgs: 2,
     explain: "[layoutname] [swap bigrams...]:\nView a swap and the stats for it",
     action: (gs, args) => {
         const layoutName = args[0];
-        const swaps = args;
+        const edits = args;
         args.shift();
         const layoutPosition = (0, loadLayout_1.default)(gs, layoutName);
         if (layoutPosition == -1) {
@@ -61,7 +61,7 @@ swaps.push({
         const layout = gs.loadedLayouts[layoutPosition];
         layout.name += layoutNameModification;
         let noErrors = true;
-        swaps.forEach((swap) => {
+        edits.forEach((swap) => {
             if (swap.length < 1) {
                 console.log("Must have at least two letters to swap. Example 'ab'");
                 noErrors = false;
@@ -80,19 +80,19 @@ swaps.push({
         return noErrors ? layout : undefined;
     },
 });
-swaps.push({
+edits.push({
     token: "swap!",
     minArgs: 2,
     explain: "[layoutname] [swap bigrams...]:\nView a swap and the stats for it. Makes the changes permament to the file.",
     action: (gs, args) => {
-        const layout = swaps[0].action(gs, args);
+        const filename = args[0];
+        const layout = edits[0].action(gs, args);
         if (layout == undefined)
             return;
-        layout.name.replace(layoutNameModification, "");
         try {
-            const layoutFromFile = JSON.parse(fs.readFileSync(`layouts/${layout.name}.json`, "utf8"));
+            const layoutFromFile = JSON.parse(fs.readFileSync(`layouts/${filename}.json`, "utf8"));
             layoutFromFile.rows = layout.rows;
-            fs.writeFileSync(`layouts/${layout.name}.json`, JSON.stringify(layoutFromFile, null, 2), {
+            fs.writeFileSync(`layouts/${filename}.json`, JSON.stringify(layoutFromFile, null, 2), {
                 flag: "w",
             });
             console.log("Layout updated!");
@@ -103,7 +103,7 @@ swaps.push({
         }
     },
 });
-swaps.push({
+edits.push({
     token: "rulesadd",
     minArgs: 2,
     explain: "[layoutname] [add magic bigrams...]:\nAdds rules to a magic layout for preview.",
@@ -150,19 +150,19 @@ swaps.push({
         return noErrors ? layout : undefined;
     },
 });
-swaps.push({
+edits.push({
     token: "rulesadd!",
     minArgs: 2,
     explain: "[layoutname] [add magic bigrams...]:\nAdds rules to a magic layout for preview. Saves the changes to the layout.",
     action: (gs, args) => {
-        const layout = swaps[2].action(gs, args);
+        const filename = args[0];
+        const layout = edits[2].action(gs, args);
         if (layout == undefined)
             return;
-        layout.name.replace(layoutNameModification, "");
         try {
-            const layoutFromFile = JSON.parse(fs.readFileSync(`layouts/${layout.name}.json`, "utf8"));
+            const layoutFromFile = JSON.parse(fs.readFileSync(`layouts/${filename}.json`, "utf8"));
             layoutFromFile.rows = layout.rows;
-            fs.writeFileSync(`layouts/${layout.name}.json`, JSON.stringify(layoutFromFile, null, 2), {
+            fs.writeFileSync(`layouts/${filename}.json`, JSON.stringify(layoutFromFile, null, 2), {
                 flag: "w",
             });
             console.log("Layout updated!");
@@ -173,7 +173,7 @@ swaps.push({
         }
     },
 });
-swaps.push({
+edits.push({
     token: "rulesrm",
     minArgs: 2,
     explain: "[layoutname] [remove magic bigrams...]:\nRemoves rules from a magic layout for preview.",
@@ -210,19 +210,19 @@ swaps.push({
         return noErrors ? layout : undefined;
     },
 });
-swaps.push({
+edits.push({
     token: "rulesrm!",
     minArgs: 2,
     explain: "[layoutname] [remove magic bigrams...]:\nRemoves rules from a magic layout for preview. Saves the changes to the layout.",
     action: (gs, args) => {
-        const layout = swaps[4].action(gs, args);
+        const filename = args[0];
+        const layout = edits[4].action(gs, args);
         if (layout == undefined)
             return;
-        layout.name.replace(layoutNameModification, "");
         try {
-            const layoutFromFile = JSON.parse(fs.readFileSync(`layouts/${layout.name}.json`, "utf8"));
+            const layoutFromFile = JSON.parse(fs.readFileSync(`layouts/${filename}.json`, "utf8"));
             layoutFromFile.rows = layout.rows;
-            fs.writeFileSync(`layouts/${layout.name}.json`, JSON.stringify(layoutFromFile, null, 2), {
+            fs.writeFileSync(`layouts/${filename}.json`, JSON.stringify(layoutFromFile, null, 2), {
                 flag: "w",
             });
             console.log("Layout updated!");
@@ -233,7 +233,7 @@ swaps.push({
         }
     },
 });
-swaps.push({
+edits.push({
     token: "ruleschange",
     minArgs: 2,
     explain: "[layoutname] [change magic bigrams...]:\nChanges rules from a magic layout for preview.",
@@ -269,19 +269,19 @@ swaps.push({
         return noErrors ? layout : undefined;
     },
 });
-swaps.push({
+edits.push({
     token: "ruleschange!",
     minArgs: 2,
     explain: "[layoutname] [changes magic bigrams...]:\nChanges rules of a magic layout for preview. Saves the changes to the layout.",
     action: (gs, args) => {
-        const layout = swaps[6].action(gs, args);
+        const filename = args[0];
+        const layout = edits[6].action(gs, args);
         if (layout == undefined)
             return;
-        layout.name.replace(layoutNameModification, "");
         try {
-            const layoutFromFile = JSON.parse(fs.readFileSync(`layouts/${layout.name}.json`, "utf8"));
+            const layoutFromFile = JSON.parse(fs.readFileSync(`layouts/${filename}.json`, "utf8"));
             layoutFromFile.rows = layout.rows;
-            fs.writeFileSync(`layouts/${layout.name}.json`, JSON.stringify(layoutFromFile, null, 2), {
+            fs.writeFileSync(`layouts/${filename}.json`, JSON.stringify(layoutFromFile, null, 2), {
                 flag: "w",
             });
             console.log("Layout updated!");

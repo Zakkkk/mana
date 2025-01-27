@@ -43,7 +43,7 @@ const examples_1 = require("./examples");
 const loadLayout_1 = __importDefault(require("./loadLayout"));
 const messages_1 = require("./messages");
 const corpusUtil_1 = require("../corpus/corpusUtil");
-const swap_1 = require("./swap");
+const edit_1 = require("./edit");
 const commands = [
     {
         token: "explain",
@@ -214,7 +214,7 @@ const commands = [
             console.log(magicRules);
         },
     },
-    ...swap_1.swaps,
+    ...edit_1.edits,
     ...examples_1.allExamples,
 ];
 exports.default = commands;

@@ -8,7 +8,7 @@ import { allExamples } from "./examples";
 import loadLayout from "./loadLayout";
 import { noCorpusLoaded } from "./messages";
 import { getBigrams, getTrigrams } from "../corpus/corpusUtil";
-import { swaps } from "./swap";
+import { edits } from "./edit";
 
 const commands: Command[] = [
   {
@@ -203,7 +203,7 @@ const commands: Command[] = [
       console.log(magicRules);
     },
   },
-  ...swaps,
+  ...edits,
   ...allExamples,
 ];
 

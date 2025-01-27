@@ -3,7 +3,7 @@ import { Command, Layout, MagicRule } from "../types";
 import viewLayout from "./viewLayout";
 import * as fs from "fs";
 
-const swaps: Command[] = [];
+const edits: Command[] = [];
 
 const layoutNameModification = " (Modified)";
 
@@ -24,13 +24,13 @@ function swapLettersInArray(
   );
 }
 
-swaps.push({
+edits.push({
   token: "swap",
   minArgs: 2,
   explain: "[layoutname] [swap bigrams...]:\nView a swap and the stats for it",
   action: (gs, args): Layout | undefined => {
     const layoutName = args[0];
-    const swaps = args;
+    const edits = args;
     args.shift();
 
     const layoutPosition = loadLayout(gs, layoutName);
@@ -46,7 +46,7 @@ swaps.push({
 
     let noErrors = true;
 
-    swaps.forEach((swap) => {
+    edits.forEach((swap) => {
       if (swap.length < 1) {
         console.log("Must have at least two letters to swap. Example 'ab'");
         noErrors = false;
@@ -67,27 +67,26 @@ swaps.push({
   },
 });
 
-swaps.push({
+edits.push({
   token: "swap!",
   minArgs: 2,
   explain:
     "[layoutname] [swap bigrams...]:\nView a swap and the stats for it. Makes the changes permament to the file.",
   action: (gs, args) => {
-    const layout: Layout | undefined = swaps[0].action(gs, args);
+    const filename = args[0];
+    const layout: Layout | undefined = edits[0].action(gs, args);
 
     if (layout == undefined) return;
 
-    layout.name.replace(layoutNameModification, "");
-
     try {
       const layoutFromFile = JSON.parse(
-        fs.readFileSync(`layouts/${layout.name}.json`, "utf8"),
+        fs.readFileSync(`layouts/${filename}.json`, "utf8"),
       );
 
       layoutFromFile.rows = layout.rows;
 
       fs.writeFileSync(
-        `layouts/${layout.name}.json`,
+        `layouts/${filename}.json`,
         JSON.stringify(layoutFromFile, null, 2),
         {
           flag: "w",
@@ -103,7 +102,7 @@ swaps.push({
   },
 });
 
-swaps.push({
+edits.push({
   token: "rulesadd",
   minArgs: 2,
   explain:
@@ -162,27 +161,26 @@ swaps.push({
   },
 });
 
-swaps.push({
+edits.push({
   token: "rulesadd!",
   minArgs: 2,
   explain:
     "[layoutname] [add magic bigrams...]:\nAdds rules to a magic layout for preview. Saves the changes to the layout.",
   action: (gs, args) => {
-    const layout: Layout | undefined = swaps[2].action(gs, args);
+    const filename = args[0];
+    const layout: Layout | undefined = edits[2].action(gs, args);
 
     if (layout == undefined) return;
 
-    layout.name.replace(layoutNameModification, "");
-
     try {
       const layoutFromFile = JSON.parse(
-        fs.readFileSync(`layouts/${layout.name}.json`, "utf8"),
+        fs.readFileSync(`layouts/${filename}.json`, "utf8"),
       );
 
       layoutFromFile.rows = layout.rows;
 
       fs.writeFileSync(
-        `layouts/${layout.name}.json`,
+        `layouts/${filename}.json`,
         JSON.stringify(layoutFromFile, null, 2),
         {
           flag: "w",
@@ -198,7 +196,7 @@ swaps.push({
   },
 });
 
-swaps.push({
+edits.push({
   token: "rulesrm",
   minArgs: 2,
   explain:
@@ -248,27 +246,26 @@ swaps.push({
   },
 });
 
-swaps.push({
+edits.push({
   token: "rulesrm!",
   minArgs: 2,
   explain:
     "[layoutname] [remove magic bigrams...]:\nRemoves rules from a magic layout for preview. Saves the changes to the layout.",
   action: (gs, args) => {
-    const layout: Layout | undefined = swaps[4].action(gs, args);
+    const filename = args[0];
+    const layout: Layout | undefined = edits[4].action(gs, args);
 
     if (layout == undefined) return;
 
-    layout.name.replace(layoutNameModification, "");
-
     try {
       const layoutFromFile = JSON.parse(
-        fs.readFileSync(`layouts/${layout.name}.json`, "utf8"),
+        fs.readFileSync(`layouts/${filename}.json`, "utf8"),
       );
 
       layoutFromFile.rows = layout.rows;
 
       fs.writeFileSync(
-        `layouts/${layout.name}.json`,
+        `layouts/${filename}.json`,
         JSON.stringify(layoutFromFile, null, 2),
         {
           flag: "w",
@@ -284,7 +281,7 @@ swaps.push({
   },
 });
 
-swaps.push({
+edits.push({
   token: "ruleschange",
   minArgs: 2,
   explain:
@@ -331,27 +328,26 @@ swaps.push({
   },
 });
 
-swaps.push({
+edits.push({
   token: "ruleschange!",
   minArgs: 2,
   explain:
     "[layoutname] [changes magic bigrams...]:\nChanges rules of a magic layout for preview. Saves the changes to the layout.",
   action: (gs, args) => {
-    const layout: Layout | undefined = swaps[6].action(gs, args);
+    const filename = args[0];
+    const layout: Layout | undefined = edits[6].action(gs, args);
 
     if (layout == undefined) return;
 
-    layout.name.replace(layoutNameModification, "");
-
     try {
       const layoutFromFile = JSON.parse(
-        fs.readFileSync(`layouts/${layout.name}.json`, "utf8"),
+        fs.readFileSync(`layouts/${filename}.json`, "utf8"),
       );
 
       layoutFromFile.rows = layout.rows;
 
       fs.writeFileSync(
-        `layouts/${layout.name}.json`,
+        `layouts/${filename}.json`,
         JSON.stringify(layoutFromFile, null, 2),
         {
           flag: "w",
@@ -367,4 +363,4 @@ swaps.push({
   },
 });
 
-export { swaps };
+export { edits };
