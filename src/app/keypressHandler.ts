@@ -17,7 +17,6 @@ export function setupKeypressHandling(
     const isMac = process.platform === "darwin";
 
     if (key.ctrl && key.name === "c") {
-      process.stdout.write("\nExiting...\n");
       process.exit();
     }
 
@@ -119,13 +118,16 @@ export function setupKeypressHandling(
         break;
 
       default:
-        if (!key.ctrl && !key.meta && !key.name.startsWith("escape")) {
-          // Add printable characters
-          currentInput =
-            currentInput.slice(0, cursorPos) +
-            str +
-            currentInput.slice(cursorPos);
-          cursorPos += 1;
+        if (
+          !key.ctrl &&
+          !key.meta &&
+          key.sequence &&
+          key.sequence.length === 1
+        ) {
+          // Append any single printable character
+          currentInput += key.sequence;
+          rewriteLine(currentInput, cursorPos);
+          cursorPos++;
         }
         break;
     }
