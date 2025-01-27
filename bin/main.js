@@ -51,7 +51,6 @@ function main() {
         }
         catch (_a) { }
         console.log("'help' to list all commands.\n'explain [command]' for an explanation of any command.");
-        process.stdout.write("> ");
         (0, keypressHandler_1.setupKeypressHandling)((input) => __awaiter(this, void 0, void 0, function* () {
             const args = input.split(" ");
             const command = args.shift();

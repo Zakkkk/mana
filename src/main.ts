@@ -22,9 +22,6 @@ async function main() {
   console.log(
     "'help' to list all commands.\n'explain [command]' for an explanation of any command.",
   );
-
-  process.stdout.write("> ");
-
   setupKeypressHandling(async (input) => {
     const args = input.split(" ");
     const command = args.shift();
