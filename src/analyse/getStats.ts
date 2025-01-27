@@ -183,7 +183,7 @@ const getStats = (
 
   if (chosenStats.skipHalfScissors) {
     let hssTotal = 0;
-    const hssAmounts = getHalfScissors(trigrams, fingerKeyMap, layout);
+    const hssAmounts = getSkipHalfScissors(trigrams, fingerKeyMap, layout);
     for (const hss in hssAmounts) hssTotal += hssAmounts[hss];
     stats.skipHalfScissors = hssTotal;
   }

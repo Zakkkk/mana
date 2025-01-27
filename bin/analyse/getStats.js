@@ -119,7 +119,7 @@ const getStats = (layout, corpus, chosenStats) => {
     }
     if (chosenStats.skipHalfScissors) {
         let hssTotal = 0;
-        const hssAmounts = (0, rules_1.getHalfScissors)(trigrams, fingerKeyMap, layout);
+        const hssAmounts = (0, rules_1.getSkipHalfScissors)(trigrams, fingerKeyMap, layout);
         for (const hss in hssAmounts)
             hssTotal += hssAmounts[hss];
         stats.skipHalfScissors = hssTotal;
