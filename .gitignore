@@ -1,7 +1,14 @@
 node_modules
+
 .DS_Store
+
 todo.txt
+
 layouts/test
 parsed/test
 corpus/test
+layouts/personal
+parsed/personal
+corpus/personal
+
 defaultLoadCorpus
