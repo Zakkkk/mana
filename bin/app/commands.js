@@ -44,6 +44,7 @@ const loadLayout_1 = __importDefault(require("./loadLayout"));
 const messages_1 = require("./messages");
 const corpusUtil_1 = require("../corpus/corpusUtil");
 const edit_1 = require("./edit");
+const getStats_1 = __importDefault(require("../analyse/getStats"));
 const commands = [
     {
         token: "explain",
@@ -208,6 +209,31 @@ const commands = [
                 return;
             }
             console.log(layout.magicRules.join(" "));
+        },
+    },
+    {
+        token: "fingers",
+        explain: "[layoutname]\nShows finger usage for a layout.",
+        minArgs: 1,
+        maxArgs: 1,
+        action: (gs, args) => {
+            const layoutPos = (0, loadLayout_1.default)(gs, args[0]);
+            if (layoutPos == -1) {
+                console.log(`${args[0]} was not found.`);
+                return;
+            }
+            const layout = gs.loadedLayouts[layoutPos];
+            if (gs.currentCorpora == -1) {
+                (0, messages_1.noCorpusLoaded)();
+                return;
+            }
+            const fingers = (0, getStats_1.default)(layout, gs.loadedCorpora[gs.currentCorpora], {
+                fingerFreq: true,
+            }).fingerFreq;
+            fingers === null || fingers === void 0 ? void 0 : fingers.forEach((amount, finger) => {
+                let x = Math.round(amount * 10 ** 5) / 10 ** 3;
+                console.log(`${finger}: ${x}%`);
+            });
         },
     },
     ...edit_1.edits,

@@ -9,6 +9,7 @@ import loadLayout from "./loadLayout";
 import { noCorpusLoaded } from "./messages";
 import { getBigrams, getTrigrams } from "../corpus/corpusUtil";
 import { edits } from "./edit";
+import getStats from "../analyse/getStats";
 
 const commands: Command[] = [
   {
@@ -195,6 +196,36 @@ const commands: Command[] = [
       }
 
       console.log(layout.magicRules.join(" "));
+    },
+  },
+  {
+    token: "fingers",
+    explain: "[layoutname]\nShows finger usage for a layout.",
+    minArgs: 1,
+    maxArgs: 1,
+    action: (gs, args) => {
+      const layoutPos = loadLayout(gs, args[0]);
+      if (layoutPos == -1) {
+        console.log(`${args[0]} was not found.`);
+        return;
+      }
+
+      const layout = gs.loadedLayouts[layoutPos];
+
+      if (gs.currentCorpora == -1) {
+        noCorpusLoaded();
+        return;
+      }
+
+      const fingers = getStats(layout, gs.loadedCorpora[gs.currentCorpora], {
+        fingerFreq: true,
+      }).fingerFreq;
+
+      fingers?.forEach((amount, finger) => {
+        let x = Math.round(amount * 10 ** 5) / 10 ** 3;
+
+        console.log(`${finger}: ${x}%`);
+      });
     },
   },
   ...edits,

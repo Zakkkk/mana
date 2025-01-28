@@ -11,6 +11,24 @@ const addGramAmount = (
   else ngram[gram] = amount;
 };
 
+export const getFingerFreq = (
+  monograms: TokenFreq,
+  fingerKeyMap: TokenFreq,
+): number[] => {
+  const fingers: number[] = [];
+  for (let i = 0; i < 10; i++) fingers.push(0);
+
+  for (const monogram in monograms) {
+    const finger = fingerKeyMap[monogram];
+
+    if (finger != undefined) {
+      fingers[finger] += monograms[monogram];
+    }
+  }
+
+  return fingers;
+};
+
 export const getHeatmap = (monograms: TokenFreq, layout: Layout): number => {
   let heatmapScore = 0;
 

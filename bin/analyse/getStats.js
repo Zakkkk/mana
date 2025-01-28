@@ -18,7 +18,9 @@ const getStats = (layout, corpus, chosenStats) => {
     let bigrams = {};
     let trigrams = {};
     let skip2grams = {};
-    if (chosenStats.heatmapScore || chosenStats.handbalanceScore)
+    if (chosenStats.heatmapScore ||
+        chosenStats.handbalanceScore ||
+        chosenStats.fingerFreq)
         monograms = (0, corpusUtil_1.getMonograms)(corpus, layout);
     if (chosenStats.lsb ||
         chosenStats.fullScissors ||
@@ -42,6 +44,8 @@ const getStats = (layout, corpus, chosenStats) => {
         chosenStats.skip2HalfScissors ||
         chosenStats.lss2)
         skip2grams = (0, corpusUtil_1.getSkip2grams)(corpus, layout);
+    if (chosenStats.fingerFreq)
+        stats.fingerFreq = (0, rules_1.getFingerFreq)(monograms, fingerKeyMap);
     if (chosenStats.heatmapScore) {
         stats.heatmapScore = (0, rules_1.getHeatmap)(monograms, layout);
     }

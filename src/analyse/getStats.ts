@@ -33,6 +33,7 @@ import {
   getSfsr,
   getHeatmap,
   getHandBalance,
+  getFingerFreq,
 } from "./rules";
 
 export const getFingerKeyMap = (layout: Layout): Record<string, number> => {
@@ -57,7 +58,11 @@ const getStats = (
   let trigrams: TokenFreq = {};
   let skip2grams: TokenFreq = {};
 
-  if (chosenStats.heatmapScore || chosenStats.handbalanceScore)
+  if (
+    chosenStats.heatmapScore ||
+    chosenStats.handbalanceScore ||
+    chosenStats.fingerFreq
+  )
     monograms = getMonograms(corpus, layout);
 
   if (
@@ -90,6 +95,9 @@ const getStats = (
     chosenStats.lss2
   )
     skip2grams = getSkip2grams(corpus, layout);
+
+  if (chosenStats.fingerFreq)
+    stats.fingerFreq = getFingerFreq(monograms, fingerKeyMap);
 
   if (chosenStats.heatmapScore) {
     stats.heatmapScore = getHeatmap(monograms, layout);

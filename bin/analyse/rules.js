@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOut3roll = exports.getIn3roll = exports.getOutrolls = exports.getInrolls = exports.getRedirectWeaks = exports.getRedirects = exports.getAlternates = exports.getSfsr = exports.getLss = exports.getSfs = exports.getSfr = exports.getSkipFullScissors = exports.getFullScissors = exports.getSkipHalfScissors = exports.getHalfScissors = exports.getLsb = exports.getSfbs = exports.getHandBalance = exports.getHeatmap = void 0;
+exports.getOut3roll = exports.getIn3roll = exports.getOutrolls = exports.getInrolls = exports.getRedirectWeaks = exports.getRedirects = exports.getAlternates = exports.getSfsr = exports.getLss = exports.getSfs = exports.getSfr = exports.getSkipFullScissors = exports.getFullScissors = exports.getSkipHalfScissors = exports.getHalfScissors = exports.getLsb = exports.getSfbs = exports.getHandBalance = exports.getHeatmap = exports.getFingerFreq = void 0;
 const getHand = (finger) => (finger < 5 ? 0 : 1);
 const addGramAmount = (gram, amount, ngram) => {
     if (gram in ngram)
@@ -8,6 +8,19 @@ const addGramAmount = (gram, amount, ngram) => {
     else
         ngram[gram] = amount;
 };
+const getFingerFreq = (monograms, fingerKeyMap) => {
+    const fingers = [];
+    for (let i = 0; i < 10; i++)
+        fingers.push(0);
+    for (const monogram in monograms) {
+        const finger = fingerKeyMap[monogram];
+        if (finger != undefined) {
+            fingers[finger] += monograms[monogram];
+        }
+    }
+    return fingers;
+};
+exports.getFingerFreq = getFingerFreq;
 const getHeatmap = (monograms, layout) => {
     let heatmapScore = 0;
     const heatmap = [
