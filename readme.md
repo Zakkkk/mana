@@ -98,7 +98,8 @@ Redirect (+sfs): 6.215%
 └────────────────┴──────────┴────────────┴─────────────┘
 ```
 
-You can see examples of any of these stats with commands like `sfb vylet` or `sfs vylet 30` to see the top 30. Command `help` to see the rest of the commands for examples.
+You can see examples of any of these stats with commands like `sfb vylet` or `sfs vylet 30` to see the top 30. Comamnd `fingers vylet` will list the finger frequencies for a layout.
+Command `help` to see the rest of the commands for examples.
 
 ## Thanks
 Special thanks to [pine](https://github.com/ClemenPine/) for helping out throughout the process, as well as other [AKL discord](https://discord.com/invite/sxTV2G5Acg) members.
