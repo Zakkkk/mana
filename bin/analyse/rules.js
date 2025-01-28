@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOut3roll = exports.getIn3roll = exports.getOutrolls = exports.getInrolls = exports.getRedirectWeaks = exports.getRedirects = exports.getAlternates = exports.getSfsr = exports.getLss = exports.getSfs = exports.getSfr = exports.getSkipFullScissors = exports.getFullScissors = exports.getSkipHalfScissors = exports.getHalfScissors = exports.getLsb = exports.getSfbs = void 0;
+exports.getOut3roll = exports.getIn3roll = exports.getOutrolls = exports.getInrolls = exports.getRedirectWeaks = exports.getRedirects = exports.getAlternates = exports.getSfsr = exports.getLss = exports.getSfs = exports.getSfr = exports.getSkipFullScissors = exports.getFullScissors = exports.getSkipHalfScissors = exports.getHalfScissors = exports.getLsb = exports.getSfbs = exports.getHandBalance = exports.getHeatmap = void 0;
 const getHand = (finger) => (finger < 5 ? 0 : 1);
 const addGramAmount = (gram, amount, ngram) => {
     if (gram in ngram)
@@ -8,6 +8,46 @@ const addGramAmount = (gram, amount, ngram) => {
     else
         ngram[gram] = amount;
 };
+const getHeatmap = (monograms, layout) => {
+    let heatmapScore = 0;
+    const heatmap = [
+        [0.65, 0.85, 0.85, 0.65, 0.6, 0.7, 0.75, 0.95, 0.95, 0.75],
+        [0.85, 0.9, 0.9, 0.9, 0.7, 0.8, 1.0, 1.0, 1.0, 0.95, 0.65],
+        [0.65, 0.5, 0.65, 0.75, 0.65, 0.75, 0.85, 0.75, 0.6, 0.75],
+        [1, 1],
+    ];
+    for (let i = 0; i < layout.rows.length; i++)
+        for (let j = 0; j < layout.rows[i].length; j++) {
+            const freq = monograms[layout.rows[i][j]] == undefined
+                ? 0
+                : monograms[layout.rows[i][j]];
+            heatmapScore += freq * (heatmap[i][j] == undefined ? 0 : heatmap[i][j]);
+        }
+    // based on the lowest score being a 0.5 (lowest heatmap score)
+    // and the highest score being a 1
+    // so this remaps it to 0-1
+    heatmapScore -= 0.5;
+    heatmapScore *= 2;
+    return heatmapScore;
+};
+exports.getHeatmap = getHeatmap;
+const getHandBalance = (monograms, fingerKeyMap, layout) => {
+    let lefthand = 0;
+    let total = 0;
+    for (let i = 0; i < layout.rows.length; i++)
+        for (let j = 0; j < layout.rows[i].length; j++) {
+            if (fingerKeyMap[layout.rows[i][j]] < 4)
+                if (monograms[layout.rows[i][j]] != undefined)
+                    lefthand += monograms[layout.rows[i][j]];
+            if (monograms[layout.rows[i][j]] != undefined &&
+                (fingerKeyMap[layout.rows[i][j]] < 4 ||
+                    fingerKeyMap[layout.rows[i][j]] > 5))
+                total += monograms[layout.rows[i][j]];
+        }
+    lefthand /= total;
+    return lefthand;
+};
+exports.getHandBalance = getHandBalance;
 const getSfbs = (bigrams, fingerKeyMap) => {
     const sfbs = {};
     for (const bigram in bigrams) {

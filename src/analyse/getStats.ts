@@ -31,6 +31,8 @@ import {
   getSfr,
   getSfs,
   getSfsr,
+  getHeatmap,
+  getHandBalance,
 } from "./rules";
 
 export const getFingerKeyMap = (layout: Layout): Record<string, number> => {
@@ -90,54 +92,11 @@ const getStats = (
     skip2grams = getSkip2grams(corpus, layout);
 
   if (chosenStats.heatmapScore) {
-    stats.heatmapScore = 0;
-
-    const heatmap: number[][] = [
-      [0.65, 0.85, 0.85, 0.65, 0.6, 0.7, 0.75, 0.95, 0.95, 0.75],
-      [0.85, 0.9, 0.9, 0.9, 0.7, 0.8, 1.0, 1.0, 1.0, 0.95, 0.65],
-      [0.65, 0.5, 0.65, 0.75, 0.65, 0.75, 0.85, 0.75, 0.6, 0.75],
-      [1, 1],
-    ];
-
-    for (let i = 0; i < layout.rows.length; i++)
-      for (let j = 0; j < layout.rows[i].length; j++) {
-        const freq =
-          monograms[layout.rows[i][j]] == undefined
-            ? 0
-            : monograms[layout.rows[i][j]];
-
-        stats.heatmapScore +=
-          freq * (heatmap[i][j] == undefined ? 0 : heatmap[i][j]);
-      }
-
-    // based on the lowest score being a 0.5 (lowest heatmap score)
-    // and the highest score being a 1
-    // so this remaps it to 0-1
-    stats.heatmapScore -= 0.5;
-    stats.heatmapScore *= 2;
+    stats.heatmapScore = getHeatmap(monograms, layout);
   }
 
   if (chosenStats.handbalanceScore) {
-    let lefthand = 0;
-    let total = 0;
-
-    for (let i = 0; i < layout.rows.length; i++)
-      for (let j = 0; j < layout.rows[i].length; j++) {
-        if (fingerKeyMap[layout.rows[i][j]] < 4)
-          if (monograms[layout.rows[i][j]] != undefined)
-            lefthand += monograms[layout.rows[i][j]];
-
-        if (
-          monograms[layout.rows[i][j]] != undefined &&
-          (fingerKeyMap[layout.rows[i][j]] < 4 ||
-            fingerKeyMap[layout.rows[i][j]] > 5)
-        )
-          total += monograms[layout.rows[i][j]];
-      }
-
-    lefthand /= total;
-
-    stats.handbalanceScore = lefthand;
+    stats.handbalanceScore = getHandBalance(monograms, fingerKeyMap, layout);
   }
 
   if (chosenStats.sfb) {
