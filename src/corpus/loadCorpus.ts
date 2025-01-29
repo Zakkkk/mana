@@ -1,20 +1,24 @@
 import * as fs from "fs";
 
-import { Corpus, GlobalSettings, TokenFreq } from "../types";
+import { Corpus, GlobalSettings } from "../types";
 
-const loadCorpus = (corpusName: string): Corpus | number => {
+export const loadCorpus = (
+  corpusName: string,
+  overWriteDefaut?: boolean,
+): Corpus | number => {
   let data;
 
   try {
     data = JSON.parse(fs.readFileSync(`parsed/${corpusName}.json`, "utf8"));
 
-    try {
-      fs.writeFileSync(`defaultLoadCorpus`, corpusName, {
-        flag: "w",
-      });
-    } catch {}
+    if (overWriteDefaut != false)
+      try {
+        fs.writeFileSync(`defaultLoadCorpus`, corpusName, {
+          flag: "w",
+        });
+      } catch {}
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     return -1;
   }
 
