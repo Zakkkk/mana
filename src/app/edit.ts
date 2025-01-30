@@ -174,7 +174,7 @@ edits.push({
         fs.readFileSync(`layouts/${filename}.json`, "utf8"),
       );
 
-      layoutFromFile.rows = layout.rows;
+      layoutFromFile.magicRules = layout.magicRules;
 
       fs.writeFileSync(
         `layouts/${filename}.json`,
@@ -255,7 +255,7 @@ edits.push({
         fs.readFileSync(`layouts/${filename}.json`, "utf8"),
       );
 
-      layoutFromFile.rows = layout.rows;
+      layoutFromFile.magicRules = layout.magicRules;
 
       fs.writeFileSync(
         `layouts/${filename}.json`,
@@ -336,7 +336,7 @@ edits.push({
         fs.readFileSync(`layouts/${filename}.json`, "utf8"),
       );
 
-      layoutFromFile.rows = layout.rows;
+      layoutFromFile.magicRules = layout.magicRules;
 
       fs.writeFileSync(
         `layouts/${filename}.json`,

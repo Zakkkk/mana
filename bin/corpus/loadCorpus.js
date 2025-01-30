@@ -32,20 +32,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.loadCorpus = void 0;
 const fs = __importStar(require("fs"));
-const loadCorpus = (corpusName) => {
+const loadCorpus = (corpusName, overWriteDefaut) => {
     let data;
     try {
         data = JSON.parse(fs.readFileSync(`parsed/${corpusName}.json`, "utf8"));
-        try {
-            fs.writeFileSync(`defaultLoadCorpus`, corpusName, {
-                flag: "w",
-            });
-        }
-        catch (_a) { }
+        if (overWriteDefaut != false)
+            try {
+                fs.writeFileSync(`defaultLoadCorpus`, corpusName, {
+                    flag: "w",
+                });
+            }
+            catch (_a) { }
     }
     catch (err) {
-        console.error(err);
+        // console.error(err);
         return -1;
     }
     let corpus = {
@@ -57,6 +59,7 @@ const loadCorpus = (corpusName) => {
     };
     return corpus;
 };
+exports.loadCorpus = loadCorpus;
 const setCorpusPositionByName = (corpusName, gs) => __awaiter(void 0, void 0, void 0, function* () {
     for (let i = 0; i < gs.loadedCorpora.length; i++) {
         if (gs.loadedCorpora[i].name == corpusName) {
@@ -65,7 +68,7 @@ const setCorpusPositionByName = (corpusName, gs) => __awaiter(void 0, void 0, vo
             return true;
         }
     }
-    const newCorpus = loadCorpus(corpusName);
+    const newCorpus = (0, exports.loadCorpus)(corpusName);
     if (typeof newCorpus === "number")
         return false;
     else if (newCorpus.name == corpusName) {

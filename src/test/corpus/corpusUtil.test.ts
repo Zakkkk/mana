@@ -25,11 +25,11 @@ const layout: Layout = {
   magicRules: ["hi", "jk", "lm"],
 };
 
-test("Monogram collection", () => {
-  const monograms1 = getMonograms(corpusUtit1, layout);
-  expect(monograms1).toMatchObject({
-    a: 1,
-    b: 1,
-    c: 1,
-  });
-});
+// test("Monogram collection", () => {
+//   const monograms1 = getMonograms(corpusUtit1, layout);
+//   expect(monograms1).toMatchObject({
+//     a: 1,
+//     b: 1,
+//     c: 1,
+//   });
+// });

@@ -158,7 +158,7 @@ edits.push({
             return;
         try {
             const layoutFromFile = JSON.parse(fs.readFileSync(`layouts/${filename}.json`, "utf8"));
-            layoutFromFile.rows = layout.rows;
+            layoutFromFile.magicRules = layout.magicRules;
             fs.writeFileSync(`layouts/${filename}.json`, JSON.stringify(layoutFromFile, null, 2), {
                 flag: "w",
             });
@@ -217,7 +217,7 @@ edits.push({
             return;
         try {
             const layoutFromFile = JSON.parse(fs.readFileSync(`layouts/${filename}.json`, "utf8"));
-            layoutFromFile.rows = layout.rows;
+            layoutFromFile.magicRules = layout.magicRules;
             fs.writeFileSync(`layouts/${filename}.json`, JSON.stringify(layoutFromFile, null, 2), {
                 flag: "w",
             });
@@ -276,7 +276,7 @@ edits.push({
             return;
         try {
             const layoutFromFile = JSON.parse(fs.readFileSync(`layouts/${filename}.json`, "utf8"));
-            layoutFromFile.rows = layout.rows;
+            layoutFromFile.magicRules = layout.magicRules;
             fs.writeFileSync(`layouts/${filename}.json`, JSON.stringify(layoutFromFile, null, 2), {
                 flag: "w",
             });
