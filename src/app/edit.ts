@@ -7,7 +7,7 @@ const edits: Command[] = [];
 
 const layoutNameModification = " (Modified)";
 
-function swapLettersInArray(
+export function swapLettersInArray(
   array: string[],
   letter1: string,
   letter2: string,

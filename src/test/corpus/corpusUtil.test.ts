@@ -8,7 +8,7 @@ import parseCorpus from "../../corpus/parseCorpus";
 
 import { getMonograms } from "../../corpus/corpusUtil";
 
-fs.writeFileSync("corpus/test/corpusUtil1.txt", `a b c hi jk lm no pq rs`, {
+fs.writeFileSync("corpus/test/corpusUtil1.txt", `a b c hi jk lm na`, {
   flag: "w",
 });
 
@@ -25,11 +25,17 @@ const layout: Layout = {
   magicRules: ["hi", "jk", "lm"],
 };
 
-// test("Monogram collection", () => {
-//   const monograms1 = getMonograms(corpusUtit1, layout);
-//   expect(monograms1).toMatchObject({
-//     a: 1,
-//     b: 1,
-//     c: 1,
-//   });
-// });
+test("Monogram collection", () => {
+  const monograms1 = getMonograms(corpusUtit1, layout);
+  const monograms1Total = 11;
+  expect(monograms1).toMatchObject({
+    a: 2 / monograms1Total,
+    b: 1 / monograms1Total,
+    c: 1 / monograms1Total,
+    h: 1 / monograms1Total,
+    "*": 3 / monograms1Total,
+    j: 1 / monograms1Total,
+    l: 1 / monograms1Total,
+    n: 1 / monograms1Total,
+  });
+});

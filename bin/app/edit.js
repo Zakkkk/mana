@@ -27,6 +27,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.edits = void 0;
+exports.swapLettersInArray = swapLettersInArray;
 const loadLayout_1 = __importDefault(require("./loadLayout"));
 const viewLayout_1 = __importDefault(require("./viewLayout"));
 const fs = __importStar(require("fs"));
