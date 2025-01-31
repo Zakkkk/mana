@@ -14,7 +14,7 @@ fs.writeFileSync("corpus/test/corpusUtil1.txt", `a b c hi jk lm na`, {
 
 parseCorpus("test/corpusUtil1.txt", "test/corpusUtil1");
 // @ts-ignore
-const corpusUtit1: Corpus = loadCorpus("test/corpusUtil1");
+const corpusUtit1: Corpus = loadCorpus("test/corpusUtil1", false);
 
 const layout: Layout = {
   name: "test",
