@@ -1,27 +1,28 @@
 import loadLayout from "./loadLayout";
-import { Command, Layout, MagicRule } from "../types";
+import { Command, Layout } from "../types";
 import viewLayout from "./viewLayout";
 import * as fs from "fs";
 
 const edits: Command[] = [];
 
-const layoutNameModification = " (Modified)";
-
 export function swapLettersInArray(
-  array: string[],
+  rows: string[],
   letter1: string,
   letter2: string,
 ): string[] {
-  return array.map((str) =>
-    str
-      .split("")
-      .map((char) => {
-        if (char === letter1) return letter2;
-        if (char === letter2) return letter1;
-        return char;
-      })
-      .join(""),
-  );
+  return rows.map((row) => {
+    const chars = row.split("");
+
+    for (let j = 0; j < chars.length; j++) {
+      if (chars[j] === letter1) {
+        chars[j] = letter2;
+      } else if (chars[j] === letter2) {
+        chars[j] = letter1;
+      }
+    }
+
+    return chars.join("");
+  });
 }
 
 edits.push({
@@ -40,9 +41,7 @@ edits.push({
       return;
     }
 
-    const layout = gs.loadedLayouts[layoutPosition];
-
-    layout.name += layoutNameModification;
+    const layout = { ...gs.loadedLayouts[layoutPosition] };
 
     let noErrors = true;
 
@@ -79,15 +78,9 @@ edits.push({
     if (layout == undefined) return;
 
     try {
-      const layoutFromFile = JSON.parse(
-        fs.readFileSync(`layouts/${filename}.json`, "utf8"),
-      );
-
-      layoutFromFile.rows = layout.rows;
-
       fs.writeFileSync(
         `layouts/${filename}.json`,
-        JSON.stringify(layoutFromFile, null, 2),
+        JSON.stringify(layout, null, 2),
         {
           flag: "w",
         },
@@ -119,7 +112,7 @@ edits.push({
       return;
     }
 
-    const layout = gs.loadedLayouts[layoutPosition];
+    const layout = { ...gs.loadedLayouts[layoutPosition] };
 
     if (!layout.hasMagic) {
       console.log("This layout does not have magic.");
@@ -170,15 +163,9 @@ edits.push({
     if (layout == undefined) return;
 
     try {
-      const layoutFromFile = JSON.parse(
-        fs.readFileSync(`layouts/${filename}.json`, "utf8"),
-      );
-
-      layoutFromFile.magicRules = layout.magicRules;
-
       fs.writeFileSync(
         `layouts/${filename}.json`,
-        JSON.stringify(layoutFromFile, null, 2),
+        JSON.stringify(layout, null, 2),
         {
           flag: "w",
         },
@@ -210,7 +197,7 @@ edits.push({
       return;
     }
 
-    const layout = gs.loadedLayouts[layoutPosition];
+    const layout = { ...gs.loadedLayouts[layoutPosition] };
 
     if (!layout.hasMagic) {
       console.log("This layout does not have magic.");
@@ -251,15 +238,9 @@ edits.push({
     if (layout == undefined) return;
 
     try {
-      const layoutFromFile = JSON.parse(
-        fs.readFileSync(`layouts/${filename}.json`, "utf8"),
-      );
-
-      layoutFromFile.magicRules = layout.magicRules;
-
       fs.writeFileSync(
         `layouts/${filename}.json`,
-        JSON.stringify(layoutFromFile, null, 2),
+        JSON.stringify(layout, null, 2),
         {
           flag: "w",
         },
@@ -291,7 +272,7 @@ edits.push({
       return;
     }
 
-    const layout = gs.loadedLayouts[layoutPosition];
+    const layout = { ...gs.loadedLayouts[layoutPosition] };
 
     if (!layout.hasMagic) {
       console.log("This layout does not have magic.");
@@ -332,15 +313,9 @@ edits.push({
     if (layout == undefined) return;
 
     try {
-      const layoutFromFile = JSON.parse(
-        fs.readFileSync(`layouts/${filename}.json`, "utf8"),
-      );
-
-      layoutFromFile.magicRules = layout.magicRules;
-
       fs.writeFileSync(
         `layouts/${filename}.json`,
-        JSON.stringify(layoutFromFile, null, 2),
+        JSON.stringify(layout, null, 2),
         {
           flag: "w",
         },
