@@ -17,7 +17,7 @@ Command `help` lists all commands.
 Command `explain [command]` will give a brief explanation for any command.
 
 ## Adding Your Own Layouts
-Navigate to `/layouts` and create a `layoutname.json` file. Make sure the file name does not have any spaces.
+Navigate to `/layouts` and create a `layoutname.json` file. Make sure the file name does not have any spaces. The name in the layout must match the file name, although you can capitalise where you want.
 
 The fingermap numbers range from 0 (left pinky) to 4 and 5 (left and right thumb) and then up to 9.
 
@@ -27,9 +27,19 @@ Example:
 
 ```json
 {
-    "name": "Layout Name",
-    "rows": ["abcdmfghij", "kl*nopqrst", "uvwxyz,.'", "e"],
-    "fingermap": ["0123366789", "0123366789", "0123366789", "5"],
+    "name": "LayoutName",
+    "rows": [
+        "abcdmfghij",
+        "kl*nopqrst",
+        "uvwxyz,.'",
+        "e"
+    ],
+    "fingermap": [
+        "0123366789",
+        "0123366789",
+        "0123366789",
+        "5"
+    ],
     "hasMagic": true,
     "magicIdentifier": "*",
     "magicRules": [
