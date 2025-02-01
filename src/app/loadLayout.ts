@@ -1,10 +1,10 @@
 import * as fs from "fs";
 
-import { GlobalSettings, MagicRule } from "../types";
+import { GlobalSettings } from "../types";
 
 const loadLayout = (gs: GlobalSettings, layoutName: string): number => {
   for (let i = 0; i < gs.loadedLayouts.length; i++) {
-    if (gs.loadedLayouts[i].name == layoutName) {
+    if (gs.loadedLayouts[i].name.toLowerCase() == layoutName.toLowerCase()) {
       return i;
     }
   }

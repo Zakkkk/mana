@@ -26,7 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(require("fs"));
 const loadLayout = (gs, layoutName) => {
     for (let i = 0; i < gs.loadedLayouts.length; i++) {
-        if (gs.loadedLayouts[i].name == layoutName) {
+        if (gs.loadedLayouts[i].name.toLowerCase() == layoutName.toLowerCase()) {
             return i;
         }
     }
