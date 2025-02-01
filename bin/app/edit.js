@@ -120,7 +120,6 @@ edits.push({
             console.log("This layout does not have magic.");
             return;
         }
-        layout.name += " (Modified)";
         const hasRuleWithStart = (rule) => {
             for (let i = 0; i < layout.magicRules.length; i++)
                 if (layout.magicRules[i][0] == rule[0])
@@ -185,7 +184,6 @@ edits.push({
             console.log("This layout does not have magic.");
             return;
         }
-        layout.name += " (Modified)";
         let noErrors = true;
         rules.forEach((rule) => {
             if (rule.length != 2) {
@@ -242,7 +240,6 @@ edits.push({
             console.log("This layout does not have magic.");
             return;
         }
-        layout.name += " (Modified)";
         let noErrors = true;
         rules.forEach((rule) => {
             if (rule.length != 2) {
