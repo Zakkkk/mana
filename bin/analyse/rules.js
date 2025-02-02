@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getOut3roll = exports.getIn3roll = exports.getOutrolls = exports.getInrolls = exports.getRedirectWeaks = exports.getRedirects = exports.getAlternates = exports.getSfsr = exports.getLss = exports.getSfs = exports.getSfr = exports.getSkipFullScissors = exports.getFullScissors = exports.getSkipHalfScissors = exports.getHalfScissors = exports.getLsb = exports.getSfbs = exports.getHandBalance = exports.getHeatmap = exports.getFingerFreq = void 0;
 const getHand = (finger) => (finger < 5 ? 0 : 1);
+const isThumb = (key, fingerKeyMap) => fingerKeyMap[key] == 4 || fingerKeyMap[key] == 5;
 const addGramAmount = (gram, amount, ngram) => {
     if (gram in ngram)
         ngram[gram] += amount;
@@ -103,7 +104,9 @@ const getHalfScissors = (bigrams, fingerKeyMap, layout) => {
         if (getHand(fingerKeyMap[bigram[0]]) == getHand(fingerKeyMap[bigram[1]]) &&
             fingerKeyMap[bigram[0]] != fingerKeyMap[bigram[1]] &&
             Math.abs(getY(bigram[0]) - getY(bigram[1])) == 1 &&
-            [1, 2, 7, 8].includes(fingerKeyMap[getY(bigram[0]) > getY(bigram[1]) ? bigram[0] : bigram[1]]))
+            [1, 2, 7, 8].includes(fingerKeyMap[getY(bigram[0]) > getY(bigram[1]) ? bigram[0] : bigram[1]]) &&
+            !isThumb(bigram[0], fingerKeyMap) &&
+            !isThumb(bigram[1], fingerKeyMap))
             halfScissor[bigram] = bigrams[bigram];
     }
     return halfScissor;
@@ -122,7 +125,9 @@ const getSkipHalfScissors = (trigrams, fingerKeyMap, layout) => {
         if (getHand(fingerKeyMap[trigram[0]]) == getHand(fingerKeyMap[trigram[2]]) &&
             fingerKeyMap[trigram[0]] != fingerKeyMap[trigram[2]] &&
             Math.abs(getY(trigram[0]) - getY(trigram[2])) == 1 &&
-            [1, 2, 7, 8].includes(fingerKeyMap[getY(trigram[0]) > getY(trigram[2]) ? trigram[0] : trigram[2]]))
+            [1, 2, 7, 8].includes(fingerKeyMap[getY(trigram[0]) > getY(trigram[2]) ? trigram[0] : trigram[2]]) &&
+            !isThumb(trigram[0], fingerKeyMap) &&
+            !isThumb(trigram[2], fingerKeyMap))
             addGramAmount(trigram[0] + trigram[2], trigrams[trigram], skipHalfScissor);
     }
     return skipHalfScissor;
@@ -141,7 +146,9 @@ const getFullScissors = (bigrams, fingerKeyMap, layout) => {
         if (getHand(fingerKeyMap[bigram[0]]) == getHand(fingerKeyMap[bigram[1]]) &&
             fingerKeyMap[bigram[0]] != fingerKeyMap[bigram[1]] &&
             Math.abs(getY(bigram[0]) - getY(bigram[1])) >= 2 &&
-            ![3, 4, 5, 6].includes(fingerKeyMap[getY(bigram[0]) > getY(bigram[1]) ? bigram[0] : bigram[1]]))
+            ![3, 4, 5, 6].includes(fingerKeyMap[getY(bigram[0]) > getY(bigram[1]) ? bigram[0] : bigram[1]]) &&
+            !isThumb(bigram[0], fingerKeyMap) &&
+            !isThumb(bigram[1], fingerKeyMap))
             fullScissor[bigram] = bigrams[bigram];
     }
     return fullScissor;
@@ -160,7 +167,9 @@ const getSkipFullScissors = (trigrams, fingerKeyMap, layout) => {
         if (getHand(fingerKeyMap[trigram[0]]) == getHand(fingerKeyMap[trigram[2]]) &&
             fingerKeyMap[trigram[0]] != fingerKeyMap[trigram[2]] &&
             Math.abs(getY(trigram[0]) - getY(trigram[2])) >= 2 &&
-            ![3, 4, 5, 6].includes(fingerKeyMap[getY(trigram[0]) > getY(trigram[2]) ? trigram[0] : trigram[2]]))
+            ![3, 4, 5, 6].includes(fingerKeyMap[getY(trigram[0]) > getY(trigram[2]) ? trigram[0] : trigram[2]]) &&
+            !isThumb(trigram[0], fingerKeyMap) &&
+            !isThumb(trigram[2], fingerKeyMap))
             addGramAmount(trigram[0] + trigram[2], trigrams[trigram], skipFullScissors);
     }
     return skipFullScissors;
