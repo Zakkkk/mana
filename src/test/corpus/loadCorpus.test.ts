@@ -52,7 +52,7 @@ const gs: GlobalSettings = {
 
 test("setCorpusPositionByName finds layout that already was found", () => {
   gs.currentCorpora = -1;
-  setCorpusPositionByName("exists", gs);
+  setCorpusPositionByName("exists", gs, false);
 
   expect(gs.currentCorpora).toBe(0);
   gs.currentCorpora = -1;
@@ -60,7 +60,7 @@ test("setCorpusPositionByName finds layout that already was found", () => {
 
 test("setCorpusPositionByName finds layout that was not already found", () => {
   gs.currentCorpora = -1;
-  setCorpusPositionByName("test/loadCorpus1", gs);
+  setCorpusPositionByName("test/loadCorpus1", gs, false);
 
   expect(gs.currentCorpora).toBe(1);
   gs.currentCorpora = -1;

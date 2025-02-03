@@ -36,6 +36,7 @@ export const loadCorpus = (
 const setCorpusPositionByName = async (
   corpusName: string,
   gs: GlobalSettings,
+  overWriteDefault?: boolean,
 ): Promise<boolean> => {
   for (let i = 0; i < gs.loadedCorpora.length; i++) {
     if (gs.loadedCorpora[i].name == corpusName) {
@@ -45,7 +46,7 @@ const setCorpusPositionByName = async (
     }
   }
 
-  const newCorpus = loadCorpus(corpusName);
+  const newCorpus = loadCorpus(corpusName, overWriteDefault);
   if (typeof newCorpus === "number") return false;
   else if (newCorpus.name == corpusName) {
     gs.loadedCorpora.push(newCorpus);
