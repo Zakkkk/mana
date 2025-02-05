@@ -22,15 +22,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -66,60 +57,60 @@ const commands = [
         explain: "[filename] [corpus name]:\nTransforms a file with text into a file with information about the frequencies of bigrams/trigrams/fourgrams. Looks for files inside of the folder /corpus and writes the output to /parsed",
         minArgs: 2,
         maxArgs: 2,
-        action: (_, args) => __awaiter(void 0, void 0, void 0, function* () {
+        action: async (_, args) => {
             console.log(`Parsing corpus with filename of ${args[0]}`);
-            yield (0, parseCorpus_1.default)(args[0], args[1]);
-        }),
+            await (0, parseCorpus_1.default)(args[0], args[1]);
+        },
     },
     {
         token: "layouts",
         explain: "Lists all json files inside of /layouts",
         maxArgs: 0,
-        action: () => __awaiter(void 0, void 0, void 0, function* () {
+        action: async () => {
             fs.readdirSync("layouts").forEach((file) => {
                 if (file.includes(".json"))
                     console.log(file.replace(/\.[^/.]+$/, ""));
             });
-        }),
+        },
     },
     {
         token: "view",
         explain: "[layout file name w/ extension]:\nViews a layout and all the stats associated.",
         minArgs: 1,
         maxArgs: 1,
-        action: (gs, args) => __awaiter(void 0, void 0, void 0, function* () {
+        action: async (gs, args) => {
             (0, viewLayout_1.default)(gs, args[0]);
-        }),
+        },
     },
     {
         token: "corpora",
         explain: "Lists all json files inside of /parsed",
         maxArgs: 0,
-        action: () => __awaiter(void 0, void 0, void 0, function* () {
+        action: async () => {
             fs.readdirSync("parsed").forEach((file) => {
                 if (file.includes(".json"))
                     console.log(file.replace(/\.[^/.]+$/, ""));
             });
-        }),
+        },
     },
     {
         token: "corpus",
         explain: "[corpus name]:\nSwitches the current corpus to one of the ones that can be listed.",
         minArgs: 1,
         maxArgs: 1,
-        action: (gs, args) => __awaiter(void 0, void 0, void 0, function* () {
-            yield (0, loadCorpus_1.default)(args[0], gs);
+        action: async (gs, args) => {
+            await (0, loadCorpus_1.default)(args[0], gs);
             if (gs.currentCorpora == -1)
                 console.log(`Corpus ${args[0]} could not be loaded`);
-        }),
+        },
     },
     {
         token: "corpnow",
         explain: "Outputs the current corpus being used, as well as the corpus position.",
         maxArgs: 0,
-        action: (gs) => __awaiter(void 0, void 0, void 0, function* () {
+        action: async (gs) => {
             console.log(`${gs.currentCorpora}: ${gs.currentCorpora == -1 ? "No corpus is currently loaded." : gs.loadedCorpora[gs.currentCorpora].name}`);
-        }),
+        },
     },
     {
         token: "clear",
@@ -230,7 +221,7 @@ const commands = [
             const fingers = (0, getStats_1.default)(layout, gs.loadedCorpora[gs.currentCorpora], {
                 fingerFreq: true,
             }).fingerFreq;
-            fingers === null || fingers === void 0 ? void 0 : fingers.forEach((amount, finger) => {
+            fingers?.forEach((amount, finger) => {
                 let x = Math.round(amount * 10 ** 5) / 10 ** 3;
                 console.log(`${finger}: ${x}%`);
             });

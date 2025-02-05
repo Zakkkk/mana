@@ -22,22 +22,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(require("fs"));
 const readFile_1 = __importDefault(require("../util/readFile"));
-const parse = (filename, corpusName) => __awaiter(void 0, void 0, void 0, function* () {
+const parse = async (filename, corpusName) => {
     const keySwaps = [
         ["´", "'"],
         ["‘", "'"],
@@ -62,7 +53,7 @@ const parse = (filename, corpusName) => __awaiter(void 0, void 0, void 0, functi
         else
             ngram[gram] = 1;
     };
-    yield (0, readFile_1.default)(`corpus/${filename}`, (line) => {
+    await (0, readFile_1.default)(`corpus/${filename}`, (line) => {
         keySwaps.forEach((swap) => (line = line.replace(swap[0], swap[1])));
         line = line.toLowerCase();
         const words = line.split(" ");
@@ -116,5 +107,5 @@ const parse = (filename, corpusName) => __awaiter(void 0, void 0, void 0, functi
         console.log("There was an error writing the corpus file.");
         console.error(err);
     }
-});
+};
 exports.default = parse;

@@ -22,15 +22,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.setupKeypressHandling = setupKeypressHandling;
 const readline = __importStar(require("readline"));
@@ -43,7 +34,7 @@ function setupKeypressHandling(processInput) {
     if (process.stdin.isTTY) {
         process.stdin.setRawMode(true);
     }
-    process.stdin.on("keypress", (str, key) => __awaiter(this, void 0, void 0, function* () {
+    process.stdin.on("keypress", async (str, key) => {
         const isMac = process.platform === "darwin";
         if (key.ctrl && key.name === "c") {
             process.exit();
@@ -57,7 +48,7 @@ function setupKeypressHandling(processInput) {
             currentInput = "";
             cursorPos = 0;
             process.stdout.write("\n");
-            yield processInput(input);
+            await processInput(input);
             process.stdout.write("> ");
             return;
         }
@@ -152,7 +143,7 @@ function setupKeypressHandling(processInput) {
         }
         // Rewrite line
         rewriteLine(currentInput, cursorPos);
-    }));
+    });
     process.stdout.write("> ");
     function rewriteLine(input, cursorPos) {
         readline.clearLine(process.stdout, 0);

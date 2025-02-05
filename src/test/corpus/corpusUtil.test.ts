@@ -6,7 +6,12 @@ import { Corpus, Layout } from "../../types";
 import { loadCorpus } from "../../corpus/loadCorpus";
 import parseCorpus from "../../corpus/parseCorpus";
 
-import { getBigrams, getMonograms, getTrigrams } from "../../corpus/corpusUtil";
+import {
+  getBigrams,
+  getMonograms,
+  getSkip2grams,
+  getTrigrams,
+} from "../../corpus/corpusUtil";
 
 fs.writeFileSync("corpus/test/corpusUtil1.txt", `p a b c hi jk lm na`, {
   flag: "w",
@@ -118,5 +123,22 @@ test("trigram collection", () => {
     "e*e": 1 / trigrams2Total,
     "*e*": 2 / trigrams2Total,
     how: 1 / trigrams2Total,
+  });
+});
+
+test("skip2gram collection", () => {
+  const skip2grams = getSkip2grams(corpusUtit1, layout);
+  expect(skip2grams).toMatchObject({});
+
+  const skip2grams2 = getSkip2grams(corpusUtit2, layout);
+  const skip2grams2Total = 9;
+  expect(skip2grams2).toMatchObject({
+    gs: 1 / skip2grams2Total,
+    ht: 1 / skip2grams2Total,
+    rl: 1 / skip2grams2Total,
+    "e*": 2 / skip2grams2Total,
+    "h*": 2 / skip2grams2Total,
+    "*h": 1 / skip2grams2Total,
+    "**": 1 / skip2grams2Total,
   });
 });

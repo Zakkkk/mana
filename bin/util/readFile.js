@@ -22,46 +22,35 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(require("fs"));
 const readline = __importStar(require("readline"));
-function readFileByStream(filePath, onLine) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return new Promise((resolve, reject) => {
-            const fileStream = fs.createReadStream(filePath);
-            fileStream.on("error", (err) => {
-                console.error("Error with file stream:", err);
+async function readFileByStream(filePath, onLine) {
+    return new Promise((resolve, reject) => {
+        const fileStream = fs.createReadStream(filePath);
+        fileStream.on("error", (err) => {
+            console.error("Error with file stream:", err);
+            reject(err);
+        });
+        const rl = readline.createInterface({
+            input: fileStream,
+            crlfDelay: Infinity,
+        });
+        rl.on("line", (line) => {
+            try {
+                onLine(line);
+            }
+            catch (err) {
+                console.error("Error in line callback:", err);
+                rl.close();
                 reject(err);
-            });
-            const rl = readline.createInterface({
-                input: fileStream,
-                crlfDelay: Infinity,
-            });
-            rl.on("line", (line) => {
-                try {
-                    onLine(line);
-                }
-                catch (err) {
-                    console.error("Error in line callback:", err);
-                    rl.close();
-                    reject(err);
-                }
-            });
-            rl.on("close", () => {
-                resolve();
-            });
-            rl.on("error", (err) => {
-                reject(err);
-            });
+            }
+        });
+        rl.on("close", () => {
+            resolve();
+        });
+        rl.on("error", (err) => {
+            reject(err);
         });
     });
 }

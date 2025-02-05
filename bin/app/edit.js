@@ -60,7 +60,7 @@ edits.push({
             console.log(`Layout ${layoutName} was not found.`);
             return;
         }
-        const layout = Object.assign({}, gs.loadedLayouts[layoutPosition]);
+        const layout = { ...gs.loadedLayouts[layoutPosition] };
         let noErrors = true;
         edits.forEach((swap) => {
             if (swap.length < 1) {
@@ -115,7 +115,7 @@ edits.push({
             console.log(`Layout ${layoutName} was not found.`);
             return;
         }
-        const layout = Object.assign({}, gs.loadedLayouts[layoutPosition]);
+        const layout = { ...gs.loadedLayouts[layoutPosition] };
         if (!layout.hasMagic) {
             console.log("This layout does not have magic.");
             return;
@@ -179,7 +179,7 @@ edits.push({
             console.log(`Layout ${layoutName} was not found.`);
             return;
         }
-        const layout = Object.assign({}, gs.loadedLayouts[layoutPosition]);
+        const layout = { ...gs.loadedLayouts[layoutPosition] };
         if (!layout.hasMagic) {
             console.log("This layout does not have magic.");
             return;
@@ -235,7 +235,7 @@ edits.push({
             console.log(`Layout ${layoutName} was not found.`);
             return;
         }
-        const layout = Object.assign({}, gs.loadedLayouts[layoutPosition]);
+        const layout = { ...gs.loadedLayouts[layoutPosition] };
         if (!layout.hasMagic) {
             console.log("This layout does not have magic.");
             return;

@@ -24,7 +24,7 @@ const getMonograms = (corpus: Corpus, layout: Layout): TokenFreq => {
     let magicReplacements = 0;
     if (layout.hasMagic)
       for (let i = 0; i < layout.magicRules.length; i++) {
-        const replacement = extendedMonogram.replace(
+        const replacement = extendedMonogram.replaceAll(
           layout.magicRules[i],
           layout.magicRules[i][0] + layout.magicIdentifier,
         );
@@ -58,7 +58,7 @@ const getBigrams = (corpus: Corpus, layout: Layout): TokenFreq => {
     let magicReplacements = 0;
     if (layout.hasMagic)
       for (let i = 0; i < layout.magicRules.length; i++) {
-        const replacement = extendedBigram.replace(
+        const replacement = extendedBigram.replaceAll(
           layout.magicRules[i],
           layout.magicRules[i][0] + layout.magicIdentifier,
         );
@@ -99,7 +99,7 @@ const getTrigrams = (corpus: Corpus, layout: Layout): TokenFreq => {
     let magicReplacements = 0;
     if (layout.hasMagic)
       for (let i = 0; i < layout.magicRules.length; i++) {
-        const replacement = extendedTrigram.replace(
+        const replacement = extendedTrigram.replaceAll(
           layout.magicRules[i],
           layout.magicRules[i][0] + layout.magicIdentifier,
         );
@@ -137,25 +137,38 @@ const getSkip2grams = (corpus: Corpus, layout: Layout): TokenFreq => {
 
   for (let extendedSkip2gram in corpus.extendedSkip2grams) {
     const freq = corpus.extendedSkip2grams[extendedSkip2gram];
-    let parts = [extendedSkip2gram[0], extendedSkip2gram[1]];
 
     let magicReplacements = 0;
     if (layout.hasMagic)
       for (let i = 0; i < layout.magicRules.length; i++) {
-        const replacement = extendedSkip2gram.replace(
-          layout.magicRules[i],
-          layout.magicRules[i][0] + layout.magicIdentifier,
-        );
+        const parts = [...extendedSkip2gram];
+        const part2 = parts.splice(parts.length - 2, 3).join("");
+        const part1 = parts.join("");
+
+        const replacement =
+          part1.replaceAll(
+            layout.magicRules[i],
+            layout.magicRules[i][0] + layout.magicIdentifier,
+          ) +
+          part2.replaceAll(
+            layout.magicRules[i],
+            layout.magicRules[i][0] + layout.magicIdentifier,
+          );
 
         if (replacement != extendedSkip2gram) {
           extendedSkip2gram = replacement;
           magicReplacements++;
 
-          if (magicReplacements == 2) break;
+          // if (magicReplacements == 2) break;
         }
       }
 
-    addGramAmount(parts.join(""), freq, skip2grams);
+    if (extendedSkip2gram.length == 3)
+      extendedSkip2gram = [extendedSkip2gram[0], extendedSkip2gram[2]].join("");
+    else if (extendedSkip2gram.length == 4)
+      extendedSkip2gram = [extendedSkip2gram[1], extendedSkip2gram[3]].join("");
+
+    addGramAmount(extendedSkip2gram, freq, skip2grams);
   }
 
   let skip2gramtotal = 0;
