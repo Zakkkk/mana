@@ -86,6 +86,8 @@ edits.push({
         },
       );
 
+      gs.loadedLayouts[loadLayout(gs, layout.name)] = layout;
+
       console.log("Layout updated!");
     } catch (err) {
       console.log("There was an error writing the updates to the layout.");
@@ -129,13 +131,17 @@ edits.push({
 
     rules.forEach((rule) => {
       if (rule.length != 2) {
-        console.log("rules must be two characters long only.");
+        console.log(
+          `Rules must be two characters long only. ${rule} is invalid.`,
+        );
         noErrors = false;
         return;
       }
 
       if (hasRuleWithStart(rule)) {
-        console.log("A rule starting with the same key already exists.");
+        console.log(
+          `A rule starting with the same key already exists. ${rule} is invalid.`,
+        );
         noErrors = false;
         return;
       }

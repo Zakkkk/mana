@@ -94,6 +94,7 @@ edits.push({
             fs.writeFileSync(`layouts/${filename}.json`, JSON.stringify(layout, null, 2), {
                 flag: "w",
             });
+            gs.loadedLayouts[(0, loadLayout_1.default)(gs, layout.name)] = layout;
             console.log("Layout updated!");
         }
         catch (err) {
@@ -129,12 +130,12 @@ edits.push({
         let noErrors = true;
         rules.forEach((rule) => {
             if (rule.length != 2) {
-                console.log("rules must be two characters long only.");
+                console.log(`Rules must be two characters long only. ${rule} is invalid.`);
                 noErrors = false;
                 return;
             }
             if (hasRuleWithStart(rule)) {
-                console.log("A rule starting with the same key already exists.");
+                console.log(`A rule starting with the same key already exists. ${rule} is invalid.`);
                 noErrors = false;
                 return;
             }
