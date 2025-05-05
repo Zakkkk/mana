@@ -1,8 +1,6 @@
 import { Layout, TokenFreq } from "../types";
 
 const getHand = (finger: number): number => (finger < 5 ? 0 : 1);
-const isThumb = (key: string, fingerKeyMap: TokenFreq): boolean =>
-  fingerKeyMap[key] == 4 || fingerKeyMap[key] == 5;
 
 const addGramAmount = (
   gram: string,
@@ -152,6 +150,15 @@ export const getHalfScissors = (
       getHand(fingerKeyMap[bigram[0]]) == getHand(fingerKeyMap[bigram[1]]) &&
       fingerKeyMap[bigram[0]] != fingerKeyMap[bigram[1]] &&
       Math.abs(getY(bigram[0]) - getY(bigram[1])) == 1 &&
+      !(
+        // exclude middle and ring combos
+        (
+          ([fingerKeyMap[bigram[0]], fingerKeyMap[bigram[1]]].includes(1) &&
+            [fingerKeyMap[bigram[0]], fingerKeyMap[bigram[1]]].includes(2)) ||
+          ([fingerKeyMap[bigram[0]], fingerKeyMap[bigram[1]]].includes(8) &&
+            [fingerKeyMap[bigram[0]], fingerKeyMap[bigram[1]]].includes(7))
+        )
+      ) &&
       [1, 2, 7, 8].includes(
         fingerKeyMap[getY(bigram[0]) > getY(bigram[1]) ? bigram[0] : bigram[1]],
       )
@@ -182,6 +189,15 @@ export const getSkipHalfScissors = (
       getHand(fingerKeyMap[trigram[0]]) == getHand(fingerKeyMap[trigram[2]]) &&
       fingerKeyMap[trigram[0]] != fingerKeyMap[trigram[2]] &&
       Math.abs(getY(trigram[0]) - getY(trigram[2])) == 1 &&
+      !(
+        // exclude middle and ring combos
+        (
+          ([fingerKeyMap[trigram[0]], fingerKeyMap[trigram[2]]].includes(1) &&
+            [fingerKeyMap[trigram[0]], fingerKeyMap[trigram[2]]].includes(2)) ||
+          ([fingerKeyMap[trigram[0]], fingerKeyMap[trigram[2]]].includes(8) &&
+            [fingerKeyMap[trigram[0]], fingerKeyMap[trigram[2]]].includes(7))
+        )
+      ) &&
       [1, 2, 7, 8].includes(
         fingerKeyMap[
           getY(trigram[0]) > getY(trigram[2]) ? trigram[0] : trigram[2]
