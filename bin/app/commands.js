@@ -180,6 +180,37 @@ const commands = [
         },
     },
     {
+        token: "time",
+        explain: "[command]\n Times a command",
+        minArgs: 1,
+        action: (gs, args) => {
+            for (let i = 0; i < commands.length; i++) {
+                if (commands[i].token == args[0]) {
+                    const time = new Date().getTime();
+                    commands[i].action(gs, [...args].slice(1));
+                    console.log(`Took ${(new Date().getTime() - time) / 1000}s to complete.`);
+                    break;
+                }
+            }
+        },
+    },
+    {
+        token: "timen",
+        explain: "[amount of times to run] [command]\n Times a command",
+        minArgs: 2,
+        action: (gs, args) => {
+            for (let i = 0; i < commands.length; i++) {
+                if (commands[i].token == args[1]) {
+                    const time = new Date().getTime();
+                    for (let j = 0; j < parseInt(args[0]); j++)
+                        commands[i].action(gs, [...args].slice(2));
+                    console.log(`Took ${(new Date().getTime() - time) / 1000}s to complete.`);
+                    break;
+                }
+            }
+        },
+    },
+    {
         token: "rules",
         explain: "[layoutname]:\n lists the magic rules for a layout",
         minArgs: 1,

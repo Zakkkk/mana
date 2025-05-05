@@ -1,0 +1,8 @@
+{
+    "name": "Dvorak",
+    "rows": ["',.pyfgcrl/,", "aoeuidhtns-", ";qjkxbmwvz"],
+    "fingermap": ["01233667899", "01233667899", "0123366789"],
+    "hasMagic": true,
+    "magicIdentifier": "*",
+    "magicRules": []
+}

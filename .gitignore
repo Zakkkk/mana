@@ -4,9 +4,11 @@ node_modules
 
 todo.txt
 
+bin
+
 layouts/test
 parsed/test
 corpus/test
-layouts/personal
-parsed/personal
-corpus/personal
+layouts/p
+parsed/p
+corpus/p

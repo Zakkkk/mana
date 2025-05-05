@@ -139,7 +139,10 @@ edits.push({
                 noErrors = false;
                 return;
             }
-            layout.magicRules.push(rule);
+            // layout.magicRules.push(rule);
+            const dup = [...layout.magicRules];
+            dup.push(rule);
+            layout.magicRules = dup;
         });
         if (noErrors)
             (0, viewLayout_1.default)(gs, "", layout);

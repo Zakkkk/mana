@@ -8,10 +8,10 @@ For example `d*->do` is acceptable but `d*->dof` or `d*->ao` is not.
 Coming soon: magic combos suggestion, layout generation, mutiple magic keys, ability to test out a layout with a corpus transform.
 
 ## Installing
-To run this program, [node](https://nodejs.org/en/download) is required. Make sure it is installed to path. Run `npm install` in the directory to install required packages.
+To run this program, [bun](https://bun.sh/) is required. Make sure it is installed to path. Run `bun install` in the directory to install required packages.
 
 ## Running
-Use `node bin/main.js` to begin running the program. After first running the program you need to set a corpus for most stats to be useful. See the section on [Corpora](#Corpora) for more information.
+Use `bun run src/main.ts` to begin running the program. After first running the program you need to set a corpus for most stats to be useful. See the section on [Corpora](#Corpora) for more information. You can also run the program without entering the cli by running `bun run src/main.ts [commands]`
 
 Command `help` lists all commands.
 Command `explain [command]` will give a brief explanation for any command.
@@ -21,7 +21,7 @@ Navigate to `/layouts` and create a `layoutname.json` file. Make sure the file n
 
 The fingermap numbers range from 0 (left pinky) to 4 and 5 (left and right thumb) and then up to 9.
 
-Layouts may only have one magic key in them (for now), and the magic identifier must be listed. At the moment layouts with magic are not supported, so just keep `hasMagic` to true, and don't list any magic rules.
+Layouts may only have one magic key in them (for now), and the magic identifier must be listed.
 
 Example:
 
@@ -108,7 +108,7 @@ Redirect (+sfs): 6.215%
 └────────────────┴──────────┴────────────┴─────────────┘
 ```
 
-You can see examples of any of these stats with commands like `sfb vylet` or `sfs vylet 30` to see the top 30. Comamnd `fingers vylet` will list the finger frequencies for a layout.
+You can see examples of any of these stats with commands like `sfb vylet` or `sfs vylet 30` to see the top 30. Command `fingers vylet` will list the finger frequencies for a layout.
 Command `help` to see the rest of the commands for examples.
 
 ## Thanks

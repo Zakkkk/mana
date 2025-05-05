@@ -124,6 +124,10 @@ test("combination of multi swaps and single swaps with swap command", () => {
     "rxapqdm;',",
     "f",
   ]);
+
+  expect(gs.loadedLayouts[loadLayout(gs, "testLayout1")]).toMatchObject(
+    testLayout1,
+  );
 });
 
 test("swap! command saves all swaps and edits current saved layouts", () => {
@@ -136,52 +140,73 @@ test("swap! command saves all swaps and edits current saved layouts", () => {
 
 test("can add more magic rules", () => {
   resetTestLayout2();
-  edits[2].action(gs, ["test/testLayout2", "za", "ka"]);
-  const layout = gs.loadedLayouts[loadLayout(gs, "test/testLayout2")];
-  expect(layout.magicRules).toEqual(["ab", "za", "ka"]);
+  const layoutModified = edits[2].action(gs, ["test/testLayout2", "za", "ka"]);
+
+  expect(layoutModified.magicRules).toEqual(["ab", "za", "ka"]);
+  expect(gs.loadedLayouts[loadLayout(gs, "test/testLayout2")]).toMatchObject(
+    testLayout2,
+  );
 });
 
 test("invalid magic rules are not added", () => {
   resetTestLayout2();
-  edits[2].action(gs, ["test/testLayout2", "dab", "fab", "zz"]);
-  const layout = gs.loadedLayouts[loadLayout(gs, "test/testLayout2")];
+  const layout = edits[2].action(gs, ["test/testLayout2", "dab", "fab", "zz"]);
   expect(layout.magicRules).toEqual(["ab", "zz"]);
+
+  expect(gs.loadedLayouts[loadLayout(gs, "test/testLayout2")]).toMatchObject(
+    testLayout2,
+  );
 });
 
 test("magic rules can be saved to file", () => {
   resetTestLayout2();
   edits[3].action(gs, ["test/testLayout2", "op", "in"]);
+  let layout = gs.loadedLayouts[loadLayout(gs, "test/testLayout2")];
+  expect(layout.magicRules).toEqual(["ab", "op", "in"]);
+
   gs.loadedLayouts.splice(loadLayout(gs, "test/testLayout2"), 1);
-  const layout = gs.loadedLayouts[loadLayout(gs, "test/testLayout2")];
+  layout = gs.loadedLayouts[loadLayout(gs, "test/testLayout2")];
   expect(layout.magicRules).toEqual(["ab", "op", "in"]);
 });
 
 test("magic rules can be deleted", () => {
   resetTestLayout2();
-  edits[4].action(gs, ["test/testLayout2", "ab"]);
-  const layout = gs.loadedLayouts[loadLayout(gs, "test/testLayout2")];
+  const layout = edits[4].action(gs, ["test/testLayout2", "ab"]);
   expect(layout.magicRules).toEqual([]);
+
+  expect(gs.loadedLayouts[loadLayout(gs, "test/testLayout2")]).toMatchObject(
+    testLayout2,
+  );
 });
 
 test("deleted magic rules are saved to file", () => {
   resetTestLayout2();
   edits[5].action(gs, ["test/testLayout2", "ab"]);
+  let layout = gs.loadedLayouts[loadLayout(gs, "test/testLayout2")];
+  expect(layout.magicRules).toEqual([]);
+
   gs.loadedLayouts.splice(loadLayout(gs, "test/testLayout2"), 1);
-  const layout = gs.loadedLayouts[loadLayout(gs, "test/testLayout2")];
+  layout = gs.loadedLayouts[loadLayout(gs, "test/testLayout2")];
   expect(layout.magicRules).toEqual([]);
 });
 
 test("can change present magic rules", () => {
   resetTestLayout2();
-  edits[6].action(gs, ["test/testLayout2", "ao"]);
-  const layout = gs.loadedLayouts[loadLayout(gs, "test/testLayout2")];
+  const layout = edits[6].action(gs, ["test/testLayout2", "ao"]);
   expect(layout.magicRules).toEqual(["ao"]);
+
+  expect(gs.loadedLayouts[loadLayout(gs, "test/testLayout2")]).toMatchObject(
+    testLayout2,
+  );
 });
 
 test("changed magic rules are saved to file", () => {
   resetTestLayout2();
   edits[7].action(gs, ["test/testLayout2", "ao"]);
+  let layout = gs.loadedLayouts[loadLayout(gs, "test/testLayout2")];
+  expect(layout.magicRules).toEqual(["ao"]);
+
   gs.loadedLayouts.splice(loadLayout(gs, "test/testLayout2"), 1);
-  const layout = gs.loadedLayouts[loadLayout(gs, "test/testLayout2")];
+  layout = gs.loadedLayouts[loadLayout(gs, "test/testLayout2")];
   expect(layout.magicRules).toEqual(["ao"]);
 });

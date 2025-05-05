@@ -1,0 +1,29 @@
+{
+  "name": "Aorh",
+  "rows": [
+    "ij*pkbgclf",
+    "aorhywstnu",
+    "z;.vq,'dxm",
+    "e"
+  ],
+  "fingermap": [
+    "0123366789",
+    "0123366789",
+    "0123366789",
+    "4"
+  ],
+  "hasMagic": true,
+  "magicIdentifier": "*",
+  "magicRules": [
+    "mu",
+    "oo",
+    "tt",
+    "ct",
+    "ff",
+    "ll",
+    "bl",
+    "nl",
+    "ai",
+    "um"
+  ]
+}

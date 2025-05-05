@@ -146,7 +146,10 @@ edits.push({
         return;
       }
 
-      layout.magicRules.push(rule);
+      // layout.magicRules.push(rule);
+      const dup = [...layout.magicRules];
+      dup.push(rule);
+      layout.magicRules = dup;
     });
 
     if (noErrors) viewLayout(gs, "", layout);
