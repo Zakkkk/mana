@@ -5,10 +5,9 @@ node_modules
 todo.txt
 
 bin
+corpus
 
 layouts/test
 parsed/test
-corpus/test
 layouts/p
 parsed/p
-corpus/p
