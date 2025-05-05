@@ -12,10 +12,5 @@
   ],
   "hasMagic": true,
   "magicIdentifier": "*",
-  "magicRules": [
-    "ee",
-    "tt",
-    "ff",
-    "ss"
-  ]
+  "magicRules": []
 }
