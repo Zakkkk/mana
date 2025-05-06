@@ -28,7 +28,17 @@ const tryoutLayout = (
 
   if (layoutTo.hasMagic)
     layoutTo.magicRules.forEach((rule) => {
-      source = source.replaceAll(rule, rule[0] + layoutTo.magicIdentifier);
+      try {
+        source = source.replaceAll(
+          rule,
+          rule[0] +
+            layoutFrom.rows[getY(layoutTo, layoutTo.magicIdentifier)][
+              getX(layoutTo, layoutTo.magicIdentifier)
+            ],
+        );
+      } catch {
+        source = source.replaceAll(rule, rule[0] + "*");
+      }
     });
 
   const letterTransformations: Record<string, string> = {};
