@@ -22,7 +22,9 @@ const tryoutLayout = (
   layoutFrom: Layout,
   layoutTo: Layout,
 ) => {
-  let source = fs.readFileSync(`corpus/${fileInputPath}`, "utf-8");
+  let source = fs
+    .readFileSync(`corpus/${fileInputPath}`, "utf-8")
+    .toLowerCase();
 
   if (layoutTo.hasMagic)
     layoutTo.magicRules.forEach((rule) => {
