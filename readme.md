@@ -5,7 +5,7 @@ The magic rules that work are ones where the magic key maps to one singular lett
 
 For example `d*->do` is acceptable but `d*->dof` or `d*->ao` is not.
 
-Coming soon: magic combos suggestion, layout generation, mutiple magic keys, ability to test out a layout with a corpus transform.
+Coming soon: magic combos suggestion, layout generation, mutiple magic keys.
 
 ## Installing
 To run this program, [bun](https://bun.sh/) is required. Make sure it is installed to path. Run `bun install` in the directory to install required packages.
@@ -72,6 +72,8 @@ To see all available corpora run the command `corpora`.
 You can select a corpus with the command `corpus [corpusname]`.
 
 If you want to use your own corpus, upload a file into `/corpus` and then run the command `parse filename.txt corpusname`, you can then load that corpus with the command as mentioned before.
+
+You can test out your layout by using the command `tryout [filename] [layou tfrom] [layout to]`. It will look for a file inside of `/corpus` and put the output into `/parsed`. If there is a key on the new layout, whos position does not exist on the from layout, a `~` will be inserted instead.
 
 ## How is the magic calculated?
 For any (n)-gram, (n)-grams which are found at the start of a word are saved, as well as (n+1)-grams in every string. The (n+1) is required to see back into the future to find out if the next key will be a magic key. The first letter in the (n+1)-gram will not be counted in any calculation.

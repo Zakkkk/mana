@@ -3,6 +3,7 @@ import * as fs from "fs";
 
 import parse from "../corpus/parseCorpus";
 import viewLayout from "./viewLayout";
+import tryoutLayout from "./tryout";
 import setCorpusPositionByName from "../corpus/loadCorpus";
 import { allExamples } from "./examples";
 import loadLayout from "./loadLayout";
@@ -38,6 +39,20 @@ const commands: Command[] = [
     action: async (_, args) => {
       console.log(`Parsing corpus with filename of ${args[0]}`);
       await parse(args[0], args[1]);
+    },
+  },
+  {
+    token: "tryout",
+    explain:
+      "[file input] [layout from] [layout out]:\nYou can try out a layout by converting a corpus from one layout to another. Looks for a file inside of corpus/ and outputs to parsed/",
+    minArgs: 3,
+    maxArgs: 3,
+    action: (gs, args) => {
+      tryoutLayout(
+        args[0],
+        gs.loadedLayouts[loadLayout(gs, args[1])],
+        gs.loadedLayouts[loadLayout(gs, args[2])],
+      );
     },
   },
   {
