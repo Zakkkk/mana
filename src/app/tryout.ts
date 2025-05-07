@@ -28,22 +28,12 @@ const tryoutLayout = (
 
   if (layoutTo.hasMagic)
     layoutTo.magicRules.forEach((rule) => {
-      try {
-        source = source.replaceAll(
-          rule,
-          rule[0] +
-            layoutFrom.rows[getY(layoutTo, layoutTo.magicIdentifier)][
-              getX(layoutTo, layoutTo.magicIdentifier)
-            ],
-        );
-      } catch {
-        source = source.replaceAll(rule, rule[0] + "*");
-      }
+      source = source.replaceAll(rule, rule[0] + layoutTo.magicIdentifier);
     });
 
   const letterTransformations: Record<string, string> = {};
 
-  layoutFrom.rows
+  layoutTo.rows
     .join("")
     .split("")
     .forEach((letter) => {
@@ -54,6 +44,8 @@ const tryoutLayout = (
         letterTransformations[letter] = "~";
       }
     });
+
+  console.log(letterTransformations);
 
   const newStringArray = [];
 
