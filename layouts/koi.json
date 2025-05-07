@@ -1,16 +1,16 @@
 {
-  "name": "e200rot",
+  "name": "Koi",
   "rows": [
-    "vltw.xkoib",
+    "vltwx'koib",
     "rmcsqphaun",
-    ",;*gzfd'yj",
+    ";,*gzfd.yj",
     "e"
   ],
   "fingermap": [
     "0123366789",
     "0123366789",
     "0133366789",
-    "5"
+    "4"
   ],
   "hasMagic": true,
   "magicIdentifier": "*",
@@ -23,7 +23,10 @@
     "no",
     "ff",
     "tt",
-    "oo"
+    "oo",
+    "ui",
+    "jo",
+    "dd"
   ],
   "notes": "current sfb is from *w and *s from the words now and person, but in both of those words you don't need to use the magic (or you can alt finger the word now and still use magic, no difference) which takes the sfb down to 0%. one sfs comes from the combo go* but thats easily altable. so 0% sfb and at least 1.7% sfs with the alts"
 }
