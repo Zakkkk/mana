@@ -33,7 +33,12 @@ const tryoutLayout = (
 
   const letterTransformations: Record<string, string> = {};
 
-  layoutTo.rows
+  [
+    ...layoutFrom.rows,
+    layoutFrom.rows.includes(layoutTo.magicIdentifier)
+      ? ""
+      : layoutTo.magicIdentifier,
+  ]
     .join("")
     .split("")
     .forEach((letter) => {
@@ -45,7 +50,7 @@ const tryoutLayout = (
       }
     });
 
-  console.log(letterTransformations);
+  // console.log(letterTransformations);
 
   const newStringArray = [];
 
