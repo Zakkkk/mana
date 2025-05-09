@@ -11,7 +11,9 @@ Coming soon: magic combos suggestion, layout generation, mutiple magic keys.
 To run this program, [bun](https://bun.sh/) is required. Make sure it is installed to path. Run `bun install` in the directory to install required packages.
 
 ## Running
-Use `bun run src/main.ts` to begin running the program. After first running the program you need to set a corpus for most stats to be useful. See the section on [Corpora](#Corpora) for more information. You can also run the program without entering the cli by running `bun run src/main.ts [commands]`
+Use `bun run src/main.ts` to begin running the program. 
+
+You can also run the program without entering the cli by running `bun run src/main.ts [commands]`
 
 Command `help` lists all commands.
 Command `explain [command]` will give a brief explanation for any command.
