@@ -2,7 +2,5 @@
     "name": "Night",
     "rows": ["bflkqpgou.", "nshtmycaei", "xvjdz'w;/,", "r"],
     "fingermap": ["0123366789", "0123366789", "0123366789", "4"],
-    "hasMagic": true,
-    "magicIdentifier": "*",
-    "magicRules": []
+    "hasMagic": false
 }

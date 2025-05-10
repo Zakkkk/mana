@@ -2,7 +2,5 @@
     "name": "Sturdy",
     "rows": ["vmlcpxfouj", "strdy.naei", "zkqgwbh';,"],
     "fingermap": ["0123366789", "0123366789", "0123366789"],
-    "hasMagic": true,
-    "magicIdentifier": "*",
-    "magicRules": []
+    "hasMagic": false
 }

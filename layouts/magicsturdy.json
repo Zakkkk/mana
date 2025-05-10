@@ -1,7 +1,15 @@
 {
     "name": "MagicSturdy",
-    "rows": ["vmlcpb*uoq", "strdyfneai", "xkjgwzh,.;", "'"],
-    "fingermap": ["0123366789", "0123366789", "0123366789", "4"],
+    "rows": [
+        "vmlcp\"|b*uo,\\", 
+        "strdyq$fneai-", 
+        "xqjgw  zh'?."
+    ],
+    "fingermap": [
+        "0123336667899", 
+        "0123336667899", 
+        "01233  66789"
+    ],
     "hasMagic": true,
     "magicIdentifier": "*",
     "magicRules": [
