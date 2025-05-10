@@ -11,7 +11,9 @@ Coming soon: magic combos suggestion, layout generation, mutiple magic keys.
 To run this program, [bun](https://bun.sh/) is required. Make sure it is installed to path. Run `bun install` in the directory to install required packages.
 
 ## Running
-Use `bun run src/main.ts` to begin running the program. After first running the program you need to set a corpus for most stats to be useful. See the section on [Corpora](#Corpora) for more information. You can also run the program without entering the cli by running `bun run src/main.ts [commands]`
+Use `bun run src/main.ts` to begin running the program. 
+
+You can also run the program without entering the cli by running `bun run src/main.ts [commands]`
 
 Command `help` lists all commands.
 Command `explain [command]` will give a brief explanation for any command.
@@ -49,7 +51,7 @@ Example:
 }
 ```
 
-To test this new layout out, load up a corpus and then run `view [layoutname]`
+To test this new layout out run `view [layoutname]`
 
 ## Modifying the layout through commands
 To adjust the layout through the cli program, instead of opening an editor, you can use the following commands.
@@ -73,7 +75,7 @@ You can select a corpus with the command `corpus [corpusname]`.
 
 If you want to use your own corpus, upload a file into `/corpus` and then run the command `parse filename.txt corpusname`, you can then load that corpus with the command as mentioned before.
 
-You can test out your layout by using the command `tryout [filename] [layou tfrom] [layout to]`. It will look for a file inside of `/corpus` and put the output into `/parsed`. If there is a key on the new layout, whos position does not exist on the from layout, a `~` will be inserted instead.
+You can test out your layout by using the command `tryout [filename] [current layout] [layout to tryout]`. It will look for a file inside of `/corpus` and put the output into `/parsed`. If there is a key on the new layout, whos position does not exist on the from layout, a `~` will be inserted instead.
 
 ## How is the magic calculated?
 For any (n)-gram, (n)-grams which are found at the start of a word are saved, as well as (n+1)-grams in every string. The (n+1) is required to see back into the future to find out if the next key will be a magic key. The first letter in the (n+1)-gram will not be counted in any calculation.
