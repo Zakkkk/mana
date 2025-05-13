@@ -13,7 +13,7 @@ To run this program, [bun](https://bun.sh/) is required. Make sure it is install
 ## Running
 Use `bun run src/main.ts` to begin running the program.
 
-You can also run the program without entering the cli by running `bun run src/main.ts [commands]`. If you run it in the cli you can add commands with a `+`, eg: `bun run srs/main.ts corpus e200 + view koi`
+You can also run the program without entering the cli by running `bun run src/main.ts [commands]`. If you run it without entering the cli you can add commands with a `+`, eg: `bun run src/main.ts corpus e200 + view koi`
 
 Command `help` lists all commands.
 Command `help [command]` will give a brief explanation for any command.
