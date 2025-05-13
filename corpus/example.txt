@@ -1,0 +1,5 @@
+Here is an example corpus!
+
+To parse this corpus and make it usable run the command `parse example.txt example`
+
+You can then choose to use the corpus with the command `corpus example`
