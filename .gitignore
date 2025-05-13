@@ -6,6 +6,7 @@ todo.txt
 
 bin
 corpus
+!corpus/example.txt
 
 layouts/test
 parsed/test
