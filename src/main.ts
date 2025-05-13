@@ -57,7 +57,17 @@ async function main() {
   } catch {}
 
   if (manaArgs.length > 0) {
-    evalInput(settings, manaArgs.join(" "));
+    const argSets: string[][] = [[]];
+
+    manaArgs.forEach((arg) => {
+      if (arg == "+") argSets.push([]);
+      else argSets[argSets.length - 1].push(arg);
+    });
+
+    argSets.forEach((argSet) => {
+      evalInput(settings, argSet.join(" "));
+    });
+
     return;
   }
 
