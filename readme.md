@@ -11,12 +11,12 @@ Coming soon: magic combos suggestion, layout generation, mutiple magic keys.
 To run this program, [bun](https://bun.sh/) is required. Make sure it is installed to path. Run `bun install` in the directory to install required packages.
 
 ## Running
-Use `bun run src/main.ts` to begin running the program. 
+Use `bun run src/main.ts` to begin running the program.
 
 You can also run the program without entering the cli by running `bun run src/main.ts [commands]`
 
 Command `help` lists all commands.
-Command `explain [command]` will give a brief explanation for any command.
+Command `help [command]` will give a brief explanation for any command.
 
 ## Adding Your Own Layouts
 Navigate to `/layouts` and create a `layoutname.json` file. Make sure the file name does not have any spaces. The name in the layout must match the file name, although you can capitalise where you want.

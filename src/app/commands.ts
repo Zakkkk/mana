@@ -19,23 +19,6 @@ import getStats from "../analyse/getStats";
 
 const commands: Command[] = [
   {
-    token: "explain",
-    explain:
-      "Explains commands... but I have a feeling you already know that...",
-    minArgs: 1,
-    maxArgs: 1,
-    action: (_, args) => {
-      for (let i = 0; i < commands.length; i++) {
-        if (args[0] == commands[i].token) {
-          console.log(commands[i].explain);
-          return;
-        }
-      }
-
-      console.log(`Command ${args[0]} not found.`);
-    },
-  },
-  {
     token: "parse",
     explain:
       "[filename] [corpus name]:\nTransforms a file with text into a file with information about the frequencies of bigrams/trigrams/fourgrams. Looks for files inside of the folder /corpus and writes the output to /parsed",
@@ -72,8 +55,7 @@ const commands: Command[] = [
   },
   {
     token: "view",
-    explain:
-      "[layout file name w/ extension]:\nViews a layout and all the stats associated.",
+    explain: "[layout name]:\nViews a layout and all the stats associated.",
     minArgs: 1,
     maxArgs: 1,
     action: async (gs, args) => {
@@ -271,9 +253,21 @@ const commands: Command[] = [
   },
   {
     token: "help",
-    explain: "Lists all the commands available.",
-    maxArgs: 0,
-    action: () => {
+    explain: "[optional command]\nLists all the commands available.",
+    maxArgs: 1,
+    action: (_, args) => {
+      if (args.length == 1) {
+        for (let i = 0; i < commands.length; i++) {
+          if (args[0] == commands[i].token) {
+            console.log(commands[i].explain);
+            return;
+          }
+        }
+
+        console.log(`Command ${args[0]} not found.`);
+        return;
+      }
+
       for (let i = 0; i < commands.length; i++) {
         const command = commands[i];
 
@@ -282,7 +276,7 @@ const commands: Command[] = [
         const hasMaxArgs = commands[i].maxArgs != undefined;
 
         console.log(
-          `${command.token}: requires ${minArgsCount}-${hasMaxArgs ? commands[i].maxArgs! : "∞"}  args`,
+          `${command.token}: requires ${minArgsCount}-${hasMaxArgs ? commands[i].maxArgs! : "∞"} args`,
         );
       }
     },
