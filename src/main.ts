@@ -6,7 +6,7 @@ import setCorpusPositionByName from "./corpus/loadCorpus";
 import { setupKeypressHandling } from "./app/keypressHandler";
 
 const evalInput = async (settings: GlobalSettings, input: string) => {
-  const args = input.split(" ");
+  const args = input.split(" ").filter((a) => a != "");
   const command = args.shift();
 
   let commandFound = false;

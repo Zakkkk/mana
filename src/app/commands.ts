@@ -1,4 +1,4 @@
-import { Command } from "../types";
+import { Command, Layout, TokenFreq } from "../types";
 import * as fs from "fs";
 
 import parse from "../corpus/parseCorpus";
@@ -8,7 +8,12 @@ import setCorpusPositionByName from "../corpus/loadCorpus";
 import { allExamples } from "./examples";
 import loadLayout from "./loadLayout";
 import { noCorpusLoaded } from "./messages";
-import { getBigrams, getTrigrams } from "../corpus/corpusUtil";
+import {
+  getBigrams,
+  getMonograms,
+  getSkip2grams,
+  getTrigrams,
+} from "../corpus/corpusUtil";
 import { edits } from "./edit";
 import getStats from "../analyse/getStats";
 
@@ -106,6 +111,146 @@ const commands: Command[] = [
       console.log(
         `${gs.currentCorpora}: ${gs.currentCorpora == -1 ? "No corpus is currently loaded." : gs.loadedCorpora[gs.currentCorpora].name}`,
       );
+    },
+  },
+  {
+    token: "freq",
+    explain:
+      "[layout] [ngrams]\nFind the frequency for any monogram, bigram, trigram, skipgram, or skip2gram. For a skipgram do `a_b` and for a skip2gram do 'a__b'",
+    minArgs: 2,
+    action: async (gs, args) => {
+      if (gs.currentCorpora == -1) {
+        console.log("A corpus must be loaded.");
+        return;
+      }
+
+      if (loadLayout(gs, args[0]) == -1) {
+        console.log(`Layout ${args[0]} was not found.`);
+        return;
+      }
+
+      const layout = gs.loadedLayouts[loadLayout(gs, args[0])];
+
+      args.splice(0, 1);
+
+      const foundNgrams: Record<string, number>[] = [{}, {}, {}, {}, {}];
+      // mono, bi, tri, skip, skip2
+
+      const getFreqs = (
+        ngramDatasetIndex: number,
+        requestedNgram: string,
+        ngramsFromCorpus: TokenFreq,
+      ) => {
+        foundNgrams[ngramDatasetIndex][requestedNgram] =
+          ngramsFromCorpus[requestedNgram] == undefined
+            ? 0
+            : ngramsFromCorpus[requestedNgram] /
+              Object.values(ngramsFromCorpus).reduce(
+                (acc, val) => acc + val,
+                0,
+              );
+      };
+
+      args.forEach((ngram) => {
+        switch (ngram.length) {
+          case 1:
+            getFreqs(
+              0,
+              ngram,
+              getMonograms(gs.loadedCorpora[gs.currentCorpora], layout),
+            );
+
+            break;
+          case 2:
+            getFreqs(
+              1,
+              ngram,
+              getBigrams(gs.loadedCorpora[gs.currentCorpora], layout),
+            );
+
+            break;
+          case 3:
+            const numberOfUnderScores = ngram.split("_").length - 1;
+            if (numberOfUnderScores == 0) {
+              getFreqs(
+                2,
+                ngram,
+                getTrigrams(gs.loadedCorpora[gs.currentCorpora], layout),
+              );
+            } else if (numberOfUnderScores == 1) {
+              const skipgrams: Record<string, number> = {};
+              const trigrams = getTrigrams(
+                gs.loadedCorpora[gs.currentCorpora],
+                layout,
+              );
+
+              Object.keys(trigrams).forEach((ngram) => {
+                const newKey = ngram[0] + "_" + ngram[2];
+                if (skipgrams[newKey] == undefined)
+                  skipgrams[newKey] = trigrams[ngram];
+                else skipgrams[newKey] += trigrams[ngram];
+              });
+
+              getFreqs(3, ngram, skipgrams);
+            } else {
+              console.log(
+                "In a trigram you can only have 0 or 1 `_` as this symbolises skipgrams.",
+              );
+            }
+            break;
+          case 4:
+            getFreqs(
+              4,
+              ngram[0] + ngram[3],
+              getSkip2grams(gs.loadedCorpora[gs.currentCorpora], layout),
+            );
+
+            break;
+          default:
+            console.log(
+              `The length was not correct for argument '${ngram}'. Must be a monogram, bigram, trigram, skipgram, or skip2gram.`,
+            );
+        }
+      });
+
+      const r = (n: number): number => Math.round(n * 10 ** 5) / 10 ** 3;
+
+      const ngramFoundAtThisIndex: any[] = [];
+
+      foundNgrams.forEach((ngrams, index) => {
+        ngramFoundAtThisIndex[index] = Object.keys(ngrams).length > 0;
+      });
+
+      if (ngramFoundAtThisIndex.reduce((a, c) => a + c, 0) == 0) return;
+
+      const printNgrams = (
+        message: string,
+        freqRecord: Record<string, number>,
+      ) => {
+        console.log(
+          `${message} frequencies in ${gs.loadedCorpora[gs.currentCorpora].name}:`,
+        );
+        let total = 0;
+
+        Object.keys(freqRecord).forEach((ngram) => {
+          console.log(`  ${ngram}: ${r(freqRecord[ngram])}%`);
+          total += freqRecord[ngram];
+        });
+
+        console.log(`Total: ${r(total)}%`);
+      };
+
+      const ngramNames = [
+        "Monograms",
+        "Bigrams",
+        "Trigrams",
+        "Skipgrams",
+        "Skip2grams",
+      ];
+
+      ngramFoundAtThisIndex.forEach((ngramFound, i) => {
+        if (ngramFound) printNgrams(ngramNames[i], foundNgrams[i]);
+      });
     },
   },
   {

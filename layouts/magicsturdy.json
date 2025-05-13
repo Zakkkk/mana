@@ -1,29 +1,31 @@
 {
-    "name": "MagicSturdy",
-    "rows": [
-        "vmlcp\"|b*uo,\\", 
-        "strdyq$fneai-", 
-        "xqjgw  zh'?."
-    ],
-    "fingermap": [
-        "0123336667899", 
-        "0123336667899", 
-        "01233  66789"
-    ],
-    "hasMagic": true,
-    "magicIdentifier": "*",
-    "magicRules": [
-        "ao",
-        "cy",
-        "dy",
-        "eu",
-        "gy",
-        "lk",
-        "oa",
-        "py",
-        "rl",
-        "sk",
-        "ue",
-        "yp"
-    ]
+  "name": "MagicSturdy",
+  "rows": [
+    "vmlcp\"|b*uo,\\",
+    "strdyq$fneai-",
+    "xkjgw  zh'?."
+  ],
+  "fingermap": [
+    "0123336667899",
+    "0123336667899",
+    "01233  66789"
+  ],
+  "hasMagic": true,
+  "magicIdentifier": "*",
+  "magicRules": [
+    "ao",
+    "cy",
+    "dy",
+    "eu",
+    "gy",
+    "lk",
+    "oa",
+    "py",
+    "rl",
+    "sk",
+    "ue",
+    "yp",
+    "ks",
+    "tm"
+  ]
 }
