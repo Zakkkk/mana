@@ -77,6 +77,9 @@ If you want to use your own corpus, upload a file into `/corpus` and then run th
 
 You can test out your layout by using the command `tryout [filename] [current layout] [layout to tryout]`. It will look for a file inside of `/corpus` and put the output into `/parsed`. If there is a key on the new layout, whos position does not exist on the from layout, a `~` will be inserted instead.
 
+You can see the frequency of a monogram, bigram, trigram, skipgram, or skip2gram for a layout with the command `freq layout_name [ngrams]`. An example is `freq koi *w s_r ion w__*`.
+You can also find examples in a corpus with the command `examples mr.txt [regex]`. This searches raw files inside of `/corpus` instead of parsed corpora.
+
 ## How is the magic calculated?
 For any (n)-gram, (n)-grams which are found at the start of a word are saved, as well as (n+1)-grams in every string. The (n+1) is required to see back into the future to find out if the next key will be a magic key. The first letter in the (n+1)-gram will not be counted in any calculation.
 

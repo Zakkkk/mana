@@ -16,6 +16,7 @@ import {
 } from "../corpus/corpusUtil";
 import { edits } from "./edit";
 import getStats from "../analyse/getStats";
+import readFileByStream from "../util/readFile";
 
 const commands: Command[] = [
   {
@@ -93,6 +94,59 @@ const commands: Command[] = [
       console.log(
         `${gs.currentCorpora}: ${gs.currentCorpora == -1 ? "No corpus is currently loaded." : gs.loadedCorpora[gs.currentCorpora].name}`,
       );
+    },
+  },
+  {
+    token: "examples",
+    explain:
+      "[corpus file in `corpus/`] [regex] [optional amount of examples to show]\n finds all the examples in a corpus and shows the top 20.",
+    minArgs: 2,
+    maxArgs: 3,
+    action: async (_, args) => {
+      const examplesAndFrequency: Record<string, number> = {};
+      let totalWords = 0;
+      let totalWordsMatch = 0;
+
+      await readFileByStream(`corpus/${args[0]}`, (line) => {
+        const words = line.split(" ");
+        totalWords += words.length;
+
+        for (let i = 0; i < words.length; i++) {
+          const word = words[i];
+          if (new RegExp(args[1]).test(word)) {
+            totalWordsMatch += 1;
+
+            if (examplesAndFrequency[word] == undefined)
+              examplesAndFrequency[word] = 1;
+            else examplesAndFrequency[word]++;
+          }
+        }
+      });
+
+      const sorted = Object.fromEntries(
+        Object.entries(examplesAndFrequency).sort(([, a], [, b]) => b - a),
+      );
+
+      const topSorted: TokenFreq = {};
+      let loopCount = 0;
+      for (const word in sorted) {
+        topSorted[word] = sorted[word];
+
+        loopCount++;
+        if (loopCount >= (args[2] == undefined ? 20 : parseInt(args[2]))) break;
+      }
+
+      const r = (n: number): number => Math.round(n * 10 ** 5) / 10 ** 3;
+
+      console.log(
+        `${totalWordsMatch.toLocaleString()} / ${totalWords.toLocaleString()} words (${r(totalWordsMatch / totalWords)}%)`,
+      );
+
+      let i = 1;
+      for (const word in topSorted) {
+        console.log(`${i}: ${word}\t\t\t(${topSorted[word]})`);
+        i++;
+      }
     },
   },
   {
