@@ -112,7 +112,7 @@ const getCommand = (
   return command;
 };
 
-export const allExamples: Command[] = [
+export const allRuleExamples: Command[] = [
   getCommand("sfb's", "sfb", getSfbs, getBigrams, false),
   getCommand("sfr's", "sfr", getSfr, getBigrams, false),
   // @ts-ignore

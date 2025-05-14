@@ -5,7 +5,7 @@ import parse from "../corpus/parseCorpus";
 import viewLayout from "./viewLayout";
 import tryoutLayout from "./tryout";
 import setCorpusPositionByName from "../corpus/loadCorpus";
-import { allExamples } from "./examples";
+import { allRuleExamples } from "./ruleExamples";
 import loadLayout from "./loadLayout";
 import { noCorpusLoaded } from "./messages";
 import {
@@ -478,7 +478,7 @@ const commands: Command[] = [
     },
   },
   ...edits,
-  ...allExamples,
+  ...allRuleExamples,
 ];
 
 export default commands;
