@@ -1,4 +1,4 @@
-import { Command, Layout, TokenFreq } from "../types";
+import { Command, TokenFreq } from "../types";
 import * as fs from "fs";
 
 import parse from "../corpus/parseCorpus";
@@ -97,7 +97,49 @@ const commands: Command[] = [
     },
   },
   {
-    token: "examples",
+    token: "magicwords",
+    explain:
+      "[corpus file in corpus/] [layout name] [ngrams] [optional amount]\nReplaces all magic identifiers with the magic rules of a layout. Having an `_*` will add all magic rules with the | in between. Having a letter before the magic identifier will replace the bigram with the appropriate rule if possible. eg: a_* -> a(br|ty)",
+    minArgs: 3,
+    maxArgs: 4,
+    action: async (gs, args) => {
+      const layoutPosition = loadLayout(gs, args[1]);
+
+      if (layoutPosition == -1) {
+        console.log("Could not find the layout.");
+        return;
+      }
+
+      const layout = gs.loadedLayouts[layoutPosition];
+
+      let request = args[2][0];
+
+      for (let i = 1; i < args[2].length; i++) {
+        const chars = [args[2][i - 1], args[2][i]];
+        if (chars[1] == layout.magicIdentifier) {
+          switch (chars[0]) {
+            case "_":
+              request = request.slice(0, request.length - 1);
+              request += `(${layout.magicRules.join("|")})`;
+              break;
+            default:
+              layout.magicRules.forEach((rule) => {
+                if (rule[0] == chars[0]) {
+                  request += rule[1];
+                }
+              });
+              break;
+          }
+        } else request += chars[1];
+      }
+
+      commands
+        .filter((command) => command.token == "words")[0]
+        .action(gs, [args[0], request, args[3]]); // create the regex here
+    },
+  },
+  {
+    token: "words",
     explain:
       "[corpus file in `corpus/`] [regex] [optional amount of examples to show]\n finds all the examples in a corpus and shows the top 20.",
     minArgs: 2,

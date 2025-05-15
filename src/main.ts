@@ -33,7 +33,7 @@ const evalInput = async (settings: GlobalSettings, input: string) => {
     }
   }
 
-  if (!commandFound) {
+  if (!commandFound && command != "" && command != undefined) {
     console.log(
       "Your input did not match a valid command.\n'help' to list all commands.\n'help [command]' for an explanation of any command.",
     );
