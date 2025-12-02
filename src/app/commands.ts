@@ -17,6 +17,7 @@ import {
 import { edits } from "./edit";
 import getStats from "../analyse/getStats";
 import readFileByStream from "../util/readFile";
+import { Layout } from "../types";
 
 const commands: Command[] = [
   {
@@ -71,6 +72,46 @@ const commands: Command[] = [
     maxArgs: 2,
     action: async (gs, args) => {
       compareLayout(gs, [args[0], args[1]]);
+    },
+  },
+  {
+    token: "copy",
+    explain: "[layout name] [new layout name]:\n Creates a copy of a layout.",
+    minArgs: 2,
+    maxArgs: 2,
+    action: async (gs, args) => {
+      const layoutName = args[0];
+
+      const layoutPosition = loadLayout(gs, layoutName);
+
+      if (layoutPosition == -1) {
+        console.log(`Layout ${layoutName} was not found.`);
+        return;
+      }
+
+      const layout = { ...gs.loadedLayouts[layoutPosition] };
+
+      if (layout == undefined) console.log("Layout is undefined.");
+
+      layout.name = args[1];
+
+      try {
+        fs.writeFileSync(
+          `layouts/${args[1].toLowerCase()}.json`,
+          JSON.stringify(layout, null, 2),
+          {
+            flag: "w",
+          },
+        );
+
+        gs.loadedLayouts[loadLayout(gs, layout.name)] = layout;
+
+        console.log("Layout copied!");
+      } catch (err) {
+        console.log("There was an error copying the layout.");
+
+        console.error(err);
+      }
     },
   },
   {

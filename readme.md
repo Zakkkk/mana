@@ -52,7 +52,7 @@ Example:
 }
 ```
 
-To test this new layout out run `view [layoutname]`
+To test this new layout out run `view [layoutname]`. Additionally you can compare layouts with `compare layout1 layout2`.
 
 ## Modifying the layout through commands
 To adjust the layout through the cli program, instead of opening an editor, you can use the following commands.
@@ -70,6 +70,8 @@ To adjust the layout through the cli program, instead of opening an editor, you 
     - changes the rule `d*` to output `da`
 - `rulesnuke layout`
     - removes all rules
+- `copy layout newname`
+    - creates a copy of a new layout
 
 ## Corpora
 To see all available corpora run the command `corpora`.
