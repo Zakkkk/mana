@@ -30,6 +30,7 @@ export type Layout = {
   fingermap: string[];
   hasMagic: boolean;
   magicIdentifier: string;
+  willRepeatUnlessOverridden: boolean;
   magicRules: MagicRule[];
 };
 

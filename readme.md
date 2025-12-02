@@ -11,9 +11,9 @@ Coming soon: magic combos suggestion, layout generation, mutiple magic keys.
 To run this program, [bun](https://bun.sh/) is required. Make sure it is installed to path. Run `bun install` in the directory to install required packages.
 
 ## Running
-Use `bun run src/main.ts` to begin running the program.
+Use `bun run src/main.ts [command]` to run the program.
 
-You can also run the program without entering the cli by running `bun run src/main.ts [commands]`. If you run it without entering the cli you can add commands with a `+`, eg: `bun run src/main.ts corpus e200 + view koi`
+You can add commands with a `+`, eg: `bun run src/main.ts corpus e200 + view koi`
 
 Command `help` lists all commands.
 Command `help [command]` will give a brief explanation for any command.
@@ -44,6 +44,7 @@ Example:
     ],
     "hasMagic": true,
     "magicIdentifier": "*",
+    "willRepeatUnlessOverridden": false,
     "magicRules": [
         "do",
         "ab"
@@ -63,10 +64,12 @@ To adjust the layout through the cli program, instead of opening an editor, you 
     - using the ! after any layout change command will write the changes to the file.
 - `rulesadd layoutname do ab`
     - adds the magic rule `d*->do` and `a*->ab`
-- `rulesrm layoutname do`
-    - removes the rule `d*->do`
--  `ruleschange layoutname da`
+- `rulesrm layoutname do a`
+    - removes the rules `d*->do` and `a*`
+- `ruleschange layoutname da`
     - changes the rule `d*` to output `da`
+- `rulesnuke layout`
+    - removes all rules
 
 ## Corpora
 To see all available corpora run the command `corpora`.
@@ -81,6 +84,8 @@ You can see the frequency of a monogram, bigram, trigram, skipgram, or skip2gram
 You can also find examples of words in a corpus with the command `words mr.txt [regex]`. This searches raw files inside of `/corpus` instead of parsed corpora.
 
 If you want to find examples of words where magic is used in a corpus file, you can use the command `magicwords`. This will change every `_*` or `a*` (or any other letter) into all of the possible magic rules.
+
+You may need to add single quotations around your arguments that include a `*` (e.g `'_*'`).
 
 ```
 > magicwords mr.txt koi v._*|be*

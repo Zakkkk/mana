@@ -24,16 +24,20 @@ const getMonograms = (corpus: Corpus, layout: Layout): TokenFreq => {
     let magicReplacements = 0;
     if (layout.hasMagic)
       for (let i = 0; i < layout.magicRules.length; i++) {
+        // const willAddTempRepeatKey = layout.magicRules.filter(rule => rule[0] == )
+
         const replacement = extendedMonogram.replaceAll(
           layout.magicRules[i],
           layout.magicRules[i][0] + layout.magicIdentifier,
         );
 
         if (replacement != extendedMonogram) {
+          // There was a magic replacement
           extendedMonogram = replacement;
           magicReplacements++;
 
-          if (magicReplacements == 1) break;
+          if (magicReplacements == 1 && !layout.willRepeatUnlessOverridden)
+            break;
         }
       }
 

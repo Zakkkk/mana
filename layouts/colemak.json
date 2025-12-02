@@ -1,6 +1,6 @@
 {
-    "name": "Qwerty",
-    "rows": ["qwertyuiop", "asdfghjkl;'", "zxcvbnm,./"],
+    "name": "Colemak",
+    "rows": ["qwfpgjluy;,", "arstdhneio'", "zxcvbkm,./"],
     "fingermap": ["0123366789", "01233667899", "0123366789"],
     "hasMagic": false
 }

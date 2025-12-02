@@ -4,14 +4,14 @@ import { Corpus, GlobalSettings } from "../types";
 
 export const loadCorpus = (
   corpusName: string,
-  overWriteDefaut?: boolean,
+  overWriteDefault?: boolean,
 ): Corpus | number => {
   let data;
 
   try {
     data = JSON.parse(fs.readFileSync(`parsed/${corpusName}.json`, "utf8"));
 
-    if (overWriteDefaut != false)
+    if (overWriteDefault != false)
       try {
         fs.writeFileSync(`defaultLoadCorpus`, corpusName, {
           flag: "w",

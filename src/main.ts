@@ -3,8 +3,6 @@ import { GlobalSettings } from "./types";
 import * as fs from "fs";
 import setCorpusPositionByName from "./corpus/loadCorpus";
 
-import { setupKeypressHandling } from "./app/keypressHandler";
-
 const evalInput = async (settings: GlobalSettings, input: string) => {
   const args = input.split(" ").filter((a) => a != "");
   const command = args.shift();
@@ -74,9 +72,6 @@ async function main() {
   console.log(
     "'help' to list all commands.\n'explain [command]' for an explanation of any command.",
   );
-  setupKeypressHandling(async (input) => {
-    evalInput(settings, input);
-  });
 }
 
 main();

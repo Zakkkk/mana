@@ -1,6 +1,6 @@
 import loadLayout from "./loadLayout";
 import { Command, Layout } from "../types";
-import viewLayout from "./viewLayout";
+import { viewLayout } from "./viewLayout";
 import * as fs from "fs";
 
 const edits: Command[] = [];
@@ -214,14 +214,8 @@ edits.push({
     let noErrors = true;
 
     rules.forEach((rule) => {
-      if (rule.length != 2) {
-        console.log("rules must be two characters long only.");
-        noErrors = false;
-        return;
-      }
-
       layout.magicRules.forEach((layoutRule, i) => {
-        if (layoutRule == rule) layout.magicRules.splice(i, 1);
+        if (layoutRule[0] == rule[0]) layout.magicRules.splice(i, 1);
       });
     });
 
@@ -312,6 +306,133 @@ edits.push({
   action: (gs, args) => {
     const filename = args[0];
     const layout: Layout | undefined = edits[6].action(gs, args);
+
+    if (layout == undefined) return;
+
+    try {
+      fs.writeFileSync(
+        `layouts/${filename}.json`,
+        JSON.stringify(layout, null, 2),
+        {
+          flag: "w",
+        },
+      );
+
+      console.log("Layout updated!");
+    } catch (err) {
+      console.log("There was an error writing the updates to the layout.");
+
+      console.error(err);
+    }
+  },
+});
+
+edits.push({
+  token: "rulesnuke",
+  minArgs: 1,
+  maxArgs: 1,
+  explain: "[layoutname]:\nRemoves all rules from a magic layout for preview.",
+  action: (gs, args) => {
+    const layoutName = args[0];
+    args.shift();
+
+    const layoutPosition = loadLayout(gs, layoutName);
+
+    if (layoutPosition == -1) {
+      console.log(`Layout ${layoutName} was not found.`);
+      return;
+    }
+
+    const layout = { ...gs.loadedLayouts[layoutPosition] };
+
+    if (!layout.hasMagic) {
+      console.log("This layout does not have magic.");
+      return;
+    }
+
+    let noErrors = true;
+
+    layout.magicRules = [];
+
+    if (noErrors) viewLayout(gs, "", layout);
+
+    return noErrors ? layout : undefined;
+  },
+});
+
+edits.push({
+  token: "rulesnuke!",
+  minArgs: 1,
+  maxArgs: 1,
+  explain:
+    "[layoutname]:\nRemoves all rules from a magic layout for preview. Saves the changes to the layout.",
+  action: (gs, args) => {
+    const filename = args[0];
+    const layout: Layout | undefined = edits[8].action(gs, args);
+
+    if (layout == undefined) return;
+
+    try {
+      fs.writeFileSync(
+        `layouts/${filename}.json`,
+        JSON.stringify(layout, null, 2),
+        {
+          flag: "w",
+        },
+      );
+
+      console.log("Layout updated!");
+    } catch (err) {
+      console.log("There was an error writing the updates to the layout.");
+
+      console.error(err);
+    }
+  },
+});
+
+edits.push({
+  token: "togglerepeat",
+  minArgs: 1,
+  maxArgs: 1,
+  explain:
+    "[layoutname]:\nToggles the setting that makes the magic key repeat unless told otherwise.",
+  action: (gs, args) => {
+    const layoutName = args[0];
+    args.shift();
+
+    const layoutPosition = loadLayout(gs, layoutName);
+
+    if (layoutPosition == -1) {
+      console.log(`Layout ${layoutName} was not found.`);
+      return;
+    }
+
+    const layout = { ...gs.loadedLayouts[layoutPosition] };
+
+    if (!layout.hasMagic) {
+      console.log("This layout does not have magic.");
+      return;
+    }
+
+    let noErrors = true;
+
+    layout.willRepeatUnlessOverridden = !layout.willRepeatUnlessOverridden;
+
+    if (noErrors) viewLayout(gs, "", layout);
+
+    return noErrors ? layout : undefined;
+  },
+});
+
+edits.push({
+  token: "rulesnuke!",
+  minArgs: 1,
+  maxArgs: 1,
+  explain:
+    "[layoutname]:\nToggles the setting that makes the magic key repeat unless told otherwise. Saves changes",
+  action: (gs, args) => {
+    const filename = args[0];
+    const layout: Layout | undefined = edits[10].action(gs, args);
 
     if (layout == undefined) return;
 

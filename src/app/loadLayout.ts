@@ -25,6 +25,9 @@ const loadLayout = (gs: GlobalSettings, layoutName: string): number => {
         return gs.loadedLayouts.length - 1;
       }
 
+      if (data.willRepeatUnlessOverridden == undefined)
+        data.willRepeatUnlessOverridden = false;
+
       if (data.magicIdentifier != undefined && data.magicRules != undefined) {
         gs.loadedLayouts.push(data);
         return gs.loadedLayouts.length - 1;
@@ -35,7 +38,9 @@ const loadLayout = (gs: GlobalSettings, layoutName: string): number => {
       );
     }
   } catch (err) {
-    console.error("There was a problem loading this layout.");
+    console.error(
+      "There was a problem loading this layout. Double check the JSON is formatted properly and run `layouts` to check that the file is being found.",
+    );
     return -1;
   }
 

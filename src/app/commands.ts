@@ -2,7 +2,7 @@ import { Command, TokenFreq } from "../types";
 import * as fs from "fs";
 
 import parse from "../corpus/parseCorpus";
-import viewLayout from "./viewLayout";
+import { viewLayout, compareLayout } from "./viewLayout";
 import tryoutLayout from "./tryout";
 import setCorpusPositionByName from "../corpus/loadCorpus";
 import { allRuleExamples } from "./ruleExamples";
@@ -61,6 +61,16 @@ const commands: Command[] = [
     maxArgs: 1,
     action: async (gs, args) => {
       viewLayout(gs, args[0]);
+    },
+  },
+  {
+    token: "compare",
+    explain:
+      "[layout name] [layout name]:\n Compares two layouts and all the stats associated.",
+    minArgs: 2,
+    maxArgs: 2,
+    action: async (gs, args) => {
+      compareLayout(gs, [args[0], args[1]]);
     },
   },
   {

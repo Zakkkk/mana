@@ -1,0 +1,32 @@
+{
+  "name": "Stronkn",
+  "rows": [
+    "fdlbvzgouj",
+    "strhkymaei",
+    "qxp*,wc';.",
+    "n"
+  ],
+  "fingermap": [
+    "0123366789",
+    "0123366789",
+    "1233366789",
+    "4"
+  ],
+  "hasMagic": true,
+  "magicIdentifier": "*",
+  "magicRules": [
+    "my",
+    "ay",
+    "rl",
+    "ll",
+    "u'",
+    "ge",
+    "se",
+    "om",
+    "ee",
+    "tt",
+    "ff",
+    ".."
+  ],
+  "willRepeatUnlessOverridden": false
+}

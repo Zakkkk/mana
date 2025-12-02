@@ -5,7 +5,9 @@ node_modules
 todo.txt
 
 bin
-corpus/
+/corpus/
+!corpus/mr.txt
+!corpus/e200.txt
 !corpus/example.txt
 
 layouts/test

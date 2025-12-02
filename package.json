@@ -1,20 +1,16 @@
 {
     "devDependencies": {
-        "@types/node": "^22.10.0",
-        "@types/readline-sync": "^1.4.8",
-        "vitest": "^3.0.4"
+        "@types/node": "^22.19.1",
+        "vitest": "^3.2.4"
     },
     "name": "mana",
-    "version": "1.0.0",
     "description": "Keyboard Layout Analyser and Generator",
     "main": "src/main.ts",
     "dependencies": {
-        "readline-sync": "^1.4.10",
-        "undici-types": "^6.20.0"
+        "undici-types": "^6.21.0"
     },
     "scripts": {
         "test": "vitest"
     },
-    "author": "Zakkkk",
-    "license": "ISC"
+    "author": "Zakkkk"
 }

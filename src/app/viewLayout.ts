@@ -48,6 +48,8 @@ const printGrid = (rows: string[][]): void => {
   for (const line of printingRows) console.log(line);
 };
 
+const r = (n: number): number => Math.round(n * 10 ** 5) / 10 ** 3;
+
 const viewLayout = (
   gs: GlobalSettings,
   layoutName: string,
@@ -81,6 +83,8 @@ const viewLayout = (
     layout.magicRules.forEach((magicRule) => {
       magicRules += magicRule + " ";
     });
+
+    if (layout.willRepeatUnlessOverridden) magicRules += "else repeat";
 
     console.log("\nMagic rules: " + magicRules);
   }
@@ -117,8 +121,6 @@ const viewLayout = (
         out3roll: true,
       },
     );
-
-    const r = (n: number): number => Math.round(n * 10 ** 5) / 10 ** 3;
 
     console.log(`Heatmap score: ${r(stats.heatmapScore!)}%`);
     console.log(
@@ -167,4 +169,187 @@ const viewLayout = (
   }
 };
 
-export default viewLayout;
+function diffLayouts(layout1: Layout, layout2: Layout): string[] {
+  const result: string[] = [];
+  const rowCount = Math.max(layout1.rows.length, layout2.rows.length);
+
+  for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
+    const r1 = layout1.rows[rowIndex] ?? "";
+    const r2 = layout2.rows[rowIndex] ?? "";
+    const maxLen = Math.max(r1.length, r2.length);
+
+    let row = "";
+    for (let i = 0; i < maxLen; i++) {
+      const c1 = r1[i];
+      const c2 = r2[i];
+
+      row += c1 !== undefined && c1 === c2 ? c1 : "~";
+      row += " "; // space between each printed item
+    }
+
+    result.push(row.trimEnd()); // remove trailing space if you prefer
+  }
+
+  return result;
+}
+
+const compareLayout = (gs: GlobalSettings, layouts: string[]) => {
+  if (layouts.length != 2) {
+    console.log("Compare layouts should only take 2 layouts.");
+    return;
+  }
+
+  const layout1Position = loadLayout(gs, layouts[0]);
+  const layout2Position = loadLayout(gs, layouts[1]);
+
+  if (layout1Position == -1) {
+    console.log(`Layout ${layouts[0]} was not found.`);
+    return;
+  }
+  if (layout2Position == -1) {
+    console.log(`Layout ${layouts[1]} was not found.`);
+    return;
+  }
+
+  const layout1 = gs.loadedLayouts[layout1Position];
+  const layout2 = gs.loadedLayouts[layout2Position];
+
+  console.log(
+    layout1.name +
+      " vs " +
+      layout2.name +
+      (gs.currentCorpora != -1
+        ? ` | ${gs.loadedCorpora[gs.currentCorpora].name}`
+        : ""),
+  );
+
+  console.log(diffLayouts(layout1, layout2).join("\n"));
+  console.log("");
+
+  if (gs.currentCorpora != -1) {
+    // yes okay i know this code is bad but its a quick fix
+    const stats1: LayoutStats = getStats(
+      layout1,
+      gs.loadedCorpora[gs.currentCorpora],
+      {
+        heatmapScore: true,
+        handbalanceScore: true,
+        sfb: true,
+        lsb: true,
+        lss: true,
+        lss2: true,
+        halfScissors: true,
+        fullScissors: true,
+        skipHalfScissors: true,
+        skipFullScissors: true,
+        skip2HalfScissors: true,
+        skip2FullScissors: true,
+        sfr: true,
+        sfs: true,
+        sfs2: true,
+        sfsr: true,
+        alternate: true,
+        redirect: true,
+        redirectWeak: true,
+        inroll: true,
+        outroll: true,
+        in3roll: true,
+        out3roll: true,
+      },
+    );
+
+    const stats2: LayoutStats = getStats(
+      layout2,
+      gs.loadedCorpora[gs.currentCorpora],
+      {
+        heatmapScore: true,
+        handbalanceScore: true,
+        sfb: true,
+        lsb: true,
+        lss: true,
+        lss2: true,
+        halfScissors: true,
+        fullScissors: true,
+        skipHalfScissors: true,
+        skipFullScissors: true,
+        skip2HalfScissors: true,
+        skip2FullScissors: true,
+        sfr: true,
+        sfs: true,
+        sfs2: true,
+        sfsr: true,
+        alternate: true,
+        redirect: true,
+        redirectWeak: true,
+        inroll: true,
+        outroll: true,
+        in3roll: true,
+        out3roll: true,
+      },
+    );
+
+    console.log(
+      `Heatmap score: ${r(stats1.heatmapScore! - stats2.heatmapScore!)}%`,
+    );
+    console.log(
+      `Handbalance: ${r(stats1.handbalanceScore! - stats2.handbalanceScore!)}% / ${r(-stats1.handbalanceScore! + stats2.handbalanceScore!)}%\n`,
+    );
+
+    console.log(`Alt: ${r(stats1.alternate! - stats2.alternate!)}%`);
+    console.log(
+      `Rolls (Total): ${r(stats1.out3roll! + stats1.in3roll! + stats1.inroll! + stats1.outroll! - (stats2.out3roll! + stats2.in3roll! + stats2.inroll! + stats2.outroll!))}%\n`,
+      ` Inroll: ${r(stats1.inroll! - stats2.inroll!)}%\n`,
+      ` Outroll: ${r(stats1.outroll! - stats2.outroll!)}%\n`,
+      ` In3roll: ${r(stats1.in3roll! - stats2.in3roll!)}%\n`,
+      ` Out3roll: ${r(stats1.out3roll! - stats2.out3roll!)}%`,
+    );
+
+    console.log(
+      `Redirect (+sfs): ${r(stats1.redirect! - stats2.redirect!)}%\n`,
+      ` Redirect (Weak) (+sfs): ${r(stats1.redirectWeak! - stats2.redirectWeak!)}%\n`,
+    );
+
+    const t = (n: number | undefined): string =>
+      `${Math.round(n! * 10 ** 5) / 10 ** 3}%`;
+
+    const grid: string[][] = [
+      ["", "bigram", "skipgram", "skipgram2"],
+      [
+        "same finger",
+        t(stats1.sfb! - stats2.sfb!),
+        t(stats1.sfs! - stats2.sfs!),
+        t(stats1.sfs2! - stats2.sfs2!),
+      ],
+      [
+        "repeat",
+        t(stats1.sfr - stats2.sfr),
+        t(stats1.sfsr - stats2.sfsr),
+        "--",
+      ],
+      [
+        "stretch",
+        t(stats1.lsb - stats2.lsb),
+        t(stats1.lss - stats2.lss),
+        t(stats1.lss2 - stats2.lss2),
+      ],
+      [
+        "half scissor",
+        t(stats1.halfScissors - stats2.halfScissors),
+        t(stats1.skipHalfScissors - stats2.skipHalfScissors),
+        t(stats1.skip2HalfScissors - stats2.skip2HalfScissors),
+      ],
+      [
+        "full scissor",
+        t(stats1.fullScissors - stats2.fullScissors),
+        t(stats1.skipFullScissors - stats2.skipFullScissors),
+        t(stats1.skip2FullScissors - stats2.skip2FullScissors),
+      ],
+    ];
+
+    printGrid(grid);
+  } else {
+    noCorpusLoaded();
+  }
+};
+
+export { viewLayout, compareLayout };
