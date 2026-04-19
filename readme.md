@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> [Mana2](https://codeberg.org/Zakkkk/mana2) is almost released and is a significant improvement over Mana1.
+
 # Mana: A Magic Keyboard Analyser 🔮
 The first analyser for keyboard layouts that contain magic keys!
 
